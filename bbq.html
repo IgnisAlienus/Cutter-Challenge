@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiple Timers with Hardware Buttons</title>
+    <style>
+      .display {
+        font-size: 4em;
+        margin: 10px;
+      }
+      .timer-title {
+        font-size: 2em;
+        text-align: center;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navigation">
+      <button onclick="showScreen(1)">Timer 1</button>
+      <button onclick="showScreen(2)">Timer 2</button>
+      <button onclick="showScreen(3)">Timer 3</button>
+      <button onclick="showAllTimers()">Show All Timers</button>
+    </div>
+    <div id="timer1" class="timer">
+      <div class="timer-title">Timer 1</div>
+      <div id="display1" class="display"></div>
+    </div>
+    <div id="timer2" class="timer">
+      <div class="timer-title">Timer 2</div>
+      <div id="display2" class="display"></div>
+    </div>
+    <div id="timer3" class="timer">
+      <div class="timer-title">Timer 3</div>
+      <div id="display3" class="display"></div>
+    </div>
+    <script src="bbq.js"></script>
+  </body>
+</html>
