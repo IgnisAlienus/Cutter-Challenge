@@ -1,6 +1,7 @@
 let timers = [null, null, null];
 let intervals = [null, null, null];
 const durations = [300, 600, 900];
+let lastResetTimestamp = null;
 
 // Show specific timer screen
 function showScreen(timerNumber) {
@@ -17,7 +18,6 @@ function showScreen(timerNumber) {
   ).style.display = 'block';
 }
 
-// Sync screens using localStorage
 window.addEventListener('storage', (event) => {
   console.log(
     `Storage event triggered: key=${event.key}, value=${event.newValue}`
@@ -34,6 +34,12 @@ window.addEventListener('storage', (event) => {
   } else if (event.key.startsWith('timer') && event.key.endsWith('Stopped')) {
     const timerIndex = parseInt(event.key.charAt(5), 10) - 1;
     stopTimer(timerIndex);
+  } else if (event.key === 'timersReset') {
+    // Step 2: Compare the incoming reset timestamp with the last acknowledged one
+    if (lastResetTimestamp !== event.newValue) {
+      lastResetTimestamp = event.newValue; // Update the last acknowledged timestamp
+      resetAllTimers();
+    }
   }
 });
 
@@ -59,8 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function startAllTimers() {
   if (intervals.some((interval) => interval !== null)) return;
+
+  // Toggle timersStarted between 'true' and 'false' to ensure a change is detected
+  const newTimersStartedValue =
+    localStorage.getItem('timersStarted') === 'true' ? 'false' : 'true';
+  localStorage.setItem('timersStarted', newTimersStartedValue);
+
   for (let i = 0; i < 3; i++) startTimer(i);
-  localStorage.setItem('timersStarted', 'true');
 }
 
 function stopTimer(index) {
@@ -69,6 +80,25 @@ function stopTimer(index) {
     intervals[index] = null;
     localStorage.setItem(`timer${index + 1}Stopped`, 'true');
   }
+}
+
+function resetAllTimers() {
+  // Reset the timer values and intervals
+  timers = [null, null, null];
+  intervals.forEach(clearInterval);
+  intervals = [null, null, null];
+
+  // Update the display for each timer to 00:00:00
+  ['display1', 'display2', 'display3'].forEach((id) => {
+    document.getElementById(id).innerText = '00:00:00';
+  });
+
+  // Set timersStarted to 'false' to ensure a change is detected when starting again
+  localStorage.setItem('timersStarted', 'false');
+
+  // Update localStorage to trigger reset across all tabs
+  // Use a timestamp to ensure uniqueness
+  localStorage.setItem('timersReset', new Date().toISOString());
 }
 
 function startTimer(index) {
@@ -100,11 +130,14 @@ function onHardwareStopButtonPressed(index) {
 
 document.body.addEventListener('keydown', (event) => {
   if (event.key === 's') {
-    localStorage.setItem('timersStarted', 'true');
+    // Directly call startAllTimers without toggling localStorage value
     startAllTimers();
   } else if (['1', '2', '3'].includes(event.key)) {
     const index = parseInt(event.key, 10) - 1;
     stopTimer(index);
+    // Set timerStopped to 'true' to indicate the timer has been stopped
     localStorage.setItem(`timer${index + 1}Stopped`, 'true');
+  } else if (event.key === 'r') {
+    resetAllTimers();
   }
 });
