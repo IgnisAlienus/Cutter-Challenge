@@ -14,6 +14,9 @@
         text-align: center;
         display: none;
       }
+      .timer {
+        text-align: center; /* Add this line to center the timer content */
+      }
     </style>
   </head>
   <body>
@@ -22,18 +25,19 @@
       <button onclick="showScreen(2)">Timer 2</button>
       <button onclick="showScreen(3)">Timer 3</button>
       <button onclick="showAllTimers()">Show All Timers</button>
+      <button onclick="resetAllTimers()">Reset All Timers</button>
     </div>
     <div id="timer1" class="timer">
       <div class="timer-title">Timer 1</div>
-      <div id="display1" class="display"></div>
+      <div id="display1" class="display">00:00:00</div>
     </div>
     <div id="timer2" class="timer">
       <div class="timer-title">Timer 2</div>
-      <div id="display2" class="display"></div>
+      <div id="display2" class="display">00:00:00</div>
     </div>
     <div id="timer3" class="timer">
       <div class="timer-title">Timer 3</div>
-      <div id="display3" class="display"></div>
+      <div id="display3" class="display">00:00:00</div>
     </div>
     <script src="bbq.js"></script>
   </body>
