@@ -1,3 +1,8 @@
+const timerNames = [
+  `Cutter 1<br><span style="font-size: 0.75em;">Rudy's New Braunfels</span>`,
+  `Cutter 2<br><span style="font-size: 0.75em;">Rudy's Kyle</span>`,
+  `Cutter 3<br><span style="font-size: 0.75em;">Rudy's Round Rock</span>`,
+];
 let timers = [null, null, null];
 let intervals = [null, null, null];
 const durations = [300, 600, 900];
@@ -7,24 +12,27 @@ let lastResetTimestamp = null;
 function showScreen(timerNumber) {
   intervals.forEach(clearInterval);
   ['timer1', 'timer2', 'timer3'].forEach(
-    (id) => (document.getElementById(id).style.display = 'none')
+    (id, index) => (document.getElementById(id).style.display = 'none')
   );
   document
     .querySelectorAll('.timer-title')
-    .forEach((title) => (title.style.display = 'none'));
+    .forEach((title, index) => (title.style.display = 'none'));
   document.getElementById('timer' + timerNumber).style.display = 'block';
+  document.querySelector('#timer' + timerNumber + ' .timer-title').innerHTML =
+    timerNames[timerNumber - 1];
   document.querySelector(
     '#timer' + timerNumber + ' .timer-title'
   ).style.display = 'block';
 }
 
 function showAllTimers() {
-  ['timer1', 'timer2', 'timer3'].forEach(
-    (id) => (document.getElementById(id).style.display = 'block')
-  );
+  ['timer1', 'timer2', 'timer3'].forEach((id, index) => {
+    document.getElementById(id).style.display = 'block';
+    document.querySelector(`#${id} .timer-title`).innerHTML = timerNames[index];
+  });
   document
     .querySelectorAll('.timer-title')
-    .forEach((title) => (title.style.display = 'block'));
+    .forEach((title, index) => (title.style.display = 'block'));
 }
 
 // Initialize to show the first screen by default
