@@ -52,10 +52,17 @@ function showScreen(timerNumber) {
 function showAllTimers() {
   ['timer1', 'timer2', 'timer3'].forEach((id, index) => {
     document.getElementById(id).style.display = 'block';
-    document.querySelector(`#${id} .timer-title`).innerHTML = timerNames[index];
-    document.querySelector(`#${id} .timer-subtitle`).innerHTML =
-      timerSubtitles[index];
-    document.querySelector(`#${id} .timer-subtitle`).style.display = 'block';
+    // Ensure the title is correctly fetched and displayed
+    const titleElement = document.querySelector(`#${id} .timer-title`);
+    const subtitleElement = document.querySelector(`#${id} .timer-subtitle`);
+    if (titleElement) {
+      titleElement.innerHTML = timerNames[index];
+      titleElement.style.display = 'block';
+    }
+    if (subtitleElement) {
+      subtitleElement.innerHTML = timerSubtitles[index];
+      subtitleElement.style.display = 'block';
+    }
   });
 }
 
@@ -109,7 +116,6 @@ function resetAllTimers() {
   localStorage.setItem('timersStarted', 'false');
 
   // Update localStorage to trigger reset across all tabs
-  // Use a timestamp to ensure uniqueness
   localStorage.setItem('timersReset', new Date().toISOString());
 }
 
@@ -141,20 +147,31 @@ function onHardwareStopButtonPressed(index) {
 }
 
 function toggleButtonVisibility() {
-  const shouldShowButtons = localStorage.getItem('buttonsVisible') === 'true';
+  // Check the current display state of the first button to determine action
+  const firstButton = document.querySelector('button');
+  const currentlyVisible = firstButton.style.display !== 'none';
+
+  // Toggle visibility based on the current state
+  const newDisplayValue = currentlyVisible ? 'none' : '';
+
   document.querySelectorAll('button').forEach((button) => {
-    button.style.display = shouldShowButtons ? '' : 'none';
+    button.style.display = newDisplayValue;
+  });
+  document.querySelectorAll('input[type="text"]').forEach((input) => {
+    input.style.display = newDisplayValue;
   });
 
-  // Toggle visibility for all input boxes
-  const inputsVisible = localStorage.getItem('inputsVisible') === 'true'; // Use the same logic for inputs
-  document.querySelectorAll('input[type="text"]').forEach((input) => {
-    input.style.display = inputsVisible ? 'none' : '';
-  });
-  localStorage.setItem('inputsVisible', !inputsVisible); // Save the new state
+  // Update localStorage to reflect the new state
+  const newState = !currentlyVisible;
+  localStorage.setItem('buttonsVisible', newState);
+  localStorage.setItem('inputsVisible', newState);
 }
 
 document.body.addEventListener('keydown', (event) => {
+  // Check if the event target is an input element
+  if (event.target.tagName.toLowerCase() === 'input') {
+    return;
+  }
   if (event.key === 's') {
     startAllTimers();
   } else if (['1', '2', '3'].includes(event.key)) {
@@ -165,18 +182,7 @@ document.body.addEventListener('keydown', (event) => {
     console.log('Resetting timers due to storage event.');
     resetAllTimers();
   } else if (event.key === 'h') {
-    // Toggle the visibility state in local storage for buttons
-    const isVisible = localStorage.getItem('buttonsVisible') === 'true';
-    localStorage.setItem('buttonsVisible', !isVisible);
-    // Manually toggle visibility in the current tab for buttons
     toggleButtonVisibility();
-
-    // Toggle visibility for all input boxes
-    const inputsVisible = localStorage.getItem('inputsVisible') !== 'false'; // Default to true
-    document.querySelectorAll('input[type="text"]').forEach((input) => {
-      input.style.display = inputsVisible ? 'none' : '';
-    });
-    localStorage.setItem('inputsVisible', !inputsVisible);
   }
 });
 
