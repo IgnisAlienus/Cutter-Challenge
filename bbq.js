@@ -18,31 +18,6 @@ function showScreen(timerNumber) {
   ).style.display = 'block';
 }
 
-window.addEventListener('storage', (event) => {
-  console.log(
-    `Storage event triggered: key=${event.key}, value=${event.newValue}`
-  );
-  if (event.key === 'timersStarted' && event.newValue === 'true') {
-    startAllTimers();
-  } else if (
-    event.key.startsWith('timer') &&
-    event.key.endsWith('Started') &&
-    event.newValue === 'true'
-  ) {
-    const timerIndex = parseInt(event.key.charAt(5), 10) - 1;
-    startTimer(timerIndex);
-  } else if (event.key.startsWith('timer') && event.key.endsWith('Stopped')) {
-    const timerIndex = parseInt(event.key.charAt(5), 10) - 1;
-    stopTimer(timerIndex);
-  } else if (event.key === 'timersReset') {
-    // Step 2: Compare the incoming reset timestamp with the last acknowledged one
-    if (lastResetTimestamp !== event.newValue) {
-      lastResetTimestamp = event.newValue; // Update the last acknowledged timestamp
-      resetAllTimers();
-    }
-  }
-});
-
 function showAllTimers() {
   ['timer1', 'timer2', 'timer3'].forEach(
     (id) => (document.getElementById(id).style.display = 'block')
@@ -130,14 +105,37 @@ function onHardwareStopButtonPressed(index) {
 
 document.body.addEventListener('keydown', (event) => {
   if (event.key === 's') {
-    // Directly call startAllTimers without toggling localStorage value
     startAllTimers();
   } else if (['1', '2', '3'].includes(event.key)) {
     const index = parseInt(event.key, 10) - 1;
-    stopTimer(index);
-    // Set timerStopped to 'true' to indicate the timer has been stopped
-    localStorage.setItem(`timer${index + 1}Stopped`, 'true');
+    // Generate a unique value for stopping the timer
+    const uniqueStopValue = `true-${new Date().toISOString()}`;
+    localStorage.setItem(`timer${index + 1}Stopped`, uniqueStopValue);
   } else if (event.key === 'r') {
     resetAllTimers();
+  }
+});
+
+window.addEventListener('storage', (event) => {
+  console.log(
+    `Storage event triggered: key=${event.key}, value=${event.newValue}`
+  );
+  if (event.key === 'timersStarted' && event.newValue === 'true') {
+    startAllTimers();
+  } else if (
+    event.key.startsWith('timer') &&
+    event.key.endsWith('Started') &&
+    event.newValue === 'true'
+  ) {
+    const timerIndex = parseInt(event.key.charAt(5), 10) - 1;
+    startTimer(timerIndex);
+  } else if (event.key.startsWith('timer') && event.key.endsWith('Stopped')) {
+    const timerIndex = parseInt(event.key.charAt(5), 10) - 1;
+    stopTimer(timerIndex);
+  } else if (event.key === 'timersReset') {
+    if (lastResetTimestamp !== event.newValue) {
+      lastResetTimestamp = event.newValue;
+      resetAllTimers();
+    }
   }
 });
