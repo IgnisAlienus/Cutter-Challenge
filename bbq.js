@@ -103,16 +103,28 @@ function onHardwareStopButtonPressed(index) {
   localStorage.setItem(`timer${index + 1}Started`, 'false');
 }
 
+function toggleButtonVisibility() {
+  const shouldShowButtons = localStorage.getItem('buttonsVisible') === 'true';
+  document.querySelectorAll('button').forEach((button) => {
+    button.style.display = shouldShowButtons ? '' : 'none';
+  });
+}
+
 document.body.addEventListener('keydown', (event) => {
   if (event.key === 's') {
     startAllTimers();
   } else if (['1', '2', '3'].includes(event.key)) {
     const index = parseInt(event.key, 10) - 1;
-    // Generate a unique value for stopping the timer
     const uniqueStopValue = `true-${new Date().toISOString()}`;
     localStorage.setItem(`timer${index + 1}Stopped`, uniqueStopValue);
   } else if (event.key === 'r') {
     resetAllTimers();
+  } else if (event.key === 'h') {
+    // Toggle the visibility state in local storage
+    const isVisible = localStorage.getItem('buttonsVisible') === 'true';
+    localStorage.setItem('buttonsVisible', !isVisible);
+    // Manually toggle visibility in the current tab
+    toggleButtonVisibility();
   }
 });
 
@@ -137,5 +149,7 @@ window.addEventListener('storage', (event) => {
       lastResetTimestamp = event.newValue;
       resetAllTimers();
     }
+  } else if (event.key === 'buttonsVisible') {
+    toggleButtonVisibility();
   }
 });
