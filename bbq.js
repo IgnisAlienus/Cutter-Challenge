@@ -1,12 +1,28 @@
-const timerNames = [
-  `Cutter 1<br><span style="font-size: 0.75em;">Rudy's New Braunfels</span>`,
-  `Cutter 2<br><span style="font-size: 0.75em;">Rudy's Kyle</span>`,
-  `Cutter 3<br><span style="font-size: 0.75em;">Rudy's Round Rock</span>`,
+const timerNames = [`Cutter 1`, `Cutter 2`, `Cutter 3`];
+const timerSubtitles = [
+  `Rudy's New Braunfels`,
+  `Rudy's Kyle`,
+  `Rudy's Round Rock`,
 ];
 let timers = [null, null, null];
 let intervals = [null, null, null];
 const durations = [300, 600, 900];
 let lastResetTimestamp = null;
+
+function updateTimerTitle(timerNumber) {
+  const titleInput = document.getElementById(`title${timerNumber}`);
+  const title = titleInput.value || `Cutter ${timerNumber}`;
+  timerNames[timerNumber - 1] = title;
+  document.querySelector(`#timer${timerNumber} .timer-title`).innerHTML = title;
+}
+
+function updateTimerSubtitle(timerNumber) {
+  const subtitleInput = document.getElementById(`subtitle${timerNumber}`);
+  const subtitle = subtitleInput.value || `Rudy's ${timerNumber}`;
+  timerSubtitles[timerNumber - 1] = subtitle;
+  document.querySelector(`#timer${timerNumber} .timer-subtitle`).innerHTML =
+    subtitle;
+}
 
 // Show specific timer screen
 function showScreen(timerNumber) {
@@ -23,22 +39,33 @@ function showScreen(timerNumber) {
   document.querySelector(
     '#timer' + timerNumber + ' .timer-title'
   ).style.display = 'block';
+  document.querySelector(
+    '#timer' + timerNumber + ' .timer-subtitle'
+  ).innerHTML = timerSubtitles[timerNumber - 1];
+  document.querySelector(
+    '#timer' + timerNumber + ' .timer-subtitle'
+  ).style.display = 'block';
 }
 
 function showAllTimers() {
   ['timer1', 'timer2', 'timer3'].forEach((id, index) => {
     document.getElementById(id).style.display = 'block';
     document.querySelector(`#${id} .timer-title`).innerHTML = timerNames[index];
+    document.querySelector(`#${id} .timer-subtitle`).innerHTML =
+      timerSubtitles[index];
+    document.querySelector(`#${id} .timer-subtitle`).style.display = 'block';
   });
-  document
-    .querySelectorAll('.timer-title')
-    .forEach((title, index) => (title.style.display = 'block'));
 }
 
 // Initialize to show the first screen by default
 document.addEventListener('DOMContentLoaded', () => {
   showScreen(1);
-  // Clear localStorage items related to timer starts/stops to prevent unintended behavior
+  // Initialize default titles and subtitles
+  ['1', '2', '3'].forEach((index) => {
+    updateTimerTitle(parseInt(index));
+    updateTimerSubtitle(parseInt(index));
+  });
+  // Clear localStorage items related to timer starts/stops
   localStorage.removeItem('timersStarted');
   ['1', '2', '3'].forEach((index) => {
     localStorage.removeItem(`timer${index}Started`);
@@ -116,6 +143,13 @@ function toggleButtonVisibility() {
   document.querySelectorAll('button').forEach((button) => {
     button.style.display = shouldShowButtons ? '' : 'none';
   });
+
+  // Toggle visibility for all input boxes
+  const inputsVisible = localStorage.getItem('inputsVisible') === 'true'; // Use the same logic for inputs
+  document.querySelectorAll('input[type="text"]').forEach((input) => {
+    input.style.display = inputsVisible ? 'none' : '';
+  });
+  localStorage.setItem('inputsVisible', !inputsVisible); // Save the new state
 }
 
 document.body.addEventListener('keydown', (event) => {
@@ -126,13 +160,21 @@ document.body.addEventListener('keydown', (event) => {
     const uniqueStopValue = `true-${new Date().toISOString()}`;
     localStorage.setItem(`timer${index + 1}Stopped`, uniqueStopValue);
   } else if (event.key === 'r') {
+    console.log('Resetting timers due to storage event.');
     resetAllTimers();
   } else if (event.key === 'h') {
-    // Toggle the visibility state in local storage
+    // Toggle the visibility state in local storage for buttons
     const isVisible = localStorage.getItem('buttonsVisible') === 'true';
     localStorage.setItem('buttonsVisible', !isVisible);
-    // Manually toggle visibility in the current tab
+    // Manually toggle visibility in the current tab for buttons
     toggleButtonVisibility();
+
+    // Toggle visibility for all input boxes
+    const inputsVisible = localStorage.getItem('inputsVisible') !== 'false'; // Default to true
+    document.querySelectorAll('input[type="text"]').forEach((input) => {
+      input.style.display = inputsVisible ? 'none' : '';
+    });
+    localStorage.setItem('inputsVisible', !inputsVisible);
   }
 });
 
@@ -159,5 +201,10 @@ window.addEventListener('storage', (event) => {
     }
   } else if (event.key === 'buttonsVisible') {
     toggleButtonVisibility();
+  } else if (event.key === 'inputsVisible') {
+    const inputsVisible = event.newValue === 'true';
+    document.querySelectorAll('input[type="text"]').forEach((input) => {
+      input.style.display = inputsVisible ? '' : 'none';
+    });
   }
 });
