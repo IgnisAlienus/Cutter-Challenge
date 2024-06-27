@@ -13,6 +13,7 @@ function updateTimerTitle(timerNumber) {
   const titleInput = document.getElementById(`title${timerNumber}`);
   const title = titleInput.value || `Cutter ${timerNumber}`;
   timerNames[timerNumber - 1] = title;
+  localStorage.setItem(`title${timerNumber}`, title);
   document.querySelector(`#timer${timerNumber} .timer-title`).innerHTML = title;
 }
 
@@ -20,6 +21,7 @@ function updateTimerSubtitle(timerNumber) {
   const subtitleInput = document.getElementById(`subtitle${timerNumber}`);
   const subtitle = subtitleInput.value || `Rudy's ${timerNumber}`;
   timerSubtitles[timerNumber - 1] = subtitle;
+  localStorage.setItem(`subtitle${timerNumber}`, subtitle);
   document.querySelector(`#timer${timerNumber} .timer-subtitle`).innerHTML =
     subtitle;
 }
@@ -206,5 +208,19 @@ window.addEventListener('storage', (event) => {
     document.querySelectorAll('input[type="text"]').forEach((input) => {
       input.style.display = inputsVisible ? '' : 'none';
     });
+  } else if (
+    event.key.startsWith('title') ||
+    event.key.startsWith('subtitle')
+  ) {
+    const timerNumber = event.key.match(/\d+/)[0];
+    if (event.key.startsWith('title')) {
+      const title = localStorage.getItem(event.key);
+      document.querySelector(`#timer${timerNumber} .timer-title`).innerHTML =
+        title;
+    } else if (event.key.startsWith('subtitle')) {
+      const subtitle = localStorage.getItem(event.key);
+      document.querySelector(`#timer${timerNumber} .timer-subtitle`).innerHTML =
+        subtitle;
+    }
   }
 });
