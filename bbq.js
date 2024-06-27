@@ -161,6 +161,10 @@ function toggleButtonVisibility() {
     input.style.display = newDisplayValue;
   });
 
+  // Also toggle the visibility of the <p> element with keybinds
+  const keybindsParagraph = document.querySelector('div > p');
+  keybindsParagraph.style.display = newDisplayValue;
+
   // Update localStorage to reflect the new state
   const newState = !currentlyVisible;
   localStorage.setItem('buttonsVisible', newState);

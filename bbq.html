@@ -26,11 +26,17 @@
   </head>
   <body>
     <div class="navigation">
-      <button onclick="showScreen(1)">Timer 1</button>
-      <button onclick="showScreen(2)">Timer 2</button>
-      <button onclick="showScreen(3)">Timer 3</button>
+      <button onclick="showScreen(1)">Show Timer 1</button>
+      <button onclick="showScreen(2)">Show Timer 2</button>
+      <button onclick="showScreen(3)">Show Timer 3</button>
       <button onclick="showAllTimers()">Show All Timers</button>
       <button onclick="resetAllTimers()">Reset All Timers</button>
+    </div>
+    <div>
+      <p>
+        Keybinds: 1 - Stop Timer 1 | 2 - Stop Timer 2 | 3 - Stop Timer 3 | S -
+        Start All Timers | R - Reset All Timers
+      </p>
     </div>
     <div style="margin-top: 25px">
       <div id="timer1" class="timer">
