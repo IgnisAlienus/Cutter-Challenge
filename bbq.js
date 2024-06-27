@@ -24,7 +24,7 @@ function showAllTimers() {
   );
   document
     .querySelectorAll('.timer-title')
-    .forEach((title) => (title.style.display = 'none'));
+    .forEach((title) => (title.style.display = 'block'));
 }
 
 // Initialize to show the first screen by default
