@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rudy's BBQ Olympics</title>
+    <link rel="stylesheet" href="/css/bbq.css" />
+  </head>
+  <body>
+    <!-- <img
+      src="/resources/logo.png"
+      alt="Logo"
+      style="position: absolute; top: 25px; left: 25px; width: 400px"
+    /> -->
+    <div class="navigation">
+      <button onclick="showScreen(1)">Show Timer 1</button>
+      <button onclick="showScreen(2)">Show Timer 2</button>
+      <button onclick="showScreen(3)">Show Timer 3</button>
+      <button onclick="showAllTimers()">Show All Timers</button>
+      <button onclick="resetAllTimers()">Reset All Timers</button>
+    </div>
+    <div>
+      <p>
+        Keybinds: 1 - Stop Timer 1 | 2 - Stop Timer 2 | 3 - Stop Timer 3 | S -
+        Start All Timers | R - Reset All Timers
+      </p>
+    </div>
+    <div style="margin-top: 25px">
+      <div id="timer1" class="timer">
+        <input
+          type="text"
+          id="title1"
+          placeholder="Cutter 1"
+          onchange="updateTimerTitle(1)"
+        />
+        <input
+          type="text"
+          id="subtitle1"
+          placeholder="Rudy's 1"
+          onchange="updateTimerSubtitle(1)"
+        />
+        <div class="timer-title"></div>
+        <div class="timer-subtitle"></div>
+        <div id="display1" class="display">00:00:00</div>
+      </div>
+      <div id="timer2" class="timer">
+        <input
+          type="text"
+          id="title2"
+          placeholder="Cutter 2"
+          onchange="updateTimerTitle(2)"
+        />
+        <input
+          type="text"
+          id="subtitle2"
+          placeholder="Rudy's 2"
+          onchange="updateTimerSubtitle(2)"
+        />
+        <div class="timer-title"></div>
+        <div class="timer-subtitle"></div>
+        <div id="display2" class="display">00:00:00</div>
+      </div>
+      <div id="timer3" class="timer">
+        <input
+          type="text"
+          id="title3"
+          placeholder="Cutter 3"
+          onchange="updateTimerTitle(3)"
+        />
+        <input
+          type="text"
+          id="subtitle3"
+          placeholder="Rudy's 3"
+          onchange="updateTimerSubtitle(3)"
+        />
+        <div class="timer-title"></div>
+        <div class="timer-subtitle"></div>
+        <div id="display3" class="display">00:00:00</div>
+      </div>
+    </div>
+    <script src="/bbq.js"></script>
+  </body>
+</html>
