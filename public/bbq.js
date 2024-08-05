@@ -89,21 +89,21 @@ async function startAllTimers() {
 
   // Start 3 Second Countdown
   // 3 Play Sound / Flash Light
-  playSound('ding.mp3');
+  playSound('countdown.mp3');
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
   await delay(500);
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
   await delay(500);
 
   // 2 Play Sound / Flash Light
-  playSound('ding.mp3');
+  playSound('countdown.mp3');
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
   await delay(500);
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
   await delay(500);
 
   // 1 Play Sound / Flash Light
-  playSound('ding.mp3');
+  playSound('countdown.mp3');
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
   await delay(500);
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
@@ -112,6 +112,7 @@ async function startAllTimers() {
   // Start Timer / Solid Light
   playSound('knife.mp3');
   ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'start'));
+  await delay(100);
 
   // Toggle timersStarted between 'true' and 'false' to ensure a change is detected
   const newTimersStartedValue =
