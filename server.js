@@ -109,7 +109,7 @@ app.post('/light', (req, res) => {
           const flashInterval = setInterval(() => {
             updateLight(flashes % 2 === 0 ? 255 : 0); // Toggle strobe on and off
             flashes++;
-            if (flashes >= 6) {
+            if (flashes >= 12) {
               // Flash 3 times (on and off counts as one flash)
               clearInterval(flashInterval);
               res.send(`Action ${action} completed for light ${lightNumber}`);
