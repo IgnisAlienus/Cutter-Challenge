@@ -78,8 +78,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function startAllTimers() {
+async function startAllTimers() {
   if (intervals.some((interval) => interval !== null)) return;
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // Initial delay of 1 second
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'reset'));
+  await delay(1000);
+
+  // Start 3 Second Countdown
+  // 3 Play Sound / Flash Light
+  playSound('ding.mp3');
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
+  await delay(500);
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
+  await delay(500);
+
+  // 2 Play Sound / Flash Light
+  playSound('ding.mp3');
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
+  await delay(500);
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
+  await delay(500);
+
+  // 1 Play Sound / Flash Light
+  playSound('ding.mp3');
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
+  await delay(500);
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
+  await delay(500);
+
+  // Start Timer / Solid Light
+  playSound('knife.mp3');
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'start'));
 
   // Toggle timersStarted between 'true' and 'false' to ensure a change is detected
   const newTimersStartedValue =
@@ -94,8 +126,6 @@ function stopTimer(index) {
     clearInterval(intervals[index]);
     intervals[index] = null;
     localStorage.setItem(`timer${index + 1}Stopped`, 'true');
-    playSound('ding.mp3');
-    changeLight(index, 'red');
   }
 }
 
@@ -117,7 +147,7 @@ function resetAllTimers() {
   localStorage.setItem('timersReset', new Date().toISOString());
 
   // Change all lights to white
-  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'white'));
+  ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'reset'));
 }
 
 function startTimer(index) {
@@ -135,16 +165,6 @@ function startTimer(index) {
     }${milliseconds}`;
   }, 10);
   localStorage.setItem(`timer${index + 1}Started`, 'true');
-}
-
-// Assuming these functions are called when hardware buttons are pressed
-function onHardwareStartButtonPressed() {
-  startAllTimers();
-}
-
-function onHardwareStopButtonPressed(index) {
-  stopTimer(index);
-  localStorage.setItem(`timer${index + 1}Started`, 'false');
 }
 
 function toggleButtonVisibility() {
@@ -177,9 +197,9 @@ function playSound(soundFile) {
   audio.play();
 }
 
-function changeLight(index, color) {
+function changeLight(index, action) {
   // Send POST request to change the light
-  fetch(`/light?lightNumber=${index}&color=${color}`, {
+  fetch(`/light?lightNumber=${index}&action=${action}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -197,6 +217,8 @@ document.body.addEventListener('keydown', (event) => {
   } else if (['1', '2', '3'].includes(event.key)) {
     const index = parseInt(event.key, 10) - 1;
     stopTimer(index);
+    playSound('bell.mp3');
+    changeLight(index, 'stop');
     localStorage.setItem(`timer${index + 1}Started`, 'false');
     const uniqueStopValue = `true-${new Date().toISOString()}`;
     localStorage.setItem(`timer${index + 1}Stopped`, uniqueStopValue);
