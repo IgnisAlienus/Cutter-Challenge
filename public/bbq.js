@@ -2,6 +2,7 @@ const timerNames = [`Cutter 1`, `Cutter 2`, `Cutter 3`];
 const timerSubtitles = [`Rudy's 1`, `Rudy's 2`, `Rudy's 3`];
 let timers = [null, null, null];
 let intervals = [null, null, null];
+let timerValues = [0, 0, 0];
 const durations = [300, 600, 900];
 let lastResetTimestamp = null;
 
@@ -128,11 +129,68 @@ function stopTimer(index) {
     intervals[index] = null;
     localStorage.setItem(`timer${index + 1}Stopped`, 'true');
   }
+  // If all 3 timers stopped, compare and show only the fastest timer
+  if (intervals.every((interval) => interval === null)) {
+    setTimeout(() => {
+      const timerValues = [
+        getTimerValue(0),
+        getTimerValue(1),
+        getTimerValue(2),
+      ];
+      const fastestIndex = timerValues.indexOf(Math.min(...timerValues));
+      ['timer1', 'timer2', 'timer3'].forEach((id, idx) => {
+        document.getElementById(id).style.display =
+          idx === fastestIndex ? 'block' : 'none';
+        changeLight(idx, idx === fastestIndex ? 'white' : 'off');
+      });
+      // Remove display none from winner id
+      document.getElementById('winner').style.display = 'block';
+      playSound('yay.mp3');
+      triggerConfetti();
+
+      // Clear the Intervals for all timers after the comparison and display update
+      intervals.forEach((interval, idx) => {
+        if (interval !== null) {
+          clearInterval(interval);
+          intervals[idx] = null;
+        }
+      });
+    }, 5000);
+  }
+}
+
+function getTimerValue(index) {
+  const value =
+    parseInt(localStorage.getItem(`timer${index + 1}Value`), 10) || 0;
+  return value;
+}
+
+function triggerConfetti() {
+  // Confetti from the bottom left
+  confetti({
+    particleCount: 500,
+    spread: 200,
+    origin: { x: 0, y: 1 },
+  });
+
+  // Confetti from the bottom right
+  confetti({
+    particleCount: 500,
+    spread: 200,
+    origin: { x: 1, y: 1 },
+  });
 }
 
 function resetAllTimers() {
+  // Call show all timers
+  showAllTimers();
+
+  // Add display none back to winner id
+  document.getElementById('winner').style.display = 'none';
+
   // Reset the timer values and intervals
   timers = [null, null, null];
+  timerValues = [0, 0, 0];
   intervals.forEach(clearInterval);
   intervals = [null, null, null];
 
@@ -155,6 +213,7 @@ function startTimer(index) {
   if (intervals[index] !== null) return;
   const startTime = Date.now();
   intervals[index] = setInterval(() => {
+    timerValues[index]++;
     const elapsedTime = Date.now() - startTime;
     const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
     const seconds = Math.floor((elapsedTime / 1000) % 60);
@@ -164,6 +223,7 @@ function startTimer(index) {
     }${minutes}:${seconds < 10 ? '0' : ''}${seconds}:${
       milliseconds < 10 ? '0' : ''
     }${milliseconds}`;
+    localStorage.setItem(`timer${index + 1}Value`, timerValues[index]);
   }, 10);
   localStorage.setItem(`timer${index + 1}Started`, 'true');
 }
