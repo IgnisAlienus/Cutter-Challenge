@@ -1,4 +1,4 @@
-## BBQ Olympics
+## Cutter Challenge
 
 Simple timers that start all together one one keypress and stop on specific keypresses. Runs locally and can operate in multiple brower windows to support mutiple displays. Can customize the Title and Subtitle of each Timer.
 
