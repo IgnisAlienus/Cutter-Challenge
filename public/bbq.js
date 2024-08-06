@@ -166,6 +166,20 @@ function getTimerValue(index) {
 }
 
 function triggerConfetti() {
+  // Confetti from the top left
+  confetti({
+    particleCount: 500,
+    spread: 200,
+    origin: { x: 0, y: 0 },
+  });
+
+  // Confetti from the top right
+  confetti({
+    particleCount: 500,
+    spread: 200,
+    origin: { x: 1, y: 0 },
+  });
+
   // Confetti from the bottom left
   confetti({
     particleCount: 500,
@@ -288,6 +302,8 @@ document.body.addEventListener('keydown', (event) => {
     resetAllTimers();
   } else if (event.key === 'h') {
     toggleButtonVisibility();
+  } else if (event.key === 'a') {
+    showAllTimers();
   }
 });
 

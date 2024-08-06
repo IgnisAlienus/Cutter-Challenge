@@ -22,3 +22,4 @@ Simple timers that start all together one one keypress and stop on specific keyp
 - `3` (not NUMPAD3) - Stop Timer 3
 - `R` - Reset ALL Timers
 - `H` - Display/Hide Buttons, Input Fields, and Help info.
+- `A` - Show All Timers
