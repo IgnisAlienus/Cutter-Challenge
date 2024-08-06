@@ -288,8 +288,16 @@ document.body.addEventListener('keydown', (event) => {
     return;
   }
   if (event.key === 's') {
+    // If timers are active, ignore keypresses
+    if (localStorage.getItem('timersStarted') === 'true') return;
+
+    // If the key pressed is 's', start all timers
     startAllTimers();
   } else if (['1', '2', '3'].includes(event.key)) {
+    // If timers aren't active, ignore keypresses
+    if (localStorage.getItem('timersStarted') !== 'true') return;
+
+    // If the key pressed is a number between 1 and 3, stop the corresponding timer
     const index = parseInt(event.key, 10) - 1;
     stopTimer(index);
     playSound('bell.mp3');
@@ -298,7 +306,6 @@ document.body.addEventListener('keydown', (event) => {
     const uniqueStopValue = `true-${new Date().toISOString()}`;
     localStorage.setItem(`timer${index + 1}Stopped`, uniqueStopValue);
   } else if (event.key === 'r') {
-    console.log('Resetting timers due to storage event.');
     resetAllTimers();
   } else if (event.key === 'h') {
     toggleButtonVisibility();
