@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "Rudy's Font";
+  src: url('/fonts/SignPainter-HouseBrush.otf') format('opentype');
+}
+
+body {
+  background-color: rgb(217, 59, 32);
+  color: white;
+  font-family: "Rudy's Font";
+  overflow: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}

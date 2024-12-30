@@ -23,7 +23,19 @@ app.use(express.static('public'));
 
 // Serve the bbq.html file when the root route is accessed
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'bbq.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+app.get('/timers', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'timers.html'));
+});
+
+app.get('/leaderboards', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'leaderboards.html'));
+});
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 app.post('/light', (req, res) => {
@@ -151,6 +163,7 @@ app.post('/light', (req, res) => {
   }
 });
 
-app.listen(port, () => {
+module.exports = app;
+/* app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
-});
+}); */

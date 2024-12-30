@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rudy's BBQ Cutter Challenge</title>
+    <link rel="icon" type="image/png" href="./resources/favicon.ico" />
+    <link rel="stylesheet" href="./css/index.css" />
+  </head>
+  <body>
+    <div class="centered-image">
+      <img
+        src="./resources/cutterLogo.png"
+        alt="Centered Image"
+        id="navigateImage"
+      />
+    </div>
+    <script>
+      document
+        .getElementById('navigateImage')
+        .addEventListener('click', function () {
+          window.location.href = '/timers';
+        });
+
+      document
+        .getElementById('navigateImage')
+        .addEventListener('contextmenu', function (event) {
+          event.preventDefault();
+          window.location.href = '/leaderboards';
+        });
+    </script>
+  </body>
+</html>
