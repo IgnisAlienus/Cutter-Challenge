@@ -1,4 +1,3 @@
-// filepath: /c:/Cutter-Challenge/main.js
 const {
   app,
   BrowserWindow,
@@ -41,9 +40,9 @@ app.on('ready', () => {
     height: 600,
     frame: true,
     icon: path.join(__dirname, './public/resources/cutterLogo.png'),
-    fullscreen: true,
-    x: displays[1].bounds.x,
-    y: displays[1].bounds.y,
+    fullscreen: displays.length > 1,
+    x: displays[0].bounds.x,
+    y: displays[0].bounds.y,
     webPreferences: {
       preload: path.join(__dirname, './public/preload.js'),
     },
@@ -60,32 +59,38 @@ app.on('ready', () => {
     app.quit();
   });
 
-  // Create the second window on the secondary display
+  // Create the second window
+  const secondWindowOptions = {
+    width: 800,
+    height: 600,
+    frame: true,
+    icon: path.join(__dirname, './public/resources/cutterLogo.png'),
+    fullscreen: displays.length > 1,
+    webPreferences: {
+      preload: path.join(__dirname, './public/preload.js'),
+    },
+  };
+
   if (displays.length > 1) {
-    secondWindow = new BrowserWindow({
-      width: 800,
-      height: 600,
-      frame: true,
-      icon: path.join(__dirname, './public/resources/cutterLogo.png'),
-      fullscreen: true,
-      x: displays[0].bounds.x,
-      y: displays[0].bounds.y,
-      webPreferences: {
-        preload: path.join(__dirname, './public/preload.js'),
-      },
-    });
-
-    // Load the Express app in the second window
-    secondWindow.loadURL('http://localhost:3000/admin');
-
-    // Attach fullscreen event handlers to the second window
-    handleFullScreenEvents(secondWindow);
-
-    secondWindow.on('closed', () => {
-      secondWindow = null;
-      app.quit();
-    });
+    secondWindowOptions.x = displays[1].bounds.x;
+    secondWindowOptions.y = displays[1].bounds.y;
+  } else {
+    secondWindowOptions.x = displays[0].bounds.x + 50;
+    secondWindowOptions.y = displays[0].bounds.y + 50;
   }
+
+  secondWindow = new BrowserWindow(secondWindowOptions);
+
+  // Load the Express app in the second window
+  secondWindow.loadURL('http://localhost:3000/admin');
+
+  // Attach fullscreen event handlers to the second window
+  handleFullScreenEvents(secondWindow);
+
+  secondWindow.on('closed', () => {
+    secondWindow = null;
+    app.quit();
+  });
 
   // Register a global shortcut for F11 to toggle fullscreen mode for both windows
   globalShortcut.register('F11', () => {
