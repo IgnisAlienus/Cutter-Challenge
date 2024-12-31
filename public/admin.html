@@ -8,6 +8,8 @@
   </head>
   <body>
     <button id="closeButton">Close Program</button>
+    <button onclick="startAllTimers()">Start Timers</button>
+    <button onclick="resetAllTimers()">Reset Timers</button>
     <div>
       <h2>Update Timer Titles and Subtitles</h2>
       <div>
@@ -19,7 +21,8 @@
         <ul id="currentCompetitorsList"></ul>
       </div>
     </div>
-    <script src="/globals.js"></script>
     <script src="/admin.js"></script>
+    <script type="module" src="/adminCompetitorsList.js"></script>
+    <script src="/adminTimers.js"></script>
   </body>
 </html>

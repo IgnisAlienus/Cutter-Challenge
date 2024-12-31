@@ -20,22 +20,14 @@ body::-webkit-scrollbar {
   margin: 10px;
 }
 
-.winner {
-  font-size: 3em;
-  text-align: center;
-  display: none;
-}
-
 .timer-title {
   font-size: 1.75em;
   text-align: center;
-  display: none;
 }
 
 .timer-subtitle {
   font-size: 1.15em;
   text-align: center;
-  display: none;
 }
 
 .timer {
@@ -54,11 +46,4 @@ body::-webkit-scrollbar {
   text-align: center;
   font-family: 'Courier New', monospace;
   vertical-align: middle;
-}
-
-.logo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100px;
 }

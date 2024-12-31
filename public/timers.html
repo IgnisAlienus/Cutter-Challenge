@@ -8,23 +8,6 @@
     <link rel="stylesheet" href="./css/timers.css" />
   </head>
   <body>
-    <div class="navigation">
-      <button onclick="showScreen(1)">Show Timer 1</button>
-      <button onclick="showScreen(2)">Show Timer 2</button>
-      <button onclick="showScreen(3)">Show Timer 3</button>
-      <button onclick="showAllTimers()">Show All Timers</button>
-      <button onclick="resetAllTimers()">Reset All Timers</button>
-    </div>
-    <div>
-      <p>
-        Keybinds: 1 - Stop Timer 1 | 2 - Stop Timer 2 | 3 - Stop Timer 3 | S -
-        Start All Timers | R - Reset All Timers | A - Show All Timers | H - Hide
-        Info
-      </p>
-    </div>
-    <div id="winner" class="winner" style="margin-top: 25px">
-      <h1 style="margin-bottom: 10px">Winner!!!</h1>
-    </div>
     <div>
       <div id="timer1" class="timer">
         <div class="timer-title"></div>
@@ -43,7 +26,7 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
-    <script src="/globals.js"></script>
-    <script src="/timers.js"></script>
+    <script type="module" src="/timers.js"></script>
+    <script src="/adminTimers.js"></script>
   </body>
 </html>
