@@ -35,18 +35,28 @@ app.on('ready', () => {
   };
 
   // Create the first window on the primary display
-  mainWindow = new BrowserWindow({
+  const mainWindowOptions = {
     width: 800,
     height: 600,
     frame: true,
     icon: path.join(__dirname, './public/resources/cutterLogo.png'),
     fullscreen: displays.length > 1,
-    x: displays[0].bounds.x,
-    y: displays[0].bounds.y,
+    x: displays[1].bounds.x,
+    y: displays[1].bounds.y,
     webPreferences: {
       preload: path.join(__dirname, './public/preload.js'),
     },
-  });
+  };
+
+  if (displays.length > 1) {
+    mainWindowOptions.x = displays[1].bounds.x;
+    mainWindowOptions.y = displays[1].bounds.y;
+  } else {
+    mainWindowOptions.x = displays[0].bounds.x + 50;
+    mainWindowOptions.y = displays[0].bounds.y + 50;
+  }
+
+  mainWindow = new BrowserWindow(mainWindowOptions);
 
   // Load the Express app in the first window
   mainWindow.loadURL('http://localhost:3000');
@@ -71,13 +81,8 @@ app.on('ready', () => {
     },
   };
 
-  if (displays.length > 1) {
-    secondWindowOptions.x = displays[1].bounds.x;
-    secondWindowOptions.y = displays[1].bounds.y;
-  } else {
-    secondWindowOptions.x = displays[0].bounds.x + 50;
-    secondWindowOptions.y = displays[0].bounds.y + 50;
-  }
+  secondWindowOptions.x = displays[0].bounds.x;
+  secondWindowOptions.y = displays[0].bounds.y;
 
   secondWindow = new BrowserWindow(secondWindowOptions);
 
@@ -105,6 +110,13 @@ app.on('ready', () => {
   ipcMain.on('close-windows', () => {
     if (mainWindow) mainWindow.close();
     if (secondWindow) secondWindow.close();
+  });
+
+  // Listen for the change-page event from the renderer process
+  ipcMain.on('change-page', (event, page) => {
+    if (secondWindow) {
+      mainWindow.loadURL(`http://localhost:3000/${page}`);
+    }
   });
 });
 
