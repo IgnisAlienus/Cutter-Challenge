@@ -1,5 +1,6 @@
 import { currentCompetitors as defaultCompetitors } from './globals.js';
 import { intervals, timerValues } from './globals.js';
+import { playSound, changeLight } from './av.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Function to update the timers
@@ -20,8 +21,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Function to start all timers
-  const startAllTimers = () => {
+  const startAllTimers = async () => {
+    if (intervals.some((interval) => interval !== null)) return;
+
+    const countdownElement = document.createElement('div');
+    countdownElement.style.position = 'fixed';
+    countdownElement.style.top = '50%';
+    countdownElement.style.left = '50%';
+    countdownElement.style.transform = 'translate(-50%, -50%)';
+    countdownElement.style.fontSize = '10em';
+    countdownElement.style.color = 'white';
+    countdownElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    countdownElement.style.padding = '20px';
+    countdownElement.style.borderRadius = '10px';
+    countdownElement.style.zIndex = '1000';
+    countdownElement.style.textAlign = 'center';
+    countdownElement.style.width = '300px';
+    countdownElement.style.height = '200px';
+    countdownElement.style.display = 'flex';
+    countdownElement.style.alignItems = 'center';
+    countdownElement.style.justifyContent = 'center';
+    document.body.appendChild(countdownElement);
+
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    // Initial delay of 1 second
+    ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'reset'));
+    await delay(1000);
+
+    // Start 3 Second Countdown
+    for (let i = 3; i > 0; i--) {
+      countdownElement.innerHTML = i;
+      playSound('countdown.mp3');
+      ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
+      await delay(500);
+      ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
+      await delay(500);
+    }
+
+    // Display "CUT!" and start timers
+    countdownElement.innerHTML = 'CUT!';
+    playSound('knife.mp3');
+    ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'start'));
+    await delay(100);
+
     const timers = document.querySelectorAll('.timer');
     timers.forEach((timer, index) => {
       if (intervals[index] !== null) return;
@@ -41,6 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 10);
       localStorage.setItem(`timer${index + 1}Started`, 'true');
     });
+
+    // Remove the countdown element after 1 second
+    await delay(1000);
+    countdownElement.remove();
   };
 
   // Function to reset all timers
@@ -55,6 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById(id).innerText = '00:00:00';
     });
 
+    // Change all lights to white
+    ['1', '2', '3'].forEach((index) => changeLight(index, 'reset'));
+
     // Set timersStarted to 'false' to ensure a change is detected when starting again
     localStorage.setItem('timersStarted', 'false');
 
@@ -67,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(intervals[index - 1]);
     intervals[index - 1] = null;
     localStorage.removeItem(`stopTimer${index}`);
+    changeLight(index, 'stop');
   };
 
   // Get the initial currentCompetitors from localStorage
