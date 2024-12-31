@@ -14,3 +14,88 @@ body::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
+
+h1 {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.competitor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.competitor-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  font-size: 1.5em;
+}
+
+.competitor-item input[type='checkbox'] {
+  margin-right: 10px;
+}
+
+button {
+  margin: 5px;
+}
+
+.scoring {
+  margin-left: 35px;
+}
+
+.rounds-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  font-family: 'Courier New', monospace;
+}
+
+.rounds-container > div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.rounds-container > div > span {
+  margin-bottom: 5px;
+}
+
+.rounds-container > div > .speed-inputs {
+  display: flex;
+  align-items: center;
+}
+
+.rounds-container > div > .speed-inputs > input {
+  width: 60px;
+  margin-right: 5px;
+}
+
+.rounds-container > div > .speed-inputs > span {
+  margin: 0 5px;
+}
+
+.scoring h4 {
+  margin-top: 20px;
+}
+
+.scoring div {
+  margin-bottom: 10px;
+}
+
+.scoring div span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.scoring div input {
+  display: inline-block;
+  width: 60px;
+  margin-right: 5px;
+}
