@@ -115,6 +115,15 @@ app.post('/light', (req, res) => {
         other1: 0,
         other2: 0,
       },
+      red: {
+        intensity: 255,
+        color1: 255,
+        color2: 0,
+        color3: 0,
+        strobe: 0,
+        other1: 0,
+        other2: 0,
+      },
     };
 
     if (!isNaN(lightNumber) && action !== undefined) {
