@@ -6,6 +6,7 @@ const {
   ipcMain,
 } = require('electron');
 const server = require('./server');
+const fs = require('fs');
 const path = require('path');
 
 let mainWindow;
@@ -116,6 +117,18 @@ app.on('ready', () => {
       mainWindow.loadURL(`http://localhost:3000/${page}`);
     }
   });
+
+  // Make default directories if they don't exist
+  const dataDir = './data';
+  const scoresDir = './data/scores';
+
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
+  }
+
+  if (!fs.existsSync(scoresDir)) {
+    fs.mkdirSync(scoresDir);
+  }
 });
 
 // Quit app when all windows are closed
