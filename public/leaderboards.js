@@ -45,6 +45,23 @@ async function updateLeaderboards(data, gameFilter) {
     leaderboardEntries.push(entry);
   }
 
+  // Sort leaderboard entries if a specific game filter is applied
+  if (gameFilter !== 'all') {
+    leaderboardEntries.sort(
+      (a, b) => (b[gameFilter] || 0) - (a[gameFilter] || 0)
+    );
+  } else {
+    // Sort by each game column
+    leaderboardEntries.sort((a, b) => {
+      for (const game of ['game1', 'game2', 'game3']) {
+        if ((b[game] || 0) !== (a[game] || 0)) {
+          return (b[game] || 0) - (a[game] || 0);
+        }
+      }
+      return 0;
+    });
+  }
+
   // Create table headers
   const table = document.createElement('table');
 
