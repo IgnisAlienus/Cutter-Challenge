@@ -191,3 +191,7 @@ button:hover {
 .scoreTableInputs {
   width: 50px;
 }
+
+.totalCell {
+  text-align: center;
+}

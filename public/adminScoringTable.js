@@ -36,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
       headerRow.appendChild(placeHeader);
     }
 
+    const totalHeader = document.createElement('th');
+    totalHeader.innerHTML = 'Total';
+    headerRow.appendChild(totalHeader);
+
     table.appendChild(headerRow);
 
     for (const [key, values] of Object.entries(data)) {
@@ -43,6 +47,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const headerCell = document.createElement('th');
       headerCell.innerHTML = key.replace(/-/g, '<br>');
       row.appendChild(headerCell);
+
+      let rowTotal = 0;
 
       values.forEach((value, index) => {
         const cell = document.createElement('td');
@@ -55,7 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
         input.addEventListener('change', handleInputChange);
         cell.appendChild(input);
         row.appendChild(cell);
+
+        rowTotal += value;
       });
+
+      const totalCell = document.createElement('td');
+      totalCell.classList.add('totalCell');
+      totalCell.innerHTML = rowTotal;
+      row.appendChild(totalCell);
 
       table.appendChild(row);
     }
@@ -70,6 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const newValue = parseFloat(input.value);
 
     pointsDistribution[key][index] = newValue;
+
+    // Update the total cell
+    const row = input.closest('tr');
+    const totalCell = row.querySelector('.totalCell');
+    const inputs = row.querySelectorAll('input');
+    let rowTotal = 0;
+    inputs.forEach((input) => {
+      rowTotal += parseFloat(input.value) || 0;
+    });
+    totalCell.innerHTML = rowTotal;
 
     // Send POST request to update the JSON on the server
     fetch('/updatePointDistribution', {
