@@ -46,23 +46,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
     // Initial delay of 1 second
-    ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'reset'));
+    ['1', '2', '3'].forEach((index) => changeLight(index, 'reset'));
     await delay(1000);
 
     // Start 3 Second Countdown
     for (let i = 3; i > 0; i--) {
       countdownElement.innerHTML = i;
       playSound('countdown.mp3');
-      ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown2'));
+      ['1', '2', '3'].forEach((index) => changeLight(index, 'countdown2'));
       await delay(500);
-      ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'countdown1'));
+      ['1', '2', '3'].forEach((index) => changeLight(index, 'countdown1'));
       await delay(500);
     }
 
     // Display "CUT!" and start timers
     countdownElement.innerHTML = 'CUT!';
     playSound('knife.mp3');
-    ['1', '2', '3'].forEach((index) => changeLight(index - 1, 'start'));
+    ['1', '2', '3'].forEach((index) => changeLight(index, 'start'));
     await delay(100);
 
     const timers = document.querySelectorAll('.timer');
@@ -116,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const stopTimer = (index) => {
     clearInterval(intervals[index - 1]);
     intervals[index - 1] = null;
-    localStorage.removeItem(`stopTimer${index}`);
     changeLight(index, 'stop');
+    localStorage.removeItem(`stopTimer${index}`);
   };
 
   // Get the initial currentCompetitors from localStorage
