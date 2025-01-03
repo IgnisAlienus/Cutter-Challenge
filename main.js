@@ -41,8 +41,6 @@ app.on('ready', () => {
     frame: true,
     icon: path.join(__dirname, './public/resources/cutterLogo.png'),
     fullscreen: displays.length > 1,
-    x: displays[1].bounds.x,
-    y: displays[1].bounds.y,
     webPreferences: {
       preload: path.join(__dirname, './public/preload.js'),
     },
