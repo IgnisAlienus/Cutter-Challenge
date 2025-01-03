@@ -28,7 +28,7 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
 }
 
 .competitor-header {
@@ -46,8 +46,37 @@ button {
   margin: 5px;
 }
 
+#closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5px;
+  font-size: 1.5em;
+  color: black;
+  background-color: white;
+  border: solid black;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+#closeButton .fa-times {
+  margin-left: 5px;
+}
+
+.targetInputs {
+  margin-left: 5px;
+  width: 60px;
+}
+
 .scoring {
   margin-left: 35px;
+}
+
+.hidden {
+  display: none;
 }
 
 .rounds-container {

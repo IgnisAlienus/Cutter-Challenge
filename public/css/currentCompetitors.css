@@ -1,0 +1,35 @@
+@font-face {
+  font-family: "Rudy's Font";
+  src: url('/fonts/SignPainter-HouseBrush.otf') format('opentype');
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgb(217, 59, 32);
+  color: white;
+  font-family: "Rudy's Font";
+  overflow: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.competitor {
+  margin: 150px;
+}
+
+.competitor-name {
+  font-size: 8em;
+  text-align: center;
+}
+
+.competitor-location {
+  font-size: 5em;
+  text-align: center;
+}

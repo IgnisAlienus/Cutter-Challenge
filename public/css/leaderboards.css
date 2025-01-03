@@ -14,3 +14,38 @@ body::-webkit-scrollbar {
   width: 0px;
   background: transparent;
 }
+
+h1 {
+  margin-top: 45px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 100px;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  text-align: center;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
+.possiblePoints {
+  font-size: 25px;
+}
+
+th {
+  font-size: 65px;
+}
+
+td {
+  font-size: 45px;
+}
+
+.red {
+  color: rgb(217, 59, 32);
+}
