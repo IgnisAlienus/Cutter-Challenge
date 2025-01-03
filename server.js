@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const DMX = require('dmx');
 
@@ -20,6 +21,7 @@ try {
 
 // Serve static files from the current directory
 app.use(express.static('public'));
+app.use(express.json());
 
 // Serve the bbq.html file when the root route is accessed
 app.get('/', (req, res) => {
@@ -28,6 +30,10 @@ app.get('/', (req, res) => {
 
 app.get('/timers', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'timers.html'));
+});
+
+app.get('/current-competitors', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'currentCompetitors.html'));
 });
 
 app.get('/leaderboards', (req, res) => {
@@ -129,7 +135,7 @@ app.post('/light', (req, res) => {
     if (!isNaN(lightNumber) && action !== undefined) {
       if (actionMap[action] !== undefined) {
         const dmxValues = actionMap[action];
-        const startingChannel = lightNumber * 7 + 1;
+        const startingChannel = (lightNumber - 1) * 7 + 1;
 
         const updateLight = (strobeValue) => {
           universe.update({
@@ -146,7 +152,8 @@ app.post('/light', (req, res) => {
         if (action === 'stop') {
           let flashes = 0;
           const flashInterval = setInterval(() => {
-            updateLight(flashes % 2 === 0 ? 255 : 0); // Toggle strobe on and off
+            // Toggle strobe on and off
+            updateLight(flashes % 2 === 0 ? 255 : 0);
             flashes++;
             if (flashes >= 12) {
               // Flash 3 times (on and off counts as one flash)
@@ -172,7 +179,26 @@ app.post('/light', (req, res) => {
   }
 });
 
+app.post('/save-scores', (req, res) => {
+  try {
+    const inputValues = req.body;
+
+    const processId = process.pid;
+    const filePath = `./data/scores/inputValues-${processId}.json`;
+
+    const fullPath = path.join(__dirname, filePath);
+
+    // Ensure the directory exists
+    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+
+    fs.writeFileSync(fullPath, JSON.stringify(inputValues, null, 2));
+    res.json({ message: 'File saved successfully' });
+  } catch (error) {
+    console.error('Error saving file:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
 module.exports = app;
-/* app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-}); */
