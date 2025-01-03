@@ -5,23 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel</title>
     <link rel="stylesheet" href="./css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
   </head>
   <body>
-    <button id="closeButton">Close Program</button>
-    <button onclick="startAllTimers()">Start Timers</button>
-    <button onclick="resetAllTimers()">Reset Timers</button>
+    <button id="closeButton">Quit <i class="fas fa-times"></i></button>
+    <h1>Admin Panel</h1>
     <div>
-      <h2>Update Timer Titles and Subtitles</h2>
+      <button id="goToTimersButton">Go to Timers</button>
+      <button onclick="startAllTimers()">Start Timers</button>
+      <button onclick="resetAllTimers()">Reset Timers</button>
+    </div>
+    <div>
+      <button id="goToLogoButton">Go to Logo</button>
+      <button id="goToCurrentCompetitorsButton">
+        Go to Current Competitors
+      </button>
+      <button id="goToLeaderboardsButton">Go to Leaderboards</button>
+      <button id="goToGame1Leaderboards">Game 1 Leaderboards</button>
+      <button id="goToGame2Leaderboards">Game 2 Leaderboards</button>
+      <button id="goToGame3Leaderboards">Game 3 Leaderboards</button>
+    </div>
+    <div>
+      <button id="changeLightsWhiteButton">Change Lights to White</button>
+      <button id="changeLightsRedButton">Change Lights to Red</button>
+      <button id="turnOffLightsButton">Turn Off Lights</button>
+    </div>
+    <div>
+      <h3>Configure Target Weights for Game 1</h3>
       <div>
-        <h3>All Competitors</h3>
-        <ul id="competitorsList"></ul>
+        <label for="targetWeightRound1">Round 1 Target Weight:</label>
+        <input
+          class="targetInputs"
+          type="number"
+          id="targetWeightRound1"
+          step="0.01"
+          placeholder="#.##"
+        />
       </div>
       <div>
-        <h3>Current Competitors</h3>
-        <ul id="currentCompetitorsList"></ul>
+        <label for="targetWeightRound2">Round 2 Target Weight:</label>
+        <input
+          class="targetInputs"
+          type="number"
+          id="targetWeightRound2"
+          step="0.01"
+          placeholder="#.##"
+        />
+      </div>
+      <div>
+        <label for="targetWeightRound3">Round 3 Target Weight:</label>
+        <input
+          class="targetInputs"
+          type="number"
+          id="targetWeightRound3"
+          step="0.01"
+          placeholder="#.##"
+        />
       </div>
     </div>
-    <script src="/admin.js"></script>
+    <div>
+      <h3>Current Competitors</h3>
+      <ul id="currentCompetitorsList"></ul>
+    </div>
+    <div>
+      <div>
+        <h3>Select Competitors</h3>
+        <ul id="competitorsList"></ul>
+      </div>
+    </div>
+    <script type="module" src="/admin.js"></script>
     <script type="module" src="/adminCompetitorsList.js"></script>
     <script src="/adminTimers.js"></script>
   </body>

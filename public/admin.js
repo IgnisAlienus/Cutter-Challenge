@@ -21,9 +21,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document
+    .getElementById('goToCurrentCompetitorsButton')
+    .addEventListener('click', () => {
+      changePage('current-competitors');
+    });
+
+  document
     .getElementById('goToLeaderboardsButton')
     .addEventListener('click', () => {
-      changePage('leaderboards');
+      changePage('leaderboards#all');
+    });
+
+  document
+    .getElementById('goToGame1Leaderboards')
+    .addEventListener('click', () => {
+      changePage('leaderboards#game1');
+    });
+
+  document
+    .getElementById('goToGame2Leaderboards')
+    .addEventListener('click', () => {
+      changePage('leaderboards#game2');
+    });
+
+  document
+    .getElementById('goToGame3Leaderboards')
+    .addEventListener('click', () => {
+      changePage('leaderboards#game3');
     });
 
   document
