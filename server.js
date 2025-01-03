@@ -201,4 +201,55 @@ app.post('/save-scores', (req, res) => {
   }
 });
 
+app.get('/competitors', (req, res) => {
+  try {
+    const competitorsData = JSON.parse(
+      fs.readFileSync('./data/competitors.json', 'utf8')
+    );
+    res.json(competitorsData);
+  } catch (error) {
+    console.error('Error reading competitors data:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
+app.post('/updateCompetitor', (req, res) => {
+  try {
+    const { index, name, location } = req.body;
+    const competitorsFilePath = './data/competitors.json';
+
+    // Read the existing competitors data
+    const competitorsData = JSON.parse(
+      fs.readFileSync(competitorsFilePath, 'utf8')
+    );
+
+    // Update the competitor's information
+    if (competitorsData[index]) {
+      competitorsData[index].name = name;
+      competitorsData[index].location = location;
+
+      // Write the updated data back to the file
+      fs.writeFileSync(
+        competitorsFilePath,
+        JSON.stringify(competitorsData, null, 2)
+      );
+
+      res.json({ success: true, message: 'Competitor updated successfully' });
+    } else {
+      res.status(404).json({ success: false, message: 'Competitor not found' });
+    }
+  } catch (error) {
+    console.error('Error updating competitor:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+
+module.exports = app;
+
 module.exports = app;

@@ -1,130 +1,143 @@
-import { contestants, currentCompetitors, inputValues } from './globals.js';
+import { currentCompetitors, inputValues } from './globals.js';
 
+let competitors = [];
 const selectedCompetitorsSet = new Set();
 
 document.addEventListener('DOMContentLoaded', () => {
   const competitorsList = document.getElementById('competitorsList');
-  competitorsList.innerHTML = contestants
-    .map(
-      (c, index) => `
-      <li class="competitor-item">
-        <div class="competitor-header">
-          <input type="checkbox" id="competitor${index}" value="${index}" onchange="updateCurrentCompetitors(${index})">
-          <label for="competitor${index}">${c.name} - ${c.location}</label>
-        </div>
-        <div class="scoring hidden" id="scoring-${index}">
-          <h4>Game 1</h4>
-          <div class="rounds-container">
-            <div>
-              <span><b>Round 1:</b> Speed</span>
-              <div class="speed-inputs">
-                <input type="number" id="game1-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game1-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game1-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
-              </div>
-            </div>
-            <div>
-              <span><b>Round 1:</b> Accuracy</span>
-              <input type="number" id="game1-round1-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 1); storeInputValue(${index}, 'game1', 'round1', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
-              <span id="game1-round1-variance-${index}"></span>
-            </div>
-            <div>
-              <span><b>Round 1:</b> Presentation</span>
-              <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
-            </div>
-            <div>
-              <span><b>Round 2:</b> Speed</span>
-              <div class="speed-inputs">
-                <input type="number" id="game1-round2-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game1-round2-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game1-round2-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
-              </div>
-            </div>
-            <div>
-              <span><b>Round 2:</b> Accuracy</span>
-              <input type="number" id="game1-round2-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 2); storeInputValue(${index}, 'game1', 'round2', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
-              <span id="game1-round2-variance-${index}"></span>
-            </div>
-            <div>
-              <span><b>Round 2:</b> Presentation</span>
-              <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
-            </div>
-            <div>
-              <span><b>Round 3:</b> Speed</span>
-              <div class="speed-inputs">
-                <input type="number" id="game1-round3-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game1-round3-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game1-round3-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
-              </div>
-            </div>
-            <div>
-              <span><b>Round 3:</b> Accuracy</span>
-              <input type="number" id="game1-round3-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 3); storeInputValue(${index}, 'game1', 'round3', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
-              <span id="game1-round3-variance-${index}"></span>
-            </div>
-            <div>
-              <span><b>Round 3:</b> Presentation</span>
-              <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
-            </div>
-          </div>
-          <h4>Game 2</h4>
-          <div class="rounds-container">
-            <div>
-              <span><b>Round 1:</b> Speed</span>
-              <div class="speed-inputs">
-                <input type="number" id="game2-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game2-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game2-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
-              </div>
-            </div>
-            <div>
-              <span><b>Round 1:</b> Presentation</span>
-              <input type="number" id="game2-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
-            </div>
-          </div>
-          <h4>Game 3</h4>
-          <div class="rounds-container">
-            <div>
-              <span><b>Round 1:</b> Speed</span>
-              <div class="speed-inputs">
-                <input type="number" id="game3-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game3-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
-                <span>:</span>
-                <input type="number" id="game3-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
-              </div>
-            </div>
-            <div>
-              <span><b>Round 1:</b> Presentation</span>
-              <input type="number" id="game3-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
-            </div>
-          </div>
-        </div>
-      </li>
-    `
-    )
-    .join('');
 
-  const currentCompetitorsList = document.getElementById(
-    'currentCompetitorsList'
-  );
-  currentCompetitorsList.innerHTML = currentCompetitors
-    .map(
-      (c, index) => `
-      <li id="currentCompetitor${index}">${index + 1}. ${c.name} - ${
-        c.location
-      }</li>
-    `
-    )
-    .join('');
+  // Fetch competitors data from the server
+  fetch('/competitors')
+    .then((response) => response.json())
+    .then((data) => {
+      competitors = data;
+
+      // Update the competitors list
+      competitorsList.innerHTML = competitors
+        .map(
+          (c, index) => `
+          <li class="competitor-item">
+            <div class="competitor-header">
+              <input type="checkbox" id="competitor${index}" value="${index}" onchange="updateCurrentCompetitors(${index})">
+              <label for="competitor${index}">
+                <span id="competitorName${index}">${c.name}</span> - <span id="competitorLocation${index}">${c.location}</span>
+              </label>
+              <button class="editButton" id="editButton${index}" onclick="editCompetitor(${index})">✏️</button>
+            </div>
+            <div class="scoring hidden" id="scoring-${index}">
+              <h4>Game 1</h4>
+              <div class="rounds-container">
+                <div>
+                  <span><b>Round 1:</b> Speed</span>
+                  <div class="speed-inputs">
+                    <input type="number" id="game1-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game1-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game1-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                  </div>
+                </div>
+                <div>
+                  <span><b>Round 1:</b> Accuracy</span>
+                  <input type="number" id="game1-round1-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 1); storeInputValue(${index}, 'game1', 'round1', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
+                  <span id="game1-round1-variance-${index}"></span>
+                </div>
+                <div>
+                  <span><b>Round 1:</b> Presentation</span>
+                  <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                </div>
+                <div>
+                  <span><b>Round 2:</b> Speed</span>
+                  <div class="speed-inputs">
+                    <input type="number" id="game1-round2-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game1-round2-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game1-round2-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                  </div>
+                </div>
+                <div>
+                  <span><b>Round 2:</b> Accuracy</span>
+                  <input type="number" id="game1-round2-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 2); storeInputValue(${index}, 'game1', 'round2', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
+                  <span id="game1-round2-variance-${index}"></span>
+                </div>
+                <div>
+                  <span><b>Round 2:</b> Presentation</span>
+                  <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                </div>
+                <div>
+                  <span><b>Round 3:</b> Speed</span>
+                  <div class="speed-inputs">
+                    <input type="number" id="game1-round3-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game1-round3-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game1-round3-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                  </div>
+                </div>
+                <div>
+                  <span><b>Round 3:</b> Accuracy</span>
+                  <input type="number" id="game1-round3-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 3); storeInputValue(${index}, 'game1', 'round3', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
+                  <span id="game1-round3-variance-${index}"></span>
+                </div>
+                <div>
+                  <span><b>Round 3:</b> Presentation</span>
+                  <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                </div>
+              </div>
+              <h4>Game 2</h4>
+              <div class="rounds-container">
+                <div>
+                  <span><b>Round 1:</b> Speed</span>
+                  <div class="speed-inputs">
+                    <input type="number" id="game2-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game2-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game2-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                  </div>
+                </div>
+                <div>
+                  <span><b>Round 1:</b> Presentation</span>
+                  <input type="number" id="game2-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                </div>
+              </div>
+              <h4>Game 3</h4>
+              <div class="rounds-container">
+                <div>
+                  <span><b>Round 1:</b> Speed</span>
+                  <div class="speed-inputs">
+                    <input type="number" id="game3-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game3-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <span>:</span>
+                    <input type="number" id="game3-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                  </div>
+                </div>
+                <div>
+                  <span><b>Round 1:</b> Presentation</span>
+                  <input type="number" id="game3-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                </div>
+              </div>
+            </div>
+          </li>
+        `
+        )
+        .join('');
+
+      const currentCompetitorsList = document.getElementById(
+        'currentCompetitorsList'
+      );
+      currentCompetitorsList.innerHTML = currentCompetitors
+        .map(
+          (c, index) => `
+          <li id="currentCompetitor${index}">${index + 1}. ${c.name} - ${
+            c.location
+          }</li>
+        `
+        )
+        .join('');
+    });
 
   // Add event listeners to update target weights in localStorage
   document
@@ -152,6 +165,50 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.getItem('targetWeightRound3') || '';
 });
 
+window.editCompetitor = function editCompetitor(index) {
+  const nameSpan = document.getElementById(`competitorName${index}`);
+  const locationSpan = document.getElementById(`competitorLocation${index}`);
+  const editButton = document.getElementById(`editButton${index}`);
+
+  if (editButton.textContent === '✏️') {
+    nameSpan.innerHTML = `<input type="text" id="editName${index}" value="${nameSpan.textContent}">`;
+    locationSpan.innerHTML = `<input type="text" id="editLocation${index}" value="${locationSpan.textContent}">`;
+    editButton.textContent = '\u2705';
+  } else {
+    const updatedName = document.getElementById(`editName${index}`).value;
+    const updatedLocation = document.getElementById(
+      `editLocation${index}`
+    ).value;
+
+    // Send POST request to update competitor's information
+    fetch('/updateCompetitor', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        index,
+        name: updatedName,
+        location: updatedLocation,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          nameSpan.textContent = updatedName;
+          locationSpan.textContent = updatedLocation;
+          editButton.textContent = '✏️';
+
+          // Update the competitors array
+          competitors[index].name = updatedName;
+          competitors[index].location = updatedLocation;
+        } else {
+          alert('Failed to update competitor');
+        }
+      });
+  }
+};
+
 window.updateCurrentCompetitors = function updateCurrentCompetitors(index) {
   const checkbox = document.getElementById(`competitor${index}`);
   const scoringDiv = document.getElementById(`scoring-${index}`);
@@ -169,7 +226,7 @@ window.updateCurrentCompetitors = function updateCurrentCompetitors(index) {
   }
 
   const selectedCompetitors = Array.from(selectedCompetitorsSet).map(
-    (i) => contestants[i]
+    (i) => competitors[i]
   );
 
   while (selectedCompetitors.length < 3) {

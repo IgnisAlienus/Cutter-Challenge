@@ -44,6 +44,10 @@ button:hover {
   color: white;
 }
 
+.editButton {
+  margin-left: 15px;
+}
+
 #closeButton {
   position: absolute;
   top: 0;
