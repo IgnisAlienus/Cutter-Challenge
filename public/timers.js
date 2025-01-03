@@ -36,12 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
     countdownElement.style.borderRadius = '10px';
     countdownElement.style.zIndex = '1000';
     countdownElement.style.textAlign = 'center';
-    countdownElement.style.width = '300px';
-    countdownElement.style.height = '200px';
+    countdownElement.style.width = '400px';
+    countdownElement.style.height = '300px';
     countdownElement.style.display = 'flex';
     countdownElement.style.alignItems = 'center';
     countdownElement.style.justifyContent = 'center';
-    document.body.appendChild(countdownElement);
 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -50,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     await delay(1000);
 
     // Start 3 Second Countdown
+    document.body.appendChild(countdownElement);
     for (let i = 3; i > 0; i--) {
       countdownElement.innerHTML = i;
       playSound('countdown.mp3');
