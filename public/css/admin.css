@@ -168,3 +168,26 @@ button:hover {
   width: 60px;
   margin-right: 5px;
 }
+
+.scoringTable {
+  margin-left: 50px;
+}
+
+.scoreTable {
+  border-collapse: collapse;
+}
+
+.scoreTable th,
+.scoreTable td {
+  border: 1px solid black;
+  padding: 8px;
+  text-align: left;
+}
+
+.scoreTable th {
+  background-color: #5f5f5f;
+}
+
+.scoreTableInputs {
+  width: 50px;
+}

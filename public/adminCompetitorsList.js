@@ -30,59 +30,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                   <span><b>Round 1:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game1-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-minutes', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-seconds', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-centiseconds', \`${c.name}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 1:</b> Accuracy</span>
-                  <input type="number" id="game1-round1-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 1); storeInputValue(${index}, 'game1', 'round1', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
+                  <input type="number" id="game1-round1-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 1); storeInputValue(${index}, 'game1', 'round1', 'variance', \`${c.name}\`, this.dataset.variance)" />
                   <span id="game1-round1-variance-${index}"></span>
                 </div>
                 <div>
                   <span><b>Round 1:</b> Presentation</span>
-                  <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                  <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`)" />
                 </div>
                 <div>
                   <span><b>Round 2:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game1-round2-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round2-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-minutes', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round2-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round2-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-seconds', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round2-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round2-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-centiseconds', \`${c.name}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 2:</b> Accuracy</span>
-                  <input type="number" id="game1-round2-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 2); storeInputValue(${index}, 'game1', 'round2', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
+                  <input type="number" id="game1-round2-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 2); storeInputValue(${index}, 'game1', 'round2', 'variance', \`${c.name}\`, this.dataset.variance)" />
                   <span id="game1-round2-variance-${index}"></span>
                 </div>
                 <div>
                   <span><b>Round 2:</b> Presentation</span>
-                  <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                  <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`)" />
                 </div>
                 <div>
                   <span><b>Round 3:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game1-round3-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round3-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-minutes', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round3-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round3-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-seconds', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round3-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game1-round3-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-centiseconds', \`${c.name}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 3:</b> Accuracy</span>
-                  <input type="number" id="game1-round3-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 3); storeInputValue(${index}, 'game1', 'round3', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
+                  <input type="number" id="game1-round3-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 3); storeInputValue(${index}, 'game1', 'round3', 'variance', \`${c.name}\`, this.dataset.variance)" />
                   <span id="game1-round3-variance-${index}"></span>
                 </div>
                 <div>
                   <span><b>Round 3:</b> Presentation</span>
-                  <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                  <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`)" />
                 </div>
               </div>
               <h4>Game 2</h4>
@@ -90,16 +90,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                   <span><b>Round 1:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game2-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game2-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-minutes', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game2-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game2-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-seconds', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game2-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game2-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-centiseconds', \`${c.name}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 1:</b> Presentation</span>
-                  <input type="number" id="game2-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                  <input type="number" id="game2-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'presentation', \`${c.name}\`)" />
                 </div>
               </div>
               <h4>Game 3</h4>
@@ -107,16 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                   <span><b>Round 1:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game3-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game3-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-minutes', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game3-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game3-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-seconds', \`${c.name}\`)" />
                     <span>:</span>
-                    <input type="number" id="game3-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
+                    <input type="number" id="game3-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-centiseconds', \`${c.name}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 1:</b> Presentation</span>
-                  <input type="number" id="game3-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
+                  <input type="number" id="game3-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'presentation', \`${c.name}\`)" />
                 </div>
               </div>
             </div>
@@ -292,15 +292,23 @@ window.updateVariance = function updateVariance(index, round) {
   }
 };
 
-window.storeInputValue = function storeInputValue(
+window.storeInputValue = async function storeInputValue(
   index,
   game,
   round,
   metric,
   name,
-  location,
   variance
 ) {
+  console.log(
+    'Storing input value:',
+    index,
+    game,
+    round,
+    metric,
+    name,
+    variance
+  );
   const inputElement = document.getElementById(
     `${game}-${round}-${metric}-${index}`
   );
@@ -311,263 +319,272 @@ window.storeInputValue = function storeInputValue(
     }
     const value = metric === 'variance' ? variance : inputElement.value;
     const existingValue = inputValues[name][key];
-    if (existingValue !== value) {
-      inputValues[name][key] = value;
+    inputValues[name][key] = value;
 
-      // Define points for each position
-      const pointsDistribution = {
-        'game1-round1-speed': [
-          4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0.5, 0.5, 0.5, 0.5,
-        ], // 20 points - 20%
-        'game1-round1-variance': [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1], // 40 points - 40%
-        'game1-round1-presentation': [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1], // 40 points - 40%
-        'game1-round2-speed': [
-          4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0.5, 0.5, 0.5, 0.5,
-        ], // 20 points - 20%
-        'game1-round2-variance': [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1], // 40 points - 40%
-        'game1-round2-presentation': [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1], // 40 points - 40%
-        'game1-round3-speed': [
-          4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5, 0.5, 0.5, 0.5, 0.5,
-        ], // 20 points - 20%
-        'game1-round3-variance': [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1], // 40 points - 40%
-        'game1-round3-presentation': [8, 7, 6, 5, 4, 3, 2, 1, 1, 1, 1, 1], // 40 points - 40%
-        'game2-round1-speed': [10, 9, 8, 7, 4, 2], // 40 points - 40%
-        'game2-round1-presentation': [15, 13.5, 12, 10.5, 6, 3], // 60 points - 60%
-        'game3-round1-speed': [15, 13, 12], // 40 points - 40%
-        'game3-round1-presentation': [25, 20, 15], // 60 points - 60%
-      };
+    // Fetch scoring data from the server
+    const response = await fetch('/pointDistribution');
+    const pointsDistribution = await response.json();
 
-      // Calculate total time for speed
-      if (metric.includes('speed')) {
-        const minutes = parseFloat(
-          inputValues[name][`${game}-${round}-speed-minutes`] || 0
-        );
-        const seconds = parseFloat(
-          inputValues[name][`${game}-${round}-speed-seconds`] || 0
-        );
-        const centiseconds = parseFloat(
-          inputValues[name][`${game}-${round}-speed-centiseconds`] || 0
-        );
-        const totalTime = minutes * 60 + seconds + centiseconds / 100;
-        // Round to two decimal places
-        const roundedTotalTime = Math.round(totalTime * 100) / 100;
+    // Calculate total time for speed
+    if (metric.includes('speed')) {
+      const minutes = parseFloat(
+        inputValues[name][`${game}-${round}-speed-minutes`] || 0
+      );
+      const seconds = parseFloat(
+        inputValues[name][`${game}-${round}-speed-seconds`] || 0
+      );
+      const centiseconds = parseFloat(
+        inputValues[name][`${game}-${round}-speed-centiseconds`] || 0
+      );
+      const totalTime = minutes * 60 + seconds + centiseconds / 100;
+      // Round to two decimal places
+      const roundedTotalTime = Math.round(totalTime * 100) / 100;
 
-        // Format total time as mm:ss:cc
-        const formattedMinutes = Math.floor(roundedTotalTime / 60);
-        const formattedSeconds = Math.floor(roundedTotalTime % 60)
-          .toString()
-          .padStart(2, '0');
-        const formattedCentiseconds = (roundedTotalTime % 1)
-          .toFixed(2)
-          .substring(2);
-        const formattedTotalTime = `${formattedMinutes}:${formattedSeconds}:${formattedCentiseconds}`;
+      // Format total time as mm:ss:cc
+      const formattedMinutes = Math.floor(roundedTotalTime / 60);
+      const formattedSeconds = Math.floor(roundedTotalTime % 60)
+        .toString()
+        .padStart(2, '0');
+      const formattedCentiseconds = (roundedTotalTime % 1)
+        .toFixed(2)
+        .substring(2);
+      const formattedTotalTime = `${formattedMinutes}:${formattedSeconds}:${formattedCentiseconds}`;
 
-        inputValues[name][`${game}-${round}-speed-total`] = formattedTotalTime;
-      }
+      inputValues[name][`${game}-${round}-speed-total`] = formattedTotalTime;
+    }
 
-      // Helper function to convert time string to total seconds
-      function timeStringToSeconds(timeString) {
-        const [minutes, seconds, centiseconds] = timeString
-          .split(':')
-          .map(parseFloat);
-        return minutes * 60 + seconds + centiseconds / 100;
-      }
+    // Helper function to convert time string to total seconds
+    function timeStringToSeconds(timeString) {
+      const [minutes, seconds, centiseconds] = timeString
+        .split(':')
+        .map(parseFloat);
+      return minutes * 60 + seconds + centiseconds / 100;
+    }
 
-      // Sort competitors by their total speed time
-      const sortedSpeedCompetitors = Object.keys(inputValues).sort((a, b) => {
-        const aValue = timeStringToSeconds(
-          inputValues[a][`${game}-${round}-speed-total`] || '0:00:00'
-        );
-        const bValue = timeStringToSeconds(
-          inputValues[b][`${game}-${round}-speed-total`] || '0:00:00'
-        );
-        console.log('aValue:', aValue);
-        console.log('bValue:', bValue);
-        // Ascending for speed
-        return aValue - bValue;
-      });
+    // Sort competitors by their total speed time
+    const sortedSpeedCompetitors = Object.keys(inputValues).sort((a, b) => {
+      const aValue = timeStringToSeconds(
+        inputValues[a][`${game}-${round}-speed-total`] || '0:00:00'
+      );
+      const bValue = timeStringToSeconds(
+        inputValues[b][`${game}-${round}-speed-total`] || '0:00:00'
+      );
+      console.log('aValue:', aValue);
+      console.log('bValue:', bValue);
+      // Ascending for speed
+      return aValue - bValue;
+    });
 
-      // Assign points based on speed ranking
-      let speedRank = 0;
-      while (speedRank < sortedSpeedCompetitors.length) {
-        let tieCompetitors = [sortedSpeedCompetitors[speedRank]];
-        const currentSpeed = timeStringToSeconds(
-          inputValues[sortedSpeedCompetitors[speedRank]][
-            `${game}-${round}-speed-total`
-          ] || '0:00:00'
-        );
-
-        // Find all competitors with the same speed score
-        while (
-          speedRank + tieCompetitors.length < sortedSpeedCompetitors.length &&
-          timeStringToSeconds(
-            inputValues[
-              sortedSpeedCompetitors[speedRank + tieCompetitors.length]
-            ][`${game}-${round}-speed-total`] || '0:00:00'
-          ) === currentSpeed
-        ) {
-          tieCompetitors.push(
-            sortedSpeedCompetitors[speedRank + tieCompetitors.length]
-          );
-        }
-
-        // Calculate average points for tied competitors
-        const pointsArray = pointsDistribution[`${game}-${round}-speed`];
-        const totalPoints = tieCompetitors.reduce((sum, _, index) => {
-          return sum + (pointsArray[speedRank + index] || 1);
-        }, 0);
-        const averagePoints = totalPoints / tieCompetitors.length;
-
-        // Assign average points to each tied competitor
-        tieCompetitors.forEach((competitor) => {
-          inputValues[competitor][`${game}-${round}-speed-points`] =
-            averagePoints;
-        });
-
-        // Move to the next speedRank after the tie
-        speedRank += tieCompetitors.length;
-      }
-
-      // Sort competitors by their presentation score
-      const sortedPresentationCompetitors = Object.keys(inputValues).sort(
-        (a, b) => {
-          const aValue = parseFloat(
-            inputValues[a][`${game}-${round}-presentation`] || 0
-          );
-          const bValue = parseFloat(
-            inputValues[b][`${game}-${round}-presentation`] || 0
-          );
-          return bValue - aValue; // Descending for presentation
-        }
+    // Assign points based on speed ranking
+    let speedRank = 0;
+    while (speedRank < sortedSpeedCompetitors.length) {
+      let tieCompetitors = [sortedSpeedCompetitors[speedRank]];
+      const currentSpeed = timeStringToSeconds(
+        inputValues[sortedSpeedCompetitors[speedRank]][
+          `${game}-${round}-speed-total`
+        ] || '0:00:00'
       );
 
-      // Assign points based on presentation ranking
-      let presentationRank = 0;
-      while (presentationRank < sortedPresentationCompetitors.length) {
-        let tieCompetitors = [sortedPresentationCompetitors[presentationRank]];
-        const currentPresentation = parseFloat(
-          inputValues[sortedPresentationCompetitors[presentationRank]][
-            `${game}-${round}-presentation`
-          ] || 0
+      // Find all competitors with the same speed score
+      while (
+        speedRank + tieCompetitors.length < sortedSpeedCompetitors.length &&
+        timeStringToSeconds(
+          inputValues[
+            sortedSpeedCompetitors[speedRank + tieCompetitors.length]
+          ][`${game}-${round}-speed-total`] || '0:00:00'
+        ) === currentSpeed
+      ) {
+        tieCompetitors.push(
+          sortedSpeedCompetitors[speedRank + tieCompetitors.length]
         );
+      }
 
-        // Find all competitors with the same presentation score
-        while (
-          presentationRank + tieCompetitors.length <
-            sortedPresentationCompetitors.length &&
-          parseFloat(
-            inputValues[
-              sortedPresentationCompetitors[
-                presentationRank + tieCompetitors.length
-              ]
-            ][`${game}-${round}-presentation`] || 0
-          ) === currentPresentation
-        ) {
-          tieCompetitors.push(
+      // Calculate average points for tied competitors
+      const pointsArray = pointsDistribution[`${game}-${round}-speed`];
+      const totalPoints = tieCompetitors.reduce((sum, _, index) => {
+        return sum + (pointsArray[speedRank + index] || 1);
+      }, 0);
+      const averagePoints = totalPoints / tieCompetitors.length;
+
+      // Assign average points to each tied competitor
+      tieCompetitors.forEach((competitor) => {
+        inputValues[competitor][`${game}-${round}-speed-points`] =
+          averagePoints;
+      });
+
+      // Move to the next speedRank after the tie
+      speedRank += tieCompetitors.length;
+    }
+
+    // Sort competitors by their presentation score
+    const sortedPresentationCompetitors = Object.keys(inputValues).sort(
+      (a, b) => {
+        const aValue = parseFloat(
+          inputValues[a][`${game}-${round}-presentation`] || 0
+        );
+        const bValue = parseFloat(
+          inputValues[b][`${game}-${round}-presentation`] || 0
+        );
+        return bValue - aValue; // Descending for presentation
+      }
+    );
+
+    // Assign points based on presentation ranking
+    let presentationRank = 0;
+    while (presentationRank < sortedPresentationCompetitors.length) {
+      let tieCompetitors = [sortedPresentationCompetitors[presentationRank]];
+      const currentPresentation = parseFloat(
+        inputValues[sortedPresentationCompetitors[presentationRank]][
+          `${game}-${round}-presentation`
+        ] || 0
+      );
+
+      // Find all competitors with the same presentation score
+      while (
+        presentationRank + tieCompetitors.length <
+          sortedPresentationCompetitors.length &&
+        parseFloat(
+          inputValues[
             sortedPresentationCompetitors[
               presentationRank + tieCompetitors.length
             ]
+          ][`${game}-${round}-presentation`] || 0
+        ) === currentPresentation
+      ) {
+        tieCompetitors.push(
+          sortedPresentationCompetitors[
+            presentationRank + tieCompetitors.length
+          ]
+        );
+      }
+
+      // Calculate average points for tied competitors
+      const pointsArray = pointsDistribution[`${game}-${round}-presentation`];
+      const totalPoints = tieCompetitors.reduce((sum, _, index) => {
+        return sum + (pointsArray[presentationRank + index] || 1);
+      }, 0);
+      const averagePoints = totalPoints / tieCompetitors.length;
+
+      // Assign average points to each tied competitor
+      tieCompetitors.forEach((competitor) => {
+        inputValues[competitor][`${game}-${round}-presentation-points`] =
+          averagePoints;
+      });
+
+      // Move to the next presentationRank after the tie
+      presentationRank += tieCompetitors.length;
+    }
+
+    // Only calculate variance points for game 1
+    if (game === 'game1') {
+      // Sort competitors by their variance score
+      const sortedVarianceCompetitors = Object.keys(inputValues).sort(
+        (a, b) => {
+          const aValue = Math.abs(
+            parseFloat(inputValues[a][`${game}-${round}-variance`] || 0)
+          );
+          const bValue = Math.abs(
+            parseFloat(inputValues[b][`${game}-${round}-variance`] || 0)
+          );
+
+          // Ascending for variance
+          return aValue - bValue;
+        }
+      );
+
+      // Assign points based on variance ranking
+      let varianceRank = 0;
+      while (varianceRank < sortedVarianceCompetitors.length) {
+        let tieCompetitors = [sortedVarianceCompetitors[varianceRank]];
+        const currentVariance = Math.abs(
+          parseFloat(
+            inputValues[sortedVarianceCompetitors[varianceRank]][
+              `${game}-${round}-variance`
+            ] || 0
+          )
+        );
+
+        // Find all competitors with the same variance
+        while (
+          varianceRank + tieCompetitors.length <
+            sortedVarianceCompetitors.length &&
+          Math.abs(
+            parseFloat(
+              inputValues[
+                sortedVarianceCompetitors[varianceRank + tieCompetitors.length]
+              ][`${game}-${round}-variance`] || 0
+            )
+          ) === currentVariance
+        ) {
+          tieCompetitors.push(
+            sortedVarianceCompetitors[varianceRank + tieCompetitors.length]
           );
         }
 
         // Calculate average points for tied competitors
-        const pointsArray = pointsDistribution[`${game}-${round}-presentation`];
+        const pointsArray = pointsDistribution[`${game}-${round}-variance`];
         const totalPoints = tieCompetitors.reduce((sum, _, index) => {
-          return sum + (pointsArray[presentationRank + index] || 1);
+          return sum + (pointsArray[varianceRank + index] || 1);
         }, 0);
         const averagePoints = totalPoints / tieCompetitors.length;
 
         // Assign average points to each tied competitor
         tieCompetitors.forEach((competitor) => {
-          inputValues[competitor][`${game}-${round}-presentation-points`] =
+          inputValues[competitor][`${game}-${round}-variance-points`] =
             averagePoints;
         });
 
-        // Move to the next presentationRank after the tie
-        presentationRank += tieCompetitors.length;
+        // Move to the next varianceRank after the tie
+        varianceRank += tieCompetitors.length;
       }
-
-      // Only calculate variance points for game 1
-      if (game === 'game1') {
-        // Sort competitors by their variance score
-        const sortedVarianceCompetitors = Object.keys(inputValues).sort(
-          (a, b) => {
-            const aValue = Math.abs(
-              parseFloat(inputValues[a][`${game}-${round}-variance`] || 0)
-            );
-            const bValue = Math.abs(
-              parseFloat(inputValues[b][`${game}-${round}-variance`] || 0)
-            );
-
-            // Ascending for variance
-            return aValue - bValue;
-          }
-        );
-
-        // Assign points based on variance ranking
-        let varianceRank = 0;
-        while (varianceRank < sortedVarianceCompetitors.length) {
-          let tieCompetitors = [sortedVarianceCompetitors[varianceRank]];
-          const currentVariance = Math.abs(
-            parseFloat(
-              inputValues[sortedVarianceCompetitors[varianceRank]][
-                `${game}-${round}-variance`
-              ] || 0
-            )
-          );
-
-          // Find all competitors with the same variance
-          while (
-            varianceRank + tieCompetitors.length <
-              sortedVarianceCompetitors.length &&
-            Math.abs(
-              parseFloat(
-                inputValues[
-                  sortedVarianceCompetitors[
-                    varianceRank + tieCompetitors.length
-                  ]
-                ][`${game}-${round}-variance`] || 0
-              )
-            ) === currentVariance
-          ) {
-            tieCompetitors.push(
-              sortedVarianceCompetitors[varianceRank + tieCompetitors.length]
-            );
-          }
-
-          // Calculate average points for tied competitors
-          const pointsArray = pointsDistribution[`${game}-${round}-variance`];
-          const totalPoints = tieCompetitors.reduce((sum, _, index) => {
-            return sum + (pointsArray[varianceRank + index] || 1);
-          }, 0);
-          const averagePoints = totalPoints / tieCompetitors.length;
-
-          // Assign average points to each tied competitor
-          tieCompetitors.forEach((competitor) => {
-            inputValues[competitor][`${game}-${round}-variance-points`] =
-              averagePoints;
-          });
-
-          // Move to the next varianceRank after the tie
-          varianceRank += tieCompetitors.length;
-        }
-      }
-
-      // Store the inputValues in localStorage
-      localStorage.setItem('inputValuesChanged', JSON.stringify(inputValues));
-
-      // Use fetch to send the data to a server endpoint
-      fetch('/save-scores', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(inputValues),
-      })
-        .then((response) => response.json())
-        .catch((error) => {
-          console.error('Error saving file:', error);
-        });
     }
+
+    // Store the inputValues in localStorage
+    localStorage.setItem('inputValuesChanged', JSON.stringify(inputValues));
+
+    // Use fetch to send the data to a server endpoint
+    fetch('/save-scores', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputValues),
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error('Error saving file:', error);
+      });
   }
 };
+
+// Add this function to handle recalculation of scores
+function recalculateScores() {
+  console.log('Recalculating scores...');
+  for (const name in inputValues) {
+    for (const key in inputValues[name]) {
+      const [game, round, metric] = key.split('-');
+      const index = getCompetitorIndexByName(name);
+      if (index !== -1) {
+        window.storeInputValue(
+          index,
+          game,
+          round,
+          metric,
+          name,
+          inputValues[name][`${game}-${round}-variance`] || undefined
+        );
+      }
+    }
+  }
+}
+
+function getCompetitorIndexByName(name) {
+  for (let i = 0; i < competitors.length; i++) {
+    if (competitors[i].name === name) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+export { recalculateScores };

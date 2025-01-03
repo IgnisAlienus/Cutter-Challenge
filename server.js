@@ -250,6 +250,39 @@ app.post('/updateCompetitor', (req, res) => {
   }
 });
 
-module.exports = app;
+app.get('/pointDistribution', (req, res) => {
+  try {
+    const pointDistributionData = JSON.parse(
+      fs.readFileSync('./data/pointDistribution.json', 'utf8')
+    );
+    res.json(pointDistributionData);
+  } catch (error) {
+    console.error('Error reading point distribution data:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
+app.post('/updatePointDistribution', (req, res) => {
+  try {
+    const pointDistributionData = req.body;
+    fs.writeFileSync(
+      './data/pointDistribution.json',
+      JSON.stringify(pointDistributionData, null, 2)
+    );
+    res.json({
+      success: true,
+      message: 'Point distribution updated successfully',
+    });
+  } catch (error) {
+    console.error('Error updating point distribution:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
 
 module.exports = app;
