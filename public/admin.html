@@ -13,62 +13,67 @@
   <body>
     <button id="closeButton">Quit <i class="fas fa-times"></i></button>
     <h1>Admin Panel</h1>
-    <div>
-      <button id="goToTimersButton">Go to Timers</button>
-      <button onclick="startAllTimers()">Start Timers</button>
-      <button onclick="resetAllTimers()">Reset Timers</button>
-    </div>
-    <div>
-      <button id="goToLogoButton">Go to Logo</button>
-      <button id="goToCurrentCompetitorsButton">
-        Go to Current Competitors
-      </button>
-      <button id="goToLeaderboardsButton">Go to Leaderboards</button>
-      <button id="goToGame1Leaderboards">Game 1 Leaderboards</button>
-      <button id="goToGame2Leaderboards">Game 2 Leaderboards</button>
-      <button id="goToGame3Leaderboards">Game 3 Leaderboards</button>
-    </div>
-    <div>
-      <button id="changeLightsWhiteButton">Change Lights to White</button>
-      <button id="changeLightsRedButton">Change Lights to Red</button>
-      <button id="turnOffLightsButton">Turn Off Lights</button>
+    <h3>Gamemaster Buttons</h3>
+    <div class="buttonsDiv">
+      <div>
+        <button id="goToTimersButton">Go to Timers</button>
+        <button onclick="startAllTimers()">Start Timers</button>
+        <button onclick="resetAllTimers()">Reset Timers</button>
+      </div>
+      <div>
+        <button id="goToLogoButton">Go to Logo</button>
+        <button id="goToCurrentCompetitorsButton">
+          Go to Current Competitors
+        </button>
+        <button id="goToLeaderboardsButton">Go to Leaderboards</button>
+        <button id="goToGame1Leaderboards">Game 1 Leaderboards</button>
+        <button id="goToGame2Leaderboards">Game 2 Leaderboards</button>
+        <button id="goToGame3Leaderboards">Game 3 Leaderboards</button>
+      </div>
+      <div>
+        <button id="changeLightsWhiteButton">Change Lights to White</button>
+        <button id="changeLightsRedButton">Change Lights to Red</button>
+        <button id="turnOffLightsButton">Turn Off Lights</button>
+      </div>
     </div>
     <div>
       <h3>Configure Target Weights for Game 1</h3>
-      <div>
-        <label for="targetWeightRound1">Round 1 Target Weight:</label>
-        <input
-          class="targetInputs"
-          type="number"
-          id="targetWeightRound1"
-          step="0.01"
-          placeholder="#.##"
-        />
-      </div>
-      <div>
-        <label for="targetWeightRound2">Round 2 Target Weight:</label>
-        <input
-          class="targetInputs"
-          type="number"
-          id="targetWeightRound2"
-          step="0.01"
-          placeholder="#.##"
-        />
-      </div>
-      <div>
-        <label for="targetWeightRound3">Round 3 Target Weight:</label>
-        <input
-          class="targetInputs"
-          type="number"
-          id="targetWeightRound3"
-          step="0.01"
-          placeholder="#.##"
-        />
+      <div class="targetWeightContainer">
+        <div>
+          <label for="targetWeightRound1">Round 1 Target Weight:</label>
+          <input
+            class="targetInputs"
+            type="number"
+            id="targetWeightRound1"
+            step="0.01"
+            placeholder="#.##"
+          />
+        </div>
+        <div>
+          <label for="targetWeightRound2">Round 2 Target Weight:</label>
+          <input
+            class="targetInputs"
+            type="number"
+            id="targetWeightRound2"
+            step="0.01"
+            placeholder="#.##"
+          />
+        </div>
+        <div>
+          <label for="targetWeightRound3">Round 3 Target Weight:</label>
+          <input
+            class="targetInputs"
+            type="number"
+            id="targetWeightRound3"
+            step="0.01"
+            placeholder="#.##"
+          />
+        </div>
       </div>
     </div>
     <div>
       <h3>Current Competitors</h3>
-      <ul id="currentCompetitorsList"></ul>
+      <ul class="currentCompetitorsList" id="currentCompetitorsList"></ul>
     </div>
     <div>
       <div>

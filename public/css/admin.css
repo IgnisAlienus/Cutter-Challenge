@@ -16,34 +16,32 @@ body::-webkit-scrollbar {
 }
 
 h1 {
+  font-size: 3rem;
   text-align: center;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+h3 {
+  font-size: 1.5rem;
 }
 
-.competitor-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 5px;
-}
-
-.competitor-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0px;
-  font-size: 1.5em;
-}
-
-.competitor-item input[type='checkbox'] {
-  margin-right: 10px;
+.buttonsDiv {
+  margin-left: 50px;
 }
 
 button {
   margin: 5px;
+  font-size: 1rem;
+  color: black;
+  background-color: white;
+  border: solid black;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: grey;
+  color: white;
 }
 
 #closeButton {
@@ -51,7 +49,7 @@ button {
   top: 0;
   right: 0;
   margin: 5px;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   color: black;
   background-color: white;
   border: solid black;
@@ -66,9 +64,47 @@ button {
   margin-left: 5px;
 }
 
+#closeButton:hover {
+  background-color: grey;
+  color: white;
+}
+
+.targetWeightContainer > div {
+  margin-left: 50px;
+  display: inline-block;
+}
+
 .targetInputs {
   margin-left: 5px;
   width: 60px;
+}
+
+.currentCompetitorsList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.currentCompetitorsList li {
+  margin-left: 50px;
+}
+
+.competitor-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.competitor-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0px;
+  font-size: 1.5rem;
+}
+
+.competitor-item input[type='checkbox'] {
+  margin-right: 10px;
 }
 
 .scoring {
