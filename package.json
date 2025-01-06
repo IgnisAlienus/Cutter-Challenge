@@ -1,7 +1,10 @@
 {
-  "name": "cutter-challenge",
+  "name": "rudys-cutter-challenge",
+  "productName": "Rudy's Cutter Challenge",
   "version": "1.0.0",
-  "description": "An Electron app for managing competitor data.",
+  "description": "An App for the Rudy's Cutter Challenge.",
+  "author": "Andrew Hunt",
+  "license": "MIT",
   "main": "main.js",
   "dependencies": {
     "@serialport/bindings": "^9.2.9",
@@ -17,16 +20,16 @@
   },
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager . CutterChallenge --platform=win32 --arch=x64 --out=dist/ --overwrite",
+    "package": "electron-packager . \"Rudy's Cutter Challenge\" --platform=win32 --arch=x64 --out=dist/ --overwrite",
     "dist": "electron-builder"
   },
   "build": {
     "appId": "com.cutter.challenge",
     "win": {
+      "icon": "assets/icons/icon.png",
       "target": [
         "nsis"
-      ],
-      "icon": "assets/icons/icon.ico"
+      ]
     },
     "nsis": {
       "oneClick": true,
@@ -35,7 +38,5 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
     }
-  },
-  "author": "Andrew Hunt",
-  "license": "MIT"
+  }
 }
