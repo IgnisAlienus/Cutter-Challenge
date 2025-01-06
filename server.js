@@ -184,14 +184,16 @@ server.post('/save-scores', (req, res) => {
     const inputValues = req.body;
 
     const processId = process.pid;
-    const filePath = `./data/scores/inputValues-${processId}.json`;
-
-    const fullPath = path.join(__dirname, filePath);
+    const userDataPath = app.getPath('userData');
+    const filePath = path.join(
+      userDataPath,
+      `scores/inputValues-${processId}.json`
+    );
 
     // Ensure the directory exists
-    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+    fs.mkdirSync(path.dirname(filePath), { recursive: true });
 
-    fs.writeFileSync(fullPath, JSON.stringify(inputValues, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(inputValues, null, 2));
     res.json({ message: 'File saved successfully' });
   } catch (error) {
     console.error('Error saving file:', error);
