@@ -504,6 +504,7 @@ window.storeInputValue = async function storeInputValue(
 
       // Assign points based on variance ranking
       let varianceRank = 0;
+      const bonusPoints = 2; // Define the bonus points value
       while (varianceRank < sortedVarianceCompetitors.length) {
         let tieCompetitors = [sortedVarianceCompetitors[varianceRank]];
         const currentVariance = Math.abs(
@@ -540,8 +541,11 @@ window.storeInputValue = async function storeInputValue(
 
         // Assign average points to each tied competitor
         tieCompetitors.forEach((competitor) => {
-          inputValues[competitor][`${game}-${round}-variance-points`] =
-            averagePoints;
+          let points = averagePoints;
+          if (currentVariance === 0) {
+            points += bonusPoints;
+          }
+          inputValues[competitor][`${game}-${round}-variance-points`] = points;
         });
 
         // Move to the next varianceRank after the tie
