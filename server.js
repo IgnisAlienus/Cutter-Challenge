@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const DMX = require('dmx');
 
-const app = express();
+const server = express();
 const port = 3000;
 
 // Initialize DMX
@@ -20,31 +20,31 @@ try {
 }
 
 // Serve static files from the current directory
-app.use(express.static('public'));
-app.use(express.json());
+server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.json());
 
 // Serve the bbq.html file when the root route is accessed
-app.get('/', (req, res) => {
+server.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get('/timers', (req, res) => {
+server.get('/timers', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'timers.html'));
 });
 
-app.get('/current-competitors', (req, res) => {
+server.get('/current-competitors', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'currentCompetitors.html'));
 });
 
-app.get('/leaderboards', (req, res) => {
+server.get('/leaderboards', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'leaderboards.html'));
 });
 
-app.get('/admin', (req, res) => {
+server.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-app.post('/light', (req, res) => {
+server.post('/light', (req, res) => {
   try {
     const lightNumber = parseInt(req.query.lightNumber, 10);
     const action = req.query.action;
@@ -179,7 +179,7 @@ app.post('/light', (req, res) => {
   }
 });
 
-app.post('/save-scores', (req, res) => {
+server.post('/save-scores', (req, res) => {
   try {
     const inputValues = req.body;
 
@@ -201,10 +201,11 @@ app.post('/save-scores', (req, res) => {
   }
 });
 
-app.get('/competitors', (req, res) => {
+// filepath: /c:/Cutter-Challenge/server.js
+server.get('/competitors', (req, res) => {
   try {
     const competitorsData = JSON.parse(
-      fs.readFileSync('./data/competitors.json', 'utf8')
+      fs.readFileSync(path.join(__dirname, 'data', 'competitors.json'), 'utf8')
     );
     res.json(competitorsData);
   } catch (error) {
@@ -215,10 +216,14 @@ app.get('/competitors', (req, res) => {
   }
 });
 
-app.post('/updateCompetitor', (req, res) => {
+server.post('/updateCompetitor', (req, res) => {
   try {
     const { index, name, location } = req.body;
-    const competitorsFilePath = './data/competitors.json';
+    const competitorsFilePath = path.join(
+      __dirname,
+      'data',
+      'competitors.json'
+    );
 
     // Read the existing competitors data
     const competitorsData = JSON.parse(
@@ -250,10 +255,15 @@ app.post('/updateCompetitor', (req, res) => {
   }
 });
 
-app.get('/pointDistribution', (req, res) => {
+server.get('/pointDistribution', (req, res) => {
   try {
+    const pointDistributionFilePath = path.join(
+      __dirname,
+      'data',
+      'pointDistribution.json'
+    );
     const pointDistributionData = JSON.parse(
-      fs.readFileSync('./data/pointDistribution.json', 'utf8')
+      fs.readFileSync(pointDistributionFilePath, 'utf8')
     );
     res.json(pointDistributionData);
   } catch (error) {
@@ -264,11 +274,16 @@ app.get('/pointDistribution', (req, res) => {
   }
 });
 
-app.post('/updatePointDistribution', (req, res) => {
+server.post('/updatePointDistribution', (req, res) => {
   try {
     const pointDistributionData = req.body;
+    const pointDistributionFilePath = path.join(
+      __dirname,
+      'data',
+      'pointDistribution.json'
+    );
     fs.writeFileSync(
-      './data/pointDistribution.json',
+      pointDistributionFilePath,
       JSON.stringify(pointDistributionData, null, 2)
     );
     res.json({
@@ -285,4 +300,4 @@ app.post('/updatePointDistribution', (req, res) => {
   }
 });
 
-module.exports = app;
+module.exports = server;
