@@ -232,7 +232,7 @@ server.post('/updateCompetitor', (req, res) => {
 
       // Write the updated data back to the file
       fs.writeFileSync(
-        competitorsFilePath,
+        path.join(__dirname, 'data', 'competitors.json'),
         JSON.stringify(competitorsData, null, 2)
       );
 
