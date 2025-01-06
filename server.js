@@ -1,10 +1,10 @@
+const app = require('electron').app;
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const DMX = require('dmx');
 
 const server = express();
-const port = 3000;
 
 // Initialize DMX
 const dmx = new DMX();
@@ -201,12 +201,33 @@ server.post('/save-scores', (req, res) => {
   }
 });
 
-// filepath: /c:/Cutter-Challenge/server.js
 server.get('/competitors', (req, res) => {
   try {
-    const competitorsData = JSON.parse(
-      fs.readFileSync(path.join(__dirname, 'data', 'competitors.json'), 'utf8')
-    );
+    const userDataPath = app.getPath('userData');
+    const competitorsFilePath = path.join(userDataPath, 'competitors.json');
+
+    let competitorsData;
+    if (fs.existsSync(competitorsFilePath)) {
+      competitorsData = JSON.parse(
+        fs.readFileSync(competitorsFilePath, 'utf8')
+      );
+    } else {
+      const defaultCompetitorsFilePath = path.join(
+        __dirname,
+        'data',
+        'competitors.json'
+      );
+      competitorsData = JSON.parse(
+        fs.readFileSync(defaultCompetitorsFilePath, 'utf8')
+      );
+
+      // Save a copy to the user's app data directory
+      fs.writeFileSync(
+        competitorsFilePath,
+        JSON.stringify(competitorsData, null, 2)
+      );
+    }
+
     res.json(competitorsData);
   } catch (error) {
     console.error('Error reading competitors data:', error);
@@ -220,9 +241,20 @@ server.post('/updateCompetitor', (req, res) => {
   try {
     const { index, name, location } = req.body;
 
+    // Construct the path to the competitors.json file in the user's app data directory
+    const userDataPath = app.getPath('userData');
+    const competitorsPath = path.join(userDataPath, 'competitors.json');
+
+    // Check if the file exists
+    if (!fs.existsSync(competitorsPath)) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'File not found' });
+    }
+
     // Read the existing competitors data
     const competitorsData = JSON.parse(
-      fs.readFileSync(path.join(__dirname, 'data', 'competitors.json'), 'utf8')
+      fs.readFileSync(competitorsPath, 'utf8')
     );
 
     // Update the competitor's information
@@ -232,7 +264,7 @@ server.post('/updateCompetitor', (req, res) => {
 
       // Write the updated data back to the file
       fs.writeFileSync(
-        path.join(__dirname, 'data', 'competitors.json'),
+        competitorsPath,
         JSON.stringify(competitorsData, null, 2)
       );
 
@@ -252,14 +284,34 @@ server.post('/updateCompetitor', (req, res) => {
 
 server.get('/pointDistribution', (req, res) => {
   try {
+    const userDataPath = app.getPath('userData');
     const pointDistributionFilePath = path.join(
-      __dirname,
-      'data',
+      userDataPath,
       'pointDistribution.json'
     );
-    const pointDistributionData = JSON.parse(
-      fs.readFileSync(pointDistributionFilePath, 'utf8')
-    );
+
+    let pointDistributionData;
+    if (fs.existsSync(pointDistributionFilePath)) {
+      pointDistributionData = JSON.parse(
+        fs.readFileSync(pointDistributionFilePath, 'utf8')
+      );
+    } else {
+      const defaultPointDistributionFilePath = path.join(
+        __dirname,
+        'data',
+        'pointDistribution.json'
+      );
+      pointDistributionData = JSON.parse(
+        fs.readFileSync(defaultPointDistributionFilePath, 'utf8')
+      );
+
+      // Save a copy to the user's app data directory
+      fs.writeFileSync(
+        pointDistributionFilePath,
+        JSON.stringify(pointDistributionData, null, 2)
+      );
+    }
+
     res.json(pointDistributionData);
   } catch (error) {
     console.error('Error reading point distribution data:', error);
@@ -272,9 +324,9 @@ server.get('/pointDistribution', (req, res) => {
 server.post('/updatePointDistribution', (req, res) => {
   try {
     const pointDistributionData = req.body;
+    const userDataPath = app.getPath('userData');
     const pointDistributionFilePath = path.join(
-      __dirname,
-      'data',
+      userDataPath,
       'pointDistribution.json'
     );
     fs.writeFileSync(
