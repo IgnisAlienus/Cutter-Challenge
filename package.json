@@ -9,6 +9,7 @@
   "dependencies": {
     "@serialport/bindings": "^9.2.9",
     "dmx": "^0.2.5",
+    "electron-updater": "^6.3.9",
     "express": "^4.21.2",
     "nan": "^2.22.0"
   },
@@ -30,6 +31,11 @@
       "target": [
         "nsis"
       ]
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "IgnisAlienus",
+      "repo": "Cutter-Challenge"
     },
     "nsis": {
       "oneClick": true,
