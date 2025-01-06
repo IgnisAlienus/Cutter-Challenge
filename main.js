@@ -40,7 +40,7 @@ app.on('ready', () => {
     width: 800,
     height: 600,
     frame: true,
-    icon: path.join(__dirname, './public/resources/cutterLogo.png'),
+    icon: path.join(__dirname, 'assets/icons/icon.ico'),
     fullscreen: displays.length > 1,
     webPreferences: {
       preload: path.join(__dirname, './public/preload.js'),
@@ -73,7 +73,7 @@ app.on('ready', () => {
     width: 800,
     height: 600,
     frame: true,
-    icon: path.join(__dirname, './public/resources/cutterLogo.png'),
+    icon: path.join(__dirname, 'assets/icons/icon.ico'),
     fullscreen: displays.length > 1,
     webPreferences: {
       preload: path.join(__dirname, './public/preload.js'),
