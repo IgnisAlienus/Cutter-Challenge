@@ -1,0 +1,113 @@
+@font-face {
+  font-family: "Rudy's Font";
+  src: url('/fonts/SignPainter-HouseBrush.otf') format('opentype');
+}
+
+body {
+  background-color: rgb(217, 59, 32);
+  color: white;
+  font-family: "Rudy's Font";
+  overflow: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+h1 {
+  margin-top: 45px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 100px;
+}
+
+table {
+  width: 80%;
+  border-collapse: collapse;
+  margin: 20px auto;
+  text-align: center;
+}
+
+th,
+td {
+  padding: 8px;
+}
+
+.possiblePoints {
+  font-size: 25px;
+}
+
+th {
+  font-size: 65px;
+}
+
+td {
+  font-size: 45px;
+}
+
+.red {
+  color: rgb(217, 59, 32);
+}
+
+.eliminated {
+  text-decoration: line-through;
+}
+
+.currentCompetitorsDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.currentCompetitorDiv {
+  flex: 1 1 30%;
+  margin: 10px;
+  padding: 10px;
+  font-size: 3rem;
+  text-align: center;
+  max-width: 30%;
+}
+
+.currentCompetitorName {
+  font-size: 50px;
+  margin: 5px;
+}
+
+.gameDiv {
+}
+
+.gameHeader {
+  font-size: 40px;
+  margin: 5px;
+}
+
+.roundDiv {
+}
+
+.roundHeader {
+  font-size: 30px;
+  margin: 5px;
+}
+
+.scoringsDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.scoreDiv {
+  margin: 3px;
+  flex: 1 1 25%;
+  padding: 10px;
+  font-size: 3rem;
+  text-align: center;
+  max-width: 25%;
+}
+
+.scoreDiv p {
+  margin: 3px;
+  font-size: 25px;
+}

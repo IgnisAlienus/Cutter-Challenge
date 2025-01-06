@@ -1,8 +1,41 @@
 {
+  "name": "cutter-challenge",
+  "version": "1.0.0",
+  "description": "An Electron app for managing competitor data.",
+  "main": "main.js",
   "dependencies": {
+    "@serialport/bindings": "^9.2.9",
     "dmx": "^0.2.5",
-    "electron": "^33.2.1",
-    "express": "^4.19.2",
-    "xlsx": "^0.18.5"
-  }
+    "express": "^4.21.2",
+    "nan": "^2.22.0"
+  },
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2",
+    "electron-rebuild": "^3.2.9"
+  },
+  "scripts": {
+    "start": "electron .",
+    "package": "electron-packager . CutterChallenge --platform=win32 --arch=x64 --out=dist/ --overwrite",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.cutter.challenge",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/icons/icon.ico"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "author": "Andrew Hunt",
+  "license": "MIT"
 }

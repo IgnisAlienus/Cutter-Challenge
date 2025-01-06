@@ -1,8 +1,9 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const DMX = require('dmx');
 
-const app = express();
+const server = express();
 const port = 3000;
 
 // Initialize DMX
@@ -19,14 +20,31 @@ try {
 }
 
 // Serve static files from the current directory
-app.use(express.static('public'));
+server.use(express.static(path.join(__dirname, 'public')));
+server.use(express.json());
 
 // Serve the bbq.html file when the root route is accessed
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'bbq.html'));
+server.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.post('/light', (req, res) => {
+server.get('/timers', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'timers.html'));
+});
+
+server.get('/current-competitors', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'currentCompetitors.html'));
+});
+
+server.get('/leaderboards', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'leaderboards.html'));
+});
+
+server.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+server.post('/light', (req, res) => {
   try {
     const lightNumber = parseInt(req.query.lightNumber, 10);
     const action = req.query.action;
@@ -103,12 +121,21 @@ app.post('/light', (req, res) => {
         other1: 0,
         other2: 0,
       },
+      red: {
+        intensity: 255,
+        color1: 255,
+        color2: 0,
+        color3: 0,
+        strobe: 0,
+        other1: 0,
+        other2: 0,
+      },
     };
 
     if (!isNaN(lightNumber) && action !== undefined) {
       if (actionMap[action] !== undefined) {
         const dmxValues = actionMap[action];
-        const startingChannel = lightNumber * 7 + 1;
+        const startingChannel = (lightNumber - 1) * 7 + 1;
 
         const updateLight = (strobeValue) => {
           universe.update({
@@ -125,7 +152,8 @@ app.post('/light', (req, res) => {
         if (action === 'stop') {
           let flashes = 0;
           const flashInterval = setInterval(() => {
-            updateLight(flashes % 2 === 0 ? 255 : 0); // Toggle strobe on and off
+            // Toggle strobe on and off
+            updateLight(flashes % 2 === 0 ? 255 : 0);
             flashes++;
             if (flashes >= 12) {
               // Flash 3 times (on and off counts as one flash)
@@ -151,6 +179,125 @@ app.post('/light', (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+server.post('/save-scores', (req, res) => {
+  try {
+    const inputValues = req.body;
+
+    const processId = process.pid;
+    const filePath = `./data/scores/inputValues-${processId}.json`;
+
+    const fullPath = path.join(__dirname, filePath);
+
+    // Ensure the directory exists
+    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+
+    fs.writeFileSync(fullPath, JSON.stringify(inputValues, null, 2));
+    res.json({ message: 'File saved successfully' });
+  } catch (error) {
+    console.error('Error saving file:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
 });
+
+// filepath: /c:/Cutter-Challenge/server.js
+server.get('/competitors', (req, res) => {
+  try {
+    const competitorsData = JSON.parse(
+      fs.readFileSync(path.join(__dirname, 'data', 'competitors.json'), 'utf8')
+    );
+    res.json(competitorsData);
+  } catch (error) {
+    console.error('Error reading competitors data:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
+server.post('/updateCompetitor', (req, res) => {
+  try {
+    const { index, name, location } = req.body;
+    const competitorsFilePath = path.join(
+      __dirname,
+      'data',
+      'competitors.json'
+    );
+
+    // Read the existing competitors data
+    const competitorsData = JSON.parse(
+      fs.readFileSync(competitorsFilePath, 'utf8')
+    );
+
+    // Update the competitor's information
+    if (competitorsData[index]) {
+      competitorsData[index].name = name;
+      competitorsData[index].location = location;
+
+      // Write the updated data back to the file
+      fs.writeFileSync(
+        competitorsFilePath,
+        JSON.stringify(competitorsData, null, 2)
+      );
+
+      res.json({ success: true, message: 'Competitor updated successfully' });
+    } else {
+      res.status(404).json({ success: false, message: 'Competitor not found' });
+    }
+  } catch (error) {
+    console.error('Error updating competitor:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+
+server.get('/pointDistribution', (req, res) => {
+  try {
+    const pointDistributionFilePath = path.join(
+      __dirname,
+      'data',
+      'pointDistribution.json'
+    );
+    const pointDistributionData = JSON.parse(
+      fs.readFileSync(pointDistributionFilePath, 'utf8')
+    );
+    res.json(pointDistributionData);
+  } catch (error) {
+    console.error('Error reading point distribution data:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
+server.post('/updatePointDistribution', (req, res) => {
+  try {
+    const pointDistributionData = req.body;
+    const pointDistributionFilePath = path.join(
+      __dirname,
+      'data',
+      'pointDistribution.json'
+    );
+    fs.writeFileSync(
+      pointDistributionFilePath,
+      JSON.stringify(pointDistributionData, null, 2)
+    );
+    res.json({
+      success: true,
+      message: 'Point distribution updated successfully',
+    });
+  } catch (error) {
+    console.error('Error updating point distribution:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server Error',
+      error: error.message,
+    });
+  }
+});
+
+module.exports = server;
