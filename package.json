@@ -40,7 +40,8 @@
     "win": {
       "icon": "assets/icons/icon.png",
       "target": [
-        "nsis"
+        "nsis",
+        "msi"
       ]
     },
     "publish": {
