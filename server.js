@@ -219,15 +219,10 @@ server.get('/competitors', (req, res) => {
 server.post('/updateCompetitor', (req, res) => {
   try {
     const { index, name, location } = req.body;
-    const competitorsFilePath = path.join(
-      __dirname,
-      'data',
-      'competitors.json'
-    );
 
     // Read the existing competitors data
     const competitorsData = JSON.parse(
-      fs.readFileSync(competitorsFilePath, 'utf8')
+      fs.readFileSync(path.join(__dirname, 'data', 'competitors.json'), 'utf8')
     );
 
     // Update the competitor's information
