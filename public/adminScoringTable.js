@@ -46,6 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const row = document.createElement('tr');
       const headerCell = document.createElement('th');
       headerCell.innerHTML = key.replace(/-/g, '<br>');
+      headerCell.innerHTML = headerCell.innerHTML.replace(/\b\w/g, (char) =>
+        char.toUpperCase()
+      );
+      headerCell.innerHTML = headerCell.innerHTML.replace(/(\d+)/g, ' $1');
       row.appendChild(headerCell);
 
       let rowTotal = 0;
