@@ -45,8 +45,12 @@ async function updateLeaderboards(data, gameFilter) {
     }
     const personData = data[person];
     const games = {};
+    let eliminated = false;
 
     for (const key in personData) {
+      if (key === 'eliminated') {
+        eliminated = personData[key];
+      }
       // If current competitor, add to currentCompetitorsData
       if (currentCompetitorMatch) {
         currentCompetitorsData[person] = {
@@ -65,6 +69,7 @@ async function updateLeaderboards(data, gameFilter) {
 
     const entry = {
       name: person,
+      eliminated,
       ...games,
     };
 
@@ -93,6 +98,9 @@ async function updateLeaderboards(data, gameFilter) {
       // Find amount of different games and rounds within each game
       const games = {};
       for (const key in currentCompetitor) {
+        if (key === 'eliminated') {
+          continue;
+        }
         const game = key.split('-')[0];
         if (!games[game]) {
           games[game] = {};
@@ -232,6 +240,9 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   // Create table rows
   leaderboardEntries.forEach((entry) => {
     const row = document.createElement('tr');
+    if (entry.eliminated) {
+      row.classList.add('eliminated');
+    }
     const nameCell = document.createElement('td');
     nameCell.textContent = entry.name;
     row.appendChild(nameCell);

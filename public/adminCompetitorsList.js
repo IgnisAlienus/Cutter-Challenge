@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span id="competitorName${index}">${c.name}</span> - <span id="competitorLocation${index}">${c.location}</span>
               </label>
               <button class="editButton" id="editButton${index}" onclick="editCompetitor(${index})">✏️</button>
+                  <input type="checkbox" id="eliminated${index}" onchange="toggleEliminated(${index}, \`${c.name}\`)">
+                  <label class="eliminated" for="eliminated${index}">Eliminated</label>
             </div>
             <div class="scoring hidden" id="scoring-${index}">
               <h4>Game 1</h4>
@@ -292,6 +294,20 @@ window.updateVariance = function updateVariance(index, round) {
   }
 };
 
+window.toggleEliminated = function toggleEliminated(index, name) {
+  const isEliminated = document.getElementById(`eliminated${index}`).checked;
+
+  // Get inputValues from localStorage
+  const inputValues = JSON.parse(localStorage.getItem('inputValuesChanged'));
+
+  // Find the competitor's inputValues and update the eliminated status
+  if (inputValues && inputValues[name]) {
+    inputValues[name].eliminated = isEliminated;
+    // Store the updated inputValues in localStorage
+    localStorage.setItem('inputValuesChanged', JSON.stringify(inputValues));
+  }
+};
+
 window.storeInputValue = async function storeInputValue(
   index,
   game,
@@ -300,15 +316,6 @@ window.storeInputValue = async function storeInputValue(
   name,
   variance
 ) {
-  console.log(
-    'Storing input value:',
-    index,
-    game,
-    round,
-    metric,
-    name,
-    variance
-  );
   const inputElement = document.getElementById(
     `${game}-${round}-${metric}-${index}`
   );
@@ -317,6 +324,11 @@ window.storeInputValue = async function storeInputValue(
     if (!inputValues[name]) {
       inputValues[name] = {};
     }
+
+    // Get if competitor is eliminated
+    const isEliminated = document.getElementById(`eliminated${index}`).checked;
+    inputValues[name].eliminated = isEliminated;
+
     const value = metric === 'variance' ? variance : inputElement.value;
     const existingValue = inputValues[name][key];
     inputValues[name][key] = value;
@@ -369,8 +381,6 @@ window.storeInputValue = async function storeInputValue(
       const bValue = timeStringToSeconds(
         inputValues[b][`${game}-${round}-speed-total`] || '0:00:00'
       );
-      console.log('aValue:', aValue);
-      console.log('bValue:', bValue);
       // Ascending for speed
       return aValue - bValue;
     });
@@ -559,7 +569,6 @@ window.storeInputValue = async function storeInputValue(
 
 // Add this function to handle recalculation of scores
 function recalculateScores() {
-  console.log('Recalculating scores...');
   for (const name in inputValues) {
     for (const key in inputValues[name]) {
       const [game, round, metric] = key.split('-');

@@ -50,6 +50,10 @@ td {
   color: rgb(217, 59, 32);
 }
 
+.eliminated {
+  text-decoration: line-through;
+}
+
 .currentCompetitorsDiv {
   display: flex;
   justify-content: center;

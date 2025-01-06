@@ -111,6 +111,10 @@ button:hover {
   margin-right: 10px;
 }
 
+.eliminated {
+  font-size: 1rem;
+}
+
 .scoring {
   margin-left: 35px;
 }
