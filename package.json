@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager . \"Rudy's Cutter Challenge\" --platform=win32,mas --arch=x64 --out=dist/ --overwrite",
+    "package": "electron-packager . \"Rudy's Cutter Challenge\" --platform=win32 --arch=x64 --out=dist/ --overwrite",
     "dist": "electron-builder"
   },
   "build": {
@@ -41,12 +41,6 @@
       "icon": "assets/icons/icon.png",
       "target": [
         "nsis"
-      ]
-    },
-    "mac": {
-      "icon": "assets/icons/icon.icns",
-      "target": [
-        "pkg"
       ]
     },
     "publish": {
