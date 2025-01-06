@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   document
+    .getElementById('goToCompetitorsLeaderboards')
+    .addEventListener('click', () => {
+      changePage('leaderboards#selected');
+    });
+
+  document
     .getElementById('goToGame1Leaderboards')
     .addEventListener('click', () => {
       changePage('leaderboards#game1');

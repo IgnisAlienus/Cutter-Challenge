@@ -2,7 +2,7 @@ import { currentCompetitors as defaultCompetitors } from './globals.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // Function to update the timers
-  const updateTimers = (competitors) => {
+  const updateNames = (competitors) => {
     competitors.forEach((competitor, index) => {
       const timerTitle = document.querySelector(
         `#competitor${index + 1} .competitor-name`
@@ -22,10 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Get the initial currentCompetitors from localStorage
   const storedCompetitors = localStorage.getItem('currentCompetitors');
   if (storedCompetitors) {
-    updateTimers(JSON.parse(storedCompetitors));
+    updateNames(JSON.parse(storedCompetitors));
   } else {
     // If no stored competitors, use default values
-    updateTimers(defaultCompetitors);
+    updateNames(defaultCompetitors);
     localStorage.setItem(
       'currentCompetitors',
       JSON.stringify(defaultCompetitors)
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Listen for changes to localStorage
   window.addEventListener('storage', (event) => {
     if (event.key === 'currentCompetitors') {
-      updateTimers(JSON.parse(event.newValue));
+      updateNames(JSON.parse(event.newValue));
     }
   });
 });

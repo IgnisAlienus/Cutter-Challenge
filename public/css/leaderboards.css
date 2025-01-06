@@ -49,3 +49,61 @@ td {
 .red {
   color: rgb(217, 59, 32);
 }
+
+.currentCompetitorsDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.currentCompetitorDiv {
+  flex: 1 1 30%;
+  margin: 10px;
+  padding: 10px;
+  font-size: 3rem;
+  text-align: center;
+  max-width: 30%;
+}
+
+.currentCompetitorName {
+  font-size: 50px;
+  margin: 5px;
+}
+
+.gameDiv {
+}
+
+.gameHeader {
+  font-size: 40px;
+  margin: 5px;
+}
+
+.roundDiv {
+}
+
+.roundHeader {
+  font-size: 30px;
+  margin: 5px;
+}
+
+.scoringsDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.scoreDiv {
+  margin: 3px;
+  flex: 1 1 25%;
+  padding: 10px;
+  font-size: 3rem;
+  text-align: center;
+  max-width: 25%;
+}
+
+.scoreDiv p {
+  margin: 3px;
+  font-size: 25px;
+}
