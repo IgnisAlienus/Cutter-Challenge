@@ -26,6 +26,16 @@
   },
   "build": {
     "appId": "com.cutter.challenge",
+    "productName": "Rudy's Cutter Challenge",
+    "files": [
+      "main.js",
+      "assets/**/*",
+      "index.html",
+      "data/**/*",
+      "server.js",
+      "public/**/*",
+      "data/competitors.json"
+    ],
     "win": {
       "icon": "assets/icons/icon.png",
       "target": [
