@@ -14,6 +14,50 @@ let mainWindow;
 let secondWindow;
 
 app.on('ready', () => {
+  // Check for updates
+  autoUpdater.checkForUpdatesAndNotify();
+
+  // Set up auto-updater events
+  autoUpdater.on('checking-for-update', () => {
+    console.log('Checking for updates...');
+  });
+
+  autoUpdater.on('update-available', (info) => {
+    console.log('Update available:', info);
+    // Optionally show a notification about the update being available
+  });
+
+  autoUpdater.on('update-not-available', (info) => {
+    console.log('Update not available:', info);
+  });
+
+  autoUpdater.on('error', (err) => {
+    console.error('Update error:', err);
+  });
+
+  autoUpdater.on('download-progress', (progressObj) => {
+    let percent = progressObj.percent;
+    console.log(`Download progress: ${percent}%`);
+  });
+
+  autoUpdater.on('update-downloaded', (info) => {
+    console.log('Update downloaded:', info);
+    // Show dialog asking user to install the update
+    dialog
+      .showMessageBox(mainWindow, {
+        type: 'info',
+        title: 'Update Available',
+        message: 'A new version is ready to install. Do you want to restart?',
+        buttons: ['Restart', 'Later'],
+      })
+      .then((result) => {
+        if (result.response === 0) {
+          // Restart the app to apply the update
+          autoUpdater.quitAndInstall();
+        }
+      });
+  });
+
   // Start Express server on localhost:3000
   server.listen(3000, () => {
     console.log('Server running at http://localhost:3000/');
@@ -95,50 +139,6 @@ app.on('ready', () => {
   secondWindow.on('closed', () => {
     secondWindow = null;
     app.quit();
-  });
-
-  // Check for updates
-  autoUpdater.checkForUpdatesAndNotify();
-
-  // Set up auto-updater events
-  autoUpdater.on('checking-for-update', () => {
-    console.log('Checking for updates...');
-  });
-
-  autoUpdater.on('update-available', (info) => {
-    console.log('Update available:', info);
-    // Optionally show a notification about the update being available
-  });
-
-  autoUpdater.on('update-not-available', (info) => {
-    console.log('Update not available:', info);
-  });
-
-  autoUpdater.on('error', (err) => {
-    console.error('Update error:', err);
-  });
-
-  autoUpdater.on('download-progress', (progressObj) => {
-    let percent = progressObj.percent;
-    console.log(`Download progress: ${percent}%`);
-  });
-
-  autoUpdater.on('update-downloaded', (info) => {
-    console.log('Update downloaded:', info);
-    // Show dialog asking user to install the update
-    dialog
-      .showMessageBox(mainWindow, {
-        type: 'info',
-        title: 'Update Available',
-        message: 'A new version is ready to install. Do you want to restart?',
-        buttons: ['Restart', 'Later'],
-      })
-      .then((result) => {
-        if (result.response === 0) {
-          // Restart the app to apply the update
-          autoUpdater.quitAndInstall();
-        }
-      });
   });
 
   // Register a global shortcut for F11 to toggle fullscreen mode for both windows
