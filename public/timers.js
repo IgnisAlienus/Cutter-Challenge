@@ -25,22 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (intervals.some((interval) => interval !== null)) return;
 
     const countdownElement = document.createElement('div');
-    countdownElement.style.position = 'fixed';
-    countdownElement.style.top = '50%';
-    countdownElement.style.left = '50%';
-    countdownElement.style.transform = 'translate(-50%, -50%)';
-    countdownElement.style.fontSize = '10em';
-    countdownElement.style.color = 'white';
-    countdownElement.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-    countdownElement.style.padding = '20px';
-    countdownElement.style.borderRadius = '10px';
-    countdownElement.style.zIndex = '1000';
-    countdownElement.style.textAlign = 'center';
-    countdownElement.style.width = '400px';
-    countdownElement.style.height = '300px';
-    countdownElement.style.display = 'flex';
-    countdownElement.style.alignItems = 'center';
-    countdownElement.style.justifyContent = 'center';
+    countdownElement.classList.add('countdown');
 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -52,16 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(countdownElement);
     for (let i = 3; i > 0; i--) {
       countdownElement.innerHTML = i;
-      playSound('countdown.mp3');
+      //playSound('countdown.mp3');
+      playSound(`${i}.mp3`);
       ['1', '2', '3'].forEach((index) => changeLight(index, 'countdown2'));
-      await delay(500);
+      await delay(600);
       ['1', '2', '3'].forEach((index) => changeLight(index, 'countdown1'));
-      await delay(500);
+      await delay(600);
     }
 
     // Display "CUT!" and start timers
     countdownElement.innerHTML = 'CUT!';
-    playSound('knife.mp3');
+    playSound('knife.mp3', 0.25);
+    playSound('cut.mp3', 1.0);
     ['1', '2', '3'].forEach((index) => changeLight(index, 'start'));
     await delay(100);
 

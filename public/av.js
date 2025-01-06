@@ -1,5 +1,8 @@
-function playSound(soundFile) {
+function playSound(soundFile, volume) {
   const audio = new Audio(`/resources/${soundFile}`);
+  if (volume) {
+    audio.volume = volume;
+  }
   audio.play();
 }
 
