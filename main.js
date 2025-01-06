@@ -4,8 +4,10 @@ const {
   screen,
   globalShortcut,
   ipcMain,
+  dialog,
 } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const log = require('electron-log');
 const server = require('./server');
 const fs = require('fs');
 const path = require('path');
@@ -13,35 +15,42 @@ const path = require('path');
 let mainWindow;
 let secondWindow;
 
+// Configure logging
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
+log.info('Log file location:', log.transports.file.getFile().path);
+
 app.on('ready', () => {
   // Check for updates
+  log.info('Checking for updates...');
   autoUpdater.checkForUpdatesAndNotify();
 
   // Set up auto-updater events
   autoUpdater.on('checking-for-update', () => {
-    console.log('Checking for updates...');
+    log.info('Checking for updates...');
   });
 
   autoUpdater.on('update-available', (info) => {
-    console.log('Update available:', info);
+    log.info('Update available:', info);
     // Optionally show a notification about the update being available
   });
 
   autoUpdater.on('update-not-available', (info) => {
-    console.log('Update not available:', info);
+    log.info('Update not available:', info);
   });
 
   autoUpdater.on('error', (err) => {
-    console.error('Update error:', err);
+    log.error('Update error:', err);
   });
 
   autoUpdater.on('download-progress', (progressObj) => {
     let percent = progressObj.percent;
-    console.log(`Download progress: ${percent}%`);
+    log.info(`Download progress: ${percent}%`);
   });
 
   autoUpdater.on('update-downloaded', (info) => {
-    console.log('Update downloaded:', info);
+    log.info('Update downloaded:', info);
     // Show dialog asking user to install the update
     dialog
       .showMessageBox(mainWindow, {
@@ -60,7 +69,7 @@ app.on('ready', () => {
 
   // Start Express server on localhost:3000
   server.listen(3000, () => {
-    console.log('Server running at http://localhost:3000/');
+    log.info('Server running at http://localhost:3000/');
   });
 
   // Get the displays
@@ -153,7 +162,7 @@ app.on('ready', () => {
   // Listen for the close-windows event from the renderer process
   ipcMain.on('close-windows', () => {
     if (mainWindow) mainWindow.close();
-    if (secondWindow) secondWindow.close();
+    if (secondWindow) mainWindow.close();
   });
 
   // Listen for the change-page event from the renderer process
