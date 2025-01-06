@@ -119,15 +119,14 @@ app.on('ready', () => {
   });
 
   // Make default directories if they don't exist
-  const dataDir = './data';
-  const scoresDir = './data/scores';
+  const dataDir = path.join(__dirname, 'data');
+  const scoresDir = path.join(dataDir, 'scores');
 
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir);
-  }
-
-  if (!fs.existsSync(scoresDir)) {
-    fs.mkdirSync(scoresDir);
+    if (!fs.existsSync(scoresDir)) {
+      fs.mkdirSync(scoresDir);
+    }
   }
 });
 
