@@ -161,6 +161,16 @@ button:hover {
   margin-top: 20px;
 }
 
+.perfectCutBonusDiv {
+  font-family: 'Courier New', monospace;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.perfectCutBonusInput {
+  width: 50px;
+}
+
 .scoring div {
   margin-bottom: 10px;
 }

@@ -435,7 +435,8 @@ window.storeInputValue = async function storeInputValue(
         const bValue = parseFloat(
           inputValues[b][`${game}-${round}-presentation`] || 0
         );
-        return bValue - aValue; // Descending for presentation
+        // Descending for presentation
+        return bValue - aValue;
       }
     );
 
@@ -504,7 +505,6 @@ window.storeInputValue = async function storeInputValue(
 
       // Assign points based on variance ranking
       let varianceRank = 0;
-      const bonusPoints = 2; // Define the bonus points value
       while (varianceRank < sortedVarianceCompetitors.length) {
         let tieCompetitors = [sortedVarianceCompetitors[varianceRank]];
         const currentVariance = Math.abs(
@@ -534,6 +534,7 @@ window.storeInputValue = async function storeInputValue(
 
         // Calculate average points for tied competitors
         const pointsArray = pointsDistribution[`${game}-${round}-variance`];
+        const perfectCutPoints = pointsDistribution['perfect-cut-bonus'];
         const totalPoints = tieCompetitors.reduce((sum, _, index) => {
           return sum + (pointsArray[varianceRank + index] || 1);
         }, 0);
@@ -543,7 +544,7 @@ window.storeInputValue = async function storeInputValue(
         tieCompetitors.forEach((competitor) => {
           let points = averagePoints;
           if (currentVariance === 0) {
-            points += bonusPoints;
+            points += perfectCutPoints;
           }
           inputValues[competitor][`${game}-${round}-variance-points`] = points;
         });

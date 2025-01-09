@@ -14,6 +14,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   function createTable(data) {
+    // Add input for perfect-cut-bonus before the table
+    const perfectCutBonusDiv = document.createElement('div');
+    perfectCutBonusDiv.classList.add('perfectCutBonusDiv');
+
+    const perfectCutBonusLabel = document.createElement('span');
+    perfectCutBonusLabel.innerHTML = 'Game 1 Perfect Cut Bonus: ';
+
+    const perfectCutBonusInput = document.createElement('input');
+    perfectCutBonusInput.classList.add('perfectCutBonusInput');
+    perfectCutBonusInput.type = 'number';
+    perfectCutBonusInput.value = data['perfect-cut-bonus'];
+    perfectCutBonusInput.dataset.key = 'perfect-cut-bonus';
+    perfectCutBonusInput.addEventListener('change', handleInputChange);
+
+    perfectCutBonusDiv.appendChild(perfectCutBonusLabel);
+    perfectCutBonusDiv.appendChild(perfectCutBonusInput);
+
+    scoringDiv.appendChild(perfectCutBonusDiv);
+
     const table = document.createElement('table');
     table.classList.add('scoreTable');
 
@@ -43,6 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
     table.appendChild(headerRow);
 
     for (const [key, values] of Object.entries(data)) {
+      console.log(key, values);
+      if (key === 'perfect-cut-bonus') {
+        console.log('perfect-cut-bonus', values);
+        perfectCutBonusInput.value = values;
+        continue;
+      }
       const row = document.createElement('tr');
       const headerCell = document.createElement('th');
       headerCell.innerHTML = key.replace(/-/g, '<br>');
@@ -77,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
       table.appendChild(row);
     }
 
+    scoringDiv.appendChild(perfectCutBonusDiv);
     scoringDiv.appendChild(table);
   }
 
@@ -86,17 +112,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const index = input.dataset.index;
     const newValue = parseFloat(input.value);
 
-    pointsDistribution[key][index] = newValue;
+    if (key === 'perfect-cut-bonus') {
+      pointsDistribution[key] = newValue;
+    } else {
+      pointsDistribution[key][index] = newValue;
 
-    // Update the total cell
-    const row = input.closest('tr');
-    const totalCell = row.querySelector('.totalCell');
-    const inputs = row.querySelectorAll('input');
-    let rowTotal = 0;
-    inputs.forEach((input) => {
-      rowTotal += parseFloat(input.value) || 0;
-    });
-    totalCell.innerHTML = rowTotal;
+      // Update the total cell
+      const row = input.closest('tr');
+      const totalCell = row.querySelector('.totalCell');
+      const inputs = row.querySelectorAll('input');
+      let rowTotal = 0;
+      inputs.forEach((input) => {
+        rowTotal += parseFloat(input.value) || 0;
+      });
+      totalCell.innerHTML = rowTotal;
+    }
 
     // Send POST request to update the JSON on the server
     fetch('/updatePointDistribution', {
