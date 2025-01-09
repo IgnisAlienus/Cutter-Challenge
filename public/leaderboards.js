@@ -225,6 +225,9 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   const gameHeaders = ['game1', 'game2', 'game3'];
   gameHeaders.forEach((game, index) => {
     let classList = 'tableHeader';
+    if (gameFilter !== game && gameFilter !== 'all') {
+      classList += ' red';
+    }
     const gameHeader = document.createElement('th');
     gameHeader.innerHTML = `<div class="${classList}">Game ${index + 1}</div>`;
     headerRow.appendChild(gameHeader);
@@ -235,17 +238,20 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   // Create table rows
   leaderboardEntries.forEach((entry) => {
     const row = document.createElement('tr');
-    if (entry.eliminated) {
-      row.classList.add('eliminated');
-    }
     const nameCell = document.createElement('td');
     nameCell.textContent = entry.name;
+    if (entry.eliminated) {
+      nameCell.classList.add('eliminated');
+    }
     row.appendChild(nameCell);
 
     gameHeaders.forEach((game) => {
       let gameCellClass = 'tableCell';
       if (gameFilter !== game && gameFilter !== 'all') {
         gameCellClass += ' red';
+      }
+      if (entry.eliminated) {
+        gameCellClass += ' eliminated';
       }
       const gameCell = document.createElement('td');
       const gameCellPoints = entry[game] || 0;
