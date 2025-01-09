@@ -187,6 +187,25 @@ app.on('ready', () => {
         }
       });
   });
+
+  // Additional logging and validation
+  autoUpdater.on('update-available', (info) => {
+    if (info.version && info.version !== app.getVersion()) {
+      log.info('Update available:', info);
+      dialog.showMessageBox(mainWindow, {
+        type: 'info',
+        title: 'Update Available',
+        message: `A new version (${info.version}) is available. Downloading now...`,
+      });
+    } else {
+      log.info(
+        'False update notification. Current version:',
+        app.getVersion(),
+        'Update info:',
+        info
+      );
+    }
+  });
 });
 
 // Quit app when all windows are closed
