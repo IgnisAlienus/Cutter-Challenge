@@ -43,6 +43,13 @@
         "nsis"
       ]
     },
+    "mac": {
+      "icon": "assets/icons/icon.icns",
+      "target": [
+        "dmg",
+        "pkg"
+      ]
+    },
     "publish": {
       "provider": "github",
       "owner": "IgnisAlienus",
