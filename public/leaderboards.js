@@ -67,6 +67,16 @@ async function updateLeaderboards(data, gameFilter) {
       }
     }
 
+    // Accumulate points from previous games
+    let totalPoints = 0;
+    for (const game of ['game1', 'game2', 'game3']) {
+      if (games[game]) {
+        totalPoints += games[game];
+        // Update the game points to include previous games' points
+        games[game] = totalPoints;
+      }
+    }
+
     const entry = {
       name: person,
       eliminated,
@@ -79,7 +89,7 @@ async function updateLeaderboards(data, gameFilter) {
   if (gameFilter === 'selected') {
     // Use currentCompetitorsData to build leaderboard
     // Up to 3 Current Competitors
-    // Create 3 columns, not a table, side by side, one for each competitor to display thier data and points
+    // Create 3 columns, not a table, side by side, one for each competitor to display their data and points
     const currentCompetitorsDiv = document.createElement('div');
     currentCompetitorsDiv.classList.add('currentCompetitorsDiv');
     leaderboards.appendChild(currentCompetitorsDiv);
@@ -215,23 +225,8 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   const gameHeaders = ['game1', 'game2', 'game3'];
   gameHeaders.forEach((game, index) => {
     let classList = 'tableHeader';
-    let possiblePointsClass = 'possiblePoints';
-    if (gameFilter !== game && gameFilter !== 'all') {
-      classList += ' red';
-      possiblePointsClass += ' red';
-    }
     const gameHeader = document.createElement('th');
-    let gameCellTotalPoints = 0;
-    if (game === 'game1') {
-      gameCellTotalPoints = 60;
-    } else if (game === 'game2') {
-      gameCellTotalPoints = 35;
-    } else if (game === 'game3') {
-      gameCellTotalPoints = 40;
-    }
-    gameHeader.innerHTML = `<div class="${classList}">Game ${
-      index + 1
-    }</div></ br><div class="${possiblePointsClass}">Possible Points: ${gameCellTotalPoints}</div>`;
+    gameHeader.innerHTML = `<div class="${classList}">Game ${index + 1}</div>`;
     headerRow.appendChild(gameHeader);
   });
 
