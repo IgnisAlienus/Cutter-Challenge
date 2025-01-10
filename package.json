@@ -40,8 +40,14 @@
     "win": {
       "icon": "assets/icons/icon.png",
       "target": [
-        "nsis"
-      ]
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "RudysCutterChallenge.exe"
     },
     "mac": {
       "icon": "assets/icons/icon.icns",
