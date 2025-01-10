@@ -53,6 +53,10 @@ jobs:
       - name: Install snapcraft
         run: |
           sudo snap install snapcraft --classic
+          snapcraft --version
+
+      - name: Check if GH_TOKEN is available
+        run: echo $GH_TOKEN
 
       - name: Publish Release
         env:
