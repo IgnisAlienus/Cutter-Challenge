@@ -54,7 +54,8 @@
       "target": [
         "dmg",
         "pkg"
-      ]
+      ],
+      "artifactName": "RudysCutterChallenge.dmg"
     },
     "publish": [
       {
