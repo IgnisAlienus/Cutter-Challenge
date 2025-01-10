@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Code
@@ -22,11 +22,6 @@ jobs:
         run: |
           npm install
 
-      - name: Install snapcraft
-        run: |
-          sudo snap install snapcraft --classic
-          snapcraft --version
-
       - name: Build Electron App
         run: |
           npm run dist
@@ -40,7 +35,7 @@ jobs:
           path: dist/*
 
   release:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     if: success()
 
@@ -56,11 +51,6 @@ jobs:
       - name: Install Dependencies
         run: |
           npm install
-
-      - name: Install snapcraft
-        run: |
-          sudo snap install snapcraft --classic
-          snapcraft --version
 
       - name: Publish Release
         env:
