@@ -20,7 +20,7 @@ jobs:
         run: |
           python3 -m venv venv
           source venv/bin/activate
-          python3 -m pip install setuptools==58.2.0
+          python3 -m pip install --upgrade pip setuptools
           python3 -m pip install distutils
 
       - name: Install build tools
