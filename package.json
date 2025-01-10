@@ -52,7 +52,6 @@
     "mac": {
       "icon": "assets/icons/icon.icns",
       "target": [
-        "dmg",
         "pkg"
       ],
       "artifactName": "RudysCutterChallenge.dmg"
