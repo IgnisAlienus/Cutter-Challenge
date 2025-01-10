@@ -67,7 +67,7 @@ jobs:
       - name: Build macOS installer
         run: |
           source venv/bin/activate
-          npm run dist -- --mac
+          npm run dist -- --mac --x64 --arm64 --target pkg
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: macos-build
-          path: dist/*.dmg
+          path: dist/*.pkg
 
   release:
     runs-on: windows-latest
