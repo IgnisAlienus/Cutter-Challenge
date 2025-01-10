@@ -6,7 +6,7 @@ on:
       - 'v*'
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
 
     steps:
@@ -34,24 +34,40 @@ jobs:
           name: dist
           path: dist/*
 
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: Install build tools
+        run: |
+          brew install libtool automake autoconf cmake pkg-config
+
+      - name: Install dependencies
+        run: |
+          npm install --legacy-peer-deps --build-from-source
+
+      - name: Build macOS installer
+        run: npm run dist -- --mac
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: macos-build
+          path: dist/*.dmg
+
   release:
     runs-on: windows-latest
-    needs: build
+    needs: [build-windows, build-macos]
     if: success()
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22'
-
-      - name: Install Dependencies
-        run: |
-          npm install
-
       - name: Publish Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
