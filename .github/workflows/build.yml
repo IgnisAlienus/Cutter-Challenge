@@ -67,7 +67,7 @@ jobs:
       - name: Build macOS installer
         run: |
           source venv/bin/activate
-          npm run dist -- --mac --x64 --arm64 --target pkg
+          npm run dist -- --mac pkg --x64 --arm64
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
