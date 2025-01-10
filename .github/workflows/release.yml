@@ -16,10 +16,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Python and distutils
+      - name: Set up Python environment
         run: |
-          brew install python
-          python3 -m ensurepip
+          python3 -m venv venv
+          source venv/bin/activate
           python3 -m pip install --upgrade pip setuptools
 
       - name: Install Xcode command line tools
