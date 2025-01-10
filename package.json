@@ -59,7 +59,8 @@
     "publish": {
       "provider": "github",
       "owner": "IgnisAlienus",
-      "repo": "Cutter-Challenge"
+      "repo": "Cutter-Challenge",
+      "releaseName": "Rudy's Cutter Challenge v${version}"
     }
   }
 }
