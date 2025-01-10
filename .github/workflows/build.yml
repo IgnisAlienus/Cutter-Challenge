@@ -27,7 +27,7 @@ jobs:
           npm run dist
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: dist/*
@@ -52,6 +52,6 @@ jobs:
 
       - name: Publish Release
         env:
-          GITHUB_TOKEN: ${{ secrets.WORKFLOW_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx electron-builder --publish always
