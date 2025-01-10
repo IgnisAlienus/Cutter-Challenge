@@ -56,11 +56,14 @@
         "pkg"
       ]
     },
-    "publish": {
-      "provider": "github",
-      "owner": "IgnisAlienus",
-      "repo": "Cutter-Challenge",
-      "releaseName": "Rudy's Cutter Challenge v${version}"
-    }
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "IgnisAlienus",
+        "repo": "Cutter-Challenge",
+        "releaseType": "release",
+        "releaseName": "Rudy's Cutter Challenge v${version}"
+      }
+    ]
   }
 }
