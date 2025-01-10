@@ -50,8 +50,13 @@ jobs:
         run: |
           npm install
 
+      - name: Install snapcraft
+        run: |
+          sudo snap install snapcraft --classic
+
       - name: Publish Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           npx electron-builder --publish always
