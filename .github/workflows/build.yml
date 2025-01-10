@@ -68,6 +68,8 @@ jobs:
         run: |
           source venv/bin/activate
           npm run dist -- --mac
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
