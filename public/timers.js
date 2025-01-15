@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    // Initial delay of 1 second
+    // Initial delay
     ['1', '2', '3'].forEach((index) => changeLight(index, 'reset'));
-    await delay(1000);
+    await delay(500);
 
     // Start 3 Second Countdown
     document.body.appendChild(countdownElement);
@@ -53,11 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
     await delay(100);
 
     const timers = document.querySelectorAll('.timer');
-    timers.forEach((timer, index) => {
-      if (intervals[index] !== null) return;
+    // For loop instead
+    for (let i = 0; i < timers.length; i++) {
+      const timer = timers[i];
       const startTime = Date.now();
-      intervals[index] = setInterval(() => {
-        timerValues[index]++;
+      intervals[i] = setInterval(() => {
+        timerValues[i]++;
         const elapsedTime = Date.now() - startTime;
         const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
         const seconds = Math.floor((elapsedTime / 1000) % 60);
@@ -67,10 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }${minutes}:${seconds < 10 ? '0' : ''}${seconds}:${
           milliseconds < 10 ? '0' : ''
         }${milliseconds}`;
-        localStorage.setItem(`timer${index + 1}Value`, timerValues[index]);
+        localStorage.setItem(`timer${i + 1}Value`, timerValues[i]);
       }, 10);
-      localStorage.setItem(`timer${index + 1}Started`, 'true');
-    });
+      localStorage.setItem(`timer${i + 1}Started`, 'true');
+    }
 
     // Remove the countdown element after 1 second
     await delay(1000);
