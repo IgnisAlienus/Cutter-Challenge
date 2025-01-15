@@ -188,8 +188,7 @@ server.post('/light', (req, res) => {
         .send('lightNumber and color query parameters are required');
     }
   } catch (error) {
-    console.error('Error handling /light request:', error);
-    res.status(500).send('Internal Server Error');
+    console.error('Error handling /light request:', error.message);
   }
 });
 
