@@ -67,6 +67,12 @@ td {
   font-family: Courier, monospace;
 }
 
+.locationName {
+  font-size: 25px;
+  padding-top: 1px;
+  margin-left: 5px;
+}
+
 .eliminated {
   text-decoration: line-through;
 }

@@ -288,7 +288,9 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
     const nameCell = document.createElement('td');
     nameCell.innerHTML = `<span class=otherFont>${getOrdinalSuffix(
       position
-    )}</span> ${entry.name} - ${entry.location}`;
+    )}</span> ${entry.name}<br><span class="locationName">${
+      entry.location
+    }</span>`;
     position++;
     if (entry.eliminated) {
       nameCell.classList.add('eliminated');
