@@ -62,9 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     table.appendChild(headerRow);
 
     for (const [key, values] of Object.entries(data)) {
-      console.log(key, values);
       if (key === 'perfect-cut-bonus') {
-        console.log('perfect-cut-bonus', values);
         perfectCutBonusInput.value = values;
         continue;
       }
@@ -142,9 +140,39 @@ document.addEventListener('DOMContentLoaded', () => {
           alert('Failed to update point distribution');
         }
         // Trigger recaclulation of scores in adminCompetitorsList.js
-        console.log('Point distribution updated');
-
         recalculateScores();
       });
   }
+
+  // Listen for button click reloadDefaultData
+  document.getElementById('reloadDefaultData').addEventListener('click', () => {
+    fetch('/reloadDefaultData')
+      .then((response) => response.json())
+      .then((data) => {
+        // Update table input values from data
+        for (const [key, values] of Object.entries(data)) {
+          if (key === 'perfect-cut-bonus') {
+            document.querySelector('.perfectCutBonusInput').value = values;
+            continue;
+          }
+
+          const inputs = document.querySelectorAll(`input[data-key="${key}"]`);
+          inputs.forEach((input, index) => {
+            input.value = values[index];
+          });
+        }
+        // Update totals
+        const rows = document.querySelectorAll('tr');
+        rows.forEach((row) => {
+          if (row.querySelector('.totalCell')) {
+            const inputs = row.querySelectorAll('input');
+            let rowTotal = 0;
+            inputs.forEach((input) => {
+              rowTotal += parseFloat(input.value) || 0;
+            });
+            row.querySelector('.totalCell').innerHTML = rowTotal;
+          }
+        });
+      });
+  });
 });

@@ -284,6 +284,39 @@ server.post('/updateCompetitor', (req, res) => {
   }
 });
 
+server.get('/reloadDefaultData', (req, res) => {
+  // Get /data/pointDistribution.json and update the user's pointDistribution.json file
+  try {
+    const userDataPath = app.getPath('userData');
+    const pointDistributionFilePath = path.join(
+      userDataPath,
+      'pointDistribution.json'
+    );
+
+    const defaultPointDistributionFilePath = path.join(
+      __dirname,
+      'data',
+      'pointDistribution.json'
+    );
+    const pointDistributionData = JSON.parse(
+      fs.readFileSync(defaultPointDistributionFilePath, 'utf8')
+    );
+
+    fs.writeFileSync(
+      pointDistributionFilePath,
+      JSON.stringify(pointDistributionData, null, 2)
+    );
+
+    // Send point distribution data to the client
+    res.json(pointDistributionData);
+  } catch (error) {
+    console.error('Error reloading default data:', error);
+    res
+      .status(500)
+      .json({ message: 'Internal Server Error', error: error.message });
+  }
+});
+
 server.get('/pointDistribution', (req, res) => {
   try {
     const userDataPath = app.getPath('userData');

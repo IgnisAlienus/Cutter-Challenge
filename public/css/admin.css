@@ -161,6 +161,19 @@ button:hover {
   margin-top: 20px;
 }
 
+#reloadDefaultData {
+  margin-left: 50px;
+}
+
+#reloadDefaultData .fa-times {
+  margin-left: 5px;
+}
+
+#reloadDefaultData:hover {
+  background-color: grey;
+  color: white;
+}
+
 .perfectCutBonusDiv {
   font-family: 'Courier New', monospace;
   margin-bottom: 10px;
