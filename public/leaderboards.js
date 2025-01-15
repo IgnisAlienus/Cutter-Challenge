@@ -4,27 +4,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Get input values from local storage
   const inputValues = JSON.parse(localStorage.getItem('inputValuesChanged'));
   // Get the hash value
-  const gameFilter = window.location.hash.substring(1);
-  updateLeaderboards(inputValues, gameFilter);
+  const leaderboardsFilter = window.location.hash.substring(1);
+  updateLeaderboards(inputValues, leaderboardsFilter);
 
   // Listen for custom event to update leaderboards when input values change
   window.addEventListener('storage', (event) => {
     if (event.key === 'inputValuesChanged') {
       eventData = JSON.parse(event.newValue);
       // Handle the event data
-      updateLeaderboards(eventData, gameFilter);
+      updateLeaderboards(eventData, leaderboardsFilter);
     }
   });
 
   // Listen for changes to localStorage
   window.addEventListener('storage', (event) => {
     if (event.key === 'currentCompetitors') {
-      updateLeaderboards(eventData, gameFilter);
+      updateLeaderboards(eventData, leaderboardsFilter);
     }
   });
 });
 
-async function updateLeaderboards(data, gameFilter) {
+async function updateLeaderboards(data, leaderboardsFilter) {
   const leaderboards = document.getElementById('leaderboards');
   leaderboards.innerHTML = '';
 
@@ -72,13 +72,14 @@ async function updateLeaderboards(data, gameFilter) {
     for (const game of ['game1', 'game2', 'game3']) {
       if (games[game]) {
         totalPoints += games[game];
-        // Update the game points to include previous games' points
-        games[game] = totalPoints;
       }
+      // Update the game points to include previous games' points
+      games[game] = totalPoints;
     }
 
     const entry = {
       name: person,
+      location: personData.location,
       eliminated,
       ...games,
     };
@@ -86,7 +87,7 @@ async function updateLeaderboards(data, gameFilter) {
     leaderboardEntries.push(entry);
   }
 
-  if (gameFilter === 'selected') {
+  if (leaderboardsFilter === 'selected') {
     // Use currentCompetitorsData to build leaderboard
     // Up to 3 Current Competitors
     // Create 3 columns, not a table, side by side, one for each competitor to display their data and points
@@ -109,6 +110,9 @@ async function updateLeaderboards(data, gameFilter) {
       const games = {};
       for (const key in currentCompetitor) {
         if (key === 'eliminated') {
+          continue;
+        }
+        if (key === 'location') {
           continue;
         }
         const game = key.split('-')[0];
@@ -193,13 +197,29 @@ async function updateLeaderboards(data, gameFilter) {
         }
       }
     }
-  } else if (gameFilter !== 'all') {
+  } else if (leaderboardsFilter !== 'all') {
+    let gameFilter;
+    let limit;
+    if (leaderboardsFilter === 'top6') {
+      gameFilter = 'game1';
+      limit = 6;
+    } else if (leaderboardsFilter === 'top3') {
+      gameFilter = 'game2';
+      limit = 3;
+    } else if (leaderboardsFilter === 'final') {
+      gameFilter = 'game3';
+      limit = 3;
+    }
     // Sort leaderboard entries if a specific game filter is applied
     leaderboardEntries.sort(
       (a, b) => (b[gameFilter] || 0) - (a[gameFilter] || 0)
     );
+
+    // Limit the number of entries displayed
+    leaderboardEntries.splice(limit);
+
     createTable(leaderboardEntries, leaderboards, gameFilter);
-  } else {
+  } else if (leaderboardsFilter === 'all') {
     // Sort by each game column
     leaderboardEntries.sort((a, b) => {
       for (const game of ['game1', 'game2', 'game3']) {
@@ -209,7 +229,7 @@ async function updateLeaderboards(data, gameFilter) {
       }
       return 0;
     });
-    createTable(leaderboardEntries, leaderboards, gameFilter);
+    createTable(leaderboardEntries, leaderboards, leaderboardsFilter);
   }
 }
 
@@ -221,43 +241,82 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   const nameHeader = document.createElement('th');
   nameHeader.textContent = `Cutter's Name`;
   headerRow.appendChild(nameHeader);
-
   const gameHeaders = ['game1', 'game2', 'game3'];
-  gameHeaders.forEach((game, index) => {
-    let classList = 'tableHeader';
-    if (gameFilter !== game && gameFilter !== 'all') {
-      classList += ' red';
-    }
-    const gameHeader = document.createElement('th');
-    gameHeader.innerHTML = `<div class="${classList}">Game ${index + 1}</div>`;
-    headerRow.appendChild(gameHeader);
-  });
+
+  if (gameFilter === 'all') {
+    gameHeaders.forEach((game, index) => {
+      let classList = 'tableHeader';
+      if (gameFilter !== game && gameFilter !== 'all') {
+        classList += ' red';
+      }
+      const gameHeader = document.createElement('th');
+      gameHeader.innerHTML = `<div class="${classList}">Game ${
+        index + 1
+      }</div>`;
+      headerRow.appendChild(gameHeader);
+    });
+  }
+  if (gameFilter === 'game3') {
+    // Add Header for Final Score
+    const finalHeader = document.createElement('th');
+    finalHeader.innerHTML = `<div class="tableHeader">Final Score</div>`;
+    headerRow.appendChild(finalHeader);
+  }
 
   table.appendChild(headerRow);
 
   // Create table rows
+  let position = 1;
+
+  function getOrdinalSuffix(position) {
+    const j = position % 10,
+      k = position % 100;
+    if (j == 1 && k != 11) {
+      return position + 'st';
+    }
+    if (j == 2 && k != 12) {
+      return position + 'nd';
+    }
+    if (j == 3 && k != 13) {
+      return position + 'rd';
+    }
+    return position + 'th';
+  }
+
   leaderboardEntries.forEach((entry) => {
     const row = document.createElement('tr');
     const nameCell = document.createElement('td');
-    nameCell.textContent = entry.name;
+    nameCell.innerHTML = `<span class=otherFont>${getOrdinalSuffix(
+      position
+    )}</span> ${entry.name} - ${entry.location}`;
+    position++;
     if (entry.eliminated) {
       nameCell.classList.add('eliminated');
     }
     row.appendChild(nameCell);
 
-    gameHeaders.forEach((game) => {
-      let gameCellClass = 'tableCell';
-      if (gameFilter !== game && gameFilter !== 'all') {
-        gameCellClass += ' red';
-      }
-      if (entry.eliminated) {
-        gameCellClass += ' eliminated';
-      }
-      const gameCell = document.createElement('td');
-      const gameCellPoints = entry[game] || 0;
-      gameCell.innerHTML = `<div class="${gameCellClass}">${gameCellPoints}</div>`;
-      row.appendChild(gameCell);
-    });
+    if (gameFilter === 'all') {
+      gameHeaders.forEach((game) => {
+        let gameCellClass = 'tableCell';
+        if (gameFilter !== game && gameFilter !== 'all') {
+          gameCellClass += ' red';
+        }
+        if (entry.eliminated) {
+          gameCellClass += ' eliminated';
+        }
+        const gameCell = document.createElement('td');
+        const gameCellPoints = entry[game] || 0;
+        gameCell.innerHTML = `<div class="${gameCellClass}">${gameCellPoints}</div>`;
+        row.appendChild(gameCell);
+      });
+    }
+    if (gameFilter === 'game3') {
+      // Add Final Score
+      const finalScore = document.createElement('td');
+      const finalScorePoints = entry.game3 || 0;
+      finalScore.innerHTML = `<div class="tableCell">${finalScorePoints}</div>`;
+      row.appendChild(finalScore);
+    }
 
     table.appendChild(row);
   });

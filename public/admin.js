@@ -39,21 +39,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   document
-    .getElementById('goToGame1Leaderboards')
+    .getElementById('goToTop6Leaderboards')
     .addEventListener('click', () => {
-      changePage('leaderboards#game1');
+      changePage('leaderboards#top6');
     });
 
   document
-    .getElementById('goToGame2Leaderboards')
+    .getElementById('goToTop3Leaderboards')
     .addEventListener('click', () => {
-      changePage('leaderboards#game2');
+      changePage('leaderboards#top3');
     });
 
   document
-    .getElementById('goToGame3Leaderboards')
+    .getElementById('goToFinalLeaderboards')
     .addEventListener('click', () => {
-      changePage('leaderboards#game3');
+      changePage('leaderboards#final');
     });
 
   document

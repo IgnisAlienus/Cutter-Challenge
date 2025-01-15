@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span id="competitorName${index}">${c.name}</span> - <span id="competitorLocation${index}">${c.location}</span>
               </label>
               <button class="editButton" id="editButton${index}" onclick="editCompetitor(${index})">✏️</button>
-                  <input type="checkbox" id="eliminated${index}" onchange="toggleEliminated(${index}, \`${c.name}\`)">
+                  <input type="checkbox" id="eliminated${index}" onchange="toggleEliminated(${index}, \`${c.name}\`, \`${c.location}\`)">
                   <label class="eliminated" for="eliminated${index}">Eliminated</label>
             </div>
             <div class="scoring hidden" id="scoring-${index}">
@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                   <span><b>Round 1:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game1-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-minutes', \`${c.name}\`)" />
+                    <input type="number" id="game1-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-seconds', \`${c.name}\`)" />
+                    <input type="number" id="game1-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-centiseconds', \`${c.name}\`)" />
+                    <input type="number" id="game1-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
                   </div>
                 </div>
                 <div>
@@ -46,16 +46,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div>
                   <span><b>Round 1:</b> Presentation</span>
-                  <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`)" />
+                  <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
                 <div>
                   <span><b>Round 2:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game1-round2-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-minutes', \`${c.name}\`)" />
+                    <input type="number" id="game1-round2-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round2-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-seconds', \`${c.name}\`)" />
+                    <input type="number" id="game1-round2-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round2-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-centiseconds', \`${c.name}\`)" />
+                    <input type="number" id="game1-round2-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
                   </div>
                 </div>
                 <div>
@@ -65,16 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div>
                   <span><b>Round 2:</b> Presentation</span>
-                  <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`)" />
+                  <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
                 <div>
                   <span><b>Round 3:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game1-round3-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-minutes', \`${c.name}\`)" />
+                    <input type="number" id="game1-round3-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round3-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-seconds', \`${c.name}\`)" />
+                    <input type="number" id="game1-round3-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game1-round3-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-centiseconds', \`${c.name}\`)" />
+                    <input type="number" id="game1-round3-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
                   </div>
                 </div>
                 <div>
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div>
                   <span><b>Round 3:</b> Presentation</span>
-                  <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`)" />
+                  <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
               </div>
               <h4>Game 2</h4>
@@ -92,16 +92,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                   <span><b>Round 1:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game2-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-minutes', \`${c.name}\`)" />
+                    <input type="number" id="game2-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game2-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-seconds', \`${c.name}\`)" />
+                    <input type="number" id="game2-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game2-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-centiseconds', \`${c.name}\`)" />
+                    <input type="number" id="game2-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 1:</b> Presentation</span>
-                  <input type="number" id="game2-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'presentation', \`${c.name}\`)" />
+                  <input type="number" id="game2-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game2', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
               </div>
               <h4>Game 3</h4>
@@ -109,16 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div>
                   <span><b>Round 1:</b> Speed</span>
                   <div class="speed-inputs">
-                    <input type="number" id="game3-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-minutes', \`${c.name}\`)" />
+                    <input type="number" id="game3-round1-speed-minutes-${index}" placeholder="MM" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-minutes', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game3-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-seconds', \`${c.name}\`)" />
+                    <input type="number" id="game3-round1-speed-seconds-${index}" placeholder="SS" min="0" max="59" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-seconds', \`${c.name}\`, \`${c.location}\`)" />
                     <span>:</span>
-                    <input type="number" id="game3-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-centiseconds', \`${c.name}\`)" />
+                    <input type="number" id="game3-round1-speed-centiseconds-${index}" placeholder="CS" min="0" max="99" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'speed-centiseconds', \`${c.name}\`, \`${c.location}\`)" />
                   </div>
                 </div>
                 <div>
                   <span><b>Round 1:</b> Presentation</span>
-                  <input type="number" id="game3-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'presentation', \`${c.name}\`)" />
+                  <input type="number" id="game3-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game3', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
               </div>
             </div>
@@ -314,6 +314,7 @@ window.storeInputValue = async function storeInputValue(
   round,
   metric,
   name,
+  location,
   variance
 ) {
   const inputElement = document.getElementById(
@@ -328,6 +329,9 @@ window.storeInputValue = async function storeInputValue(
     // Get if competitor is eliminated
     const isEliminated = document.getElementById(`eliminated${index}`).checked;
     inputValues[name].eliminated = isEliminated;
+
+    // Store Location
+    inputValues[name].location = location;
 
     const value = metric === 'variance' ? variance : inputElement.value;
     const existingValue = inputValues[name][key];
@@ -585,6 +589,7 @@ function recalculateScores() {
           round,
           metric,
           name,
+          inputValues[name].location,
           inputValues[name][`${game}-${round}-variance`] || undefined
         );
       }
