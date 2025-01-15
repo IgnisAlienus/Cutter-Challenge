@@ -15,82 +15,79 @@
     <h1>Admin Panel</h1>
     <h3>Gamemaster Buttons</h3>
     <div class="buttonsDiv">
-      <div>
-        <button id="goToTimersButton">Go to Timers</button>
-        <button onclick="startAllTimers()">Start Timers</button>
-        <button onclick="resetAllTimers()">Reset Timers</button>
-      </div>
-      <div>
-        <button id="goToLogoButton">Go to Logo</button>
-        <button id="goToCurrentCompetitorsButton">
-          Go to Current Competitors
-        </button>
-      </div>
-      <div>
-        <button id="goToLeaderboardsButton">Go to Leaderboards</button>
-        <button id="goToCompetitorsLeaderboards">
-          Current Competitor Leaderboards
-        </button>
-        <button id="goToTop6Leaderboards">Top 6 Leaderboards</button>
-        <button id="goToTop3Leaderboards">Top 3 Leaderboards</button>
-        <button id="goToFinalLeaderboards">Final Leaderboards</button>
-      </div>
-      <div>
-        <select id="comPortSelector"></select>
-        <button id="changeLightsWhiteButton">Change Lights to White</button>
-        <button id="changeLightsRedButton">Change Lights to Red</button>
-        <button id="turnOffLightsButton">Turn Off Lights</button>
-      </div>
+      <h3 class="menu">Logo</h3>
+      <button id="goToLogoButton">Go to Logo</button>
+      <h3 class="menu">Current Competitors</h3>
+      <button id="goToCurrentCompetitorsButton">
+        Go to Current Competitors
+      </button>
+      <h3 class="menu">Timers</h3>
+      <button id="goToTimersButton">Go to Timers</button>
+      <button onclick="startAllTimers()">Start Timers</button>
+      <button onclick="resetAllTimers()">Reset Timers</button>
+      <h3 class="menu">Leaderboards</h3>
+      <button id="goToLeaderboardsButton">Go to Leaderboards</button>
+      <button id="goToCompetitorsLeaderboards">
+        Current Competitor Leaderboards
+      </button>
+      <button id="goToTop6Leaderboards">Top 6 Leaderboards</button>
+      <button id="goToTop3Leaderboards">Top 3 Leaderboards</button>
+      <button id="goToFinalLeaderboards">Final Leaderboards</button>
+      <h3 class="menu">Lights</h3>
+      <button id="changeLightsWhiteButton">Change Lights to White</button>
+      <button id="changeLightsRedButton">Change Lights to Red</button>
+      <button id="turnOffLightsButton">Turn Off Lights</button>
+      <select id="comPortSelector"></select>
     </div>
-    <div>
-      <h3>Configure Target Weights for Game 1</h3>
-      <div class="targetWeightContainer">
-        <div>
-          <label for="targetWeightRound1">Round 1 Target Weight:</label>
-          <input
-            class="targetInputs"
-            type="number"
-            id="targetWeightRound1"
-            step="0.01"
-            placeholder="#.##"
-          />
-        </div>
-        <div>
-          <label for="targetWeightRound2">Round 2 Target Weight:</label>
-          <input
-            class="targetInputs"
-            type="number"
-            id="targetWeightRound2"
-            step="0.01"
-            placeholder="#.##"
-          />
-        </div>
-        <div>
-          <label for="targetWeightRound3">Round 3 Target Weight:</label>
-          <input
-            class="targetInputs"
-            type="number"
-            id="targetWeightRound3"
-            step="0.01"
-            placeholder="#.##"
-          />
+    <div class="container">
+      <div>
+        <h3>Configure Target Weights for Game 1</h3>
+        <div class="targetWeightContainer">
+          <div>
+            <label for="targetWeightRound1">Round 1 Target Weight:</label>
+            <input
+              class="targetInputs"
+              type="number"
+              id="targetWeightRound1"
+              step="0.01"
+              placeholder="#.##"
+            />
+          </div>
+          <div>
+            <label for="targetWeightRound2">Round 2 Target Weight:</label>
+            <input
+              class="targetInputs"
+              type="number"
+              id="targetWeightRound2"
+              step="0.01"
+              placeholder="#.##"
+            />
+          </div>
+          <div>
+            <label for="targetWeightRound3">Round 3 Target Weight:</label>
+            <input
+              class="targetInputs"
+              type="number"
+              id="targetWeightRound3"
+              step="0.01"
+              placeholder="#.##"
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div>
-      <h3>Current Competitors</h3>
-      <ul class="currentCompetitorsList" id="currentCompetitorsList"></ul>
-    </div>
-    <div>
+      <div>
+        <h3>Current Competitors</h3>
+        <ul class="currentCompetitorsList" id="currentCompetitorsList"></ul>
+      </div>
       <div>
         <h3>Select Competitors</h3>
         <ul id="competitorsList"></ul>
       </div>
-    </div>
-    <div>
-      <h3>Scoring Table</h3>
-      <button id="reloadDefaultData">Reload Default Score Data</button>
-      <div class="scoringTable" id="scoringTable"></div>
+      <div>
+        <h3>Scoring Table</h3>
+        <button id="reloadDefaultData">Reload Default Score Data</button>
+        <div class="scoringTable" id="scoringTable"></div>
+      </div>
     </div>
     <script type="module" src="/admin.js"></script>
     <script type="module" src="/adminCompetitorsList.js"></script>

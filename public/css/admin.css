@@ -8,6 +8,7 @@ body {
   color: white;
   font-family: "Rudy's Font";
   overflow: auto;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
@@ -20,12 +21,47 @@ h1 {
   text-align: center;
 }
 
-h3 {
-  font-size: 1.5rem;
+.buttonsDiv {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: rgb(217, 59, 32);
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
 }
 
-.buttonsDiv {
-  margin-left: 50px;
+.container {
+  margin-left: 220px;
+  margin-top: 0;
+  width: calc(100% - 220px);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-left: 25px;
+  margin-bottom: 1px;
+  margin-top: 5px;
+}
+
+.menu {
+  font-size: 1.5rem;
+  margin-left: 0;
+  margin-bottom: 1px;
+  margin-top: 5px;
+}
+
+select {
+  font-size: 1rem;
+  margin-left: 5px;
+  margin-top: 15px;
+  background-color: gray;
+  color: white;
 }
 
 button {
@@ -80,7 +116,7 @@ button:hover {
 
 .targetInputs {
   margin-left: 5px;
-  width: 60px;
+  width: 50px;
 }
 
 .currentCompetitorsList {
@@ -195,7 +231,7 @@ button:hover {
 
 .scoring div input {
   display: inline-block;
-  width: 60px;
+  width: 50px;
   margin-right: 5px;
 }
 
@@ -220,7 +256,7 @@ button:hover {
 }
 
 .scoreTableInputs {
-  width: 50px;
+  width: 30px;
 }
 
 .totalCell {
