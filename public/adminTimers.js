@@ -22,6 +22,7 @@ function resetAllTimers() {
 
 // Function to stop a specific timer
 function stopTimer(timerIndex) {
+  console.log(`Stopping timer ${timerIndex}`);
   localStorage.setItem(`stopTimer${timerIndex}`, 'true');
 }
 

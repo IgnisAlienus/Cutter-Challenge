@@ -128,7 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
       startAllTimers();
     } else if (event.key === 'timersReset') {
       resetAllTimers();
-    } else if (event.key.startsWith('stopTimer')) {
+    } else if (event.key.includes('stopTimer')) {
+      console.log(`Stopping timer ${event.key.replace('stopTimer', '')}`);
       const timerIndex = parseInt(event.key.replace('stopTimer', ''), 10);
       stopTimer(timerIndex);
     }
