@@ -56,6 +56,42 @@ document.addEventListener('DOMContentLoaded', () => {
       changePage('leaderboards#final');
     });
 
+  // Populate comPortSelector with available COM ports
+  window.electron.getComPorts().then((ports) => {
+    const comPortSelector = document.getElementById('comPortSelector');
+
+    // Add default option
+    const defaultOption = document.createElement('option');
+    defaultOption.text = 'Choose COM Port';
+    defaultOption.value = '';
+    defaultOption.selected = true;
+    defaultOption.disabled = true;
+    comPortSelector.appendChild(defaultOption);
+
+    ports.forEach((port) => {
+      const option = document.createElement('option');
+      option.value = port.path;
+      option.text = `${port.path} - ${port.manufacturer}`;
+      comPortSelector.appendChild(option);
+    });
+
+    comPortSelector.addEventListener('change', (event) => {
+      // Post Event
+      const comPort = event.target.value;
+
+      fetch('/changeComPort', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ comPort }),
+      })
+        .then((response) => response.text())
+        .then((data) => console.log(data))
+        .catch((error) => console.error('Error:', error));
+    });
+  });
+
   document
     .getElementById('changeLightsWhiteButton')
     .addEventListener('click', () => {

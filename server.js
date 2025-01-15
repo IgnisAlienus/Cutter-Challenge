@@ -10,15 +10,6 @@ const server = express();
 const dmx = new DMX();
 let universe;
 
-try {
-  // Check Device Manager to find Assigned COM Port ('my_universe' is the name of the universe), 'enttec-usb-dmx-pro' is the type of DMX device (Enttec USB DMX Pro)
-  universe = dmx.addUniverse('my_universe', 'enttec-usb-dmx-pro', 'COM10');
-  console.log('DMX universe initialized successfully');
-} catch (error) {
-  console.error('Failed to initialize DMX universe:', error);
-  process.exit(1); // Exit the application if DMX initialization fails
-}
-
 // Serve static files from the current directory
 server.use(express.static(path.join(__dirname, 'public')));
 server.use(express.json());
@@ -42,6 +33,29 @@ server.get('/leaderboards', (req, res) => {
 
 server.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+server.post('/changeComPort', (req, res) => {
+  // Change com port on universe
+  const comPort = req.body.comPort;
+  console.log(`Changing COM port to ${comPort}`);
+  try {
+    if (universe) {
+      // Update the existing universe
+      universe.update({ device: comPort });
+      console.log(`Updated existing universe to use COM port ${comPort}`);
+    } else {
+      // Add a new universe
+      universe = dmx.addUniverse('my_universe', 'enttec-usb-dmx-pro', comPort);
+      console.log(`Added new universe with COM port ${comPort}`);
+    }
+    res.send(`COM port changed to ${comPort}`);
+  } catch (error) {
+    console.error(`Failed to change COM port to ${comPort}:`, error);
+    res
+      .status(500)
+      .send(`Failed to change COM port to ${comPort}: ${error.message}`);
+  }
 });
 
 server.post('/light', (req, res) => {

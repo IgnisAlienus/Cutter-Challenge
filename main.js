@@ -127,6 +127,13 @@ app.on('ready', () => {
     }
   });
 
+  // Listen for the get-com-ports event from the renderer process
+  ipcMain.handle('get-com-ports', async () => {
+    const SerialPort = require('serialport');
+    const ports = await SerialPort.list();
+    return ports;
+  });
+
   // Make default directories if they don't exist
   const dataDir = path.join(__dirname, 'data');
   const scoresDir = path.join(dataDir, 'scores');
