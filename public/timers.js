@@ -100,14 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('timersReset', new Date().toISOString());
   };
 
-  // Function to stop a specific timer
-  const stopTimer = (index) => {
-    clearInterval(intervals[index - 1]);
-    intervals[index - 1] = null;
-    changeLight(index, 'stop');
-    localStorage.removeItem(`stopTimer${index}`);
-  };
-
   // Get the initial currentCompetitors from localStorage
   const storedCompetitors = localStorage.getItem('currentCompetitors');
   if (storedCompetitors) {
@@ -129,10 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
       startAllTimers();
     } else if (event.key === 'timersReset') {
       resetAllTimers();
-    } else if (event.key.includes('stopTimer')) {
-      console.log(`Stopping timer ${event.key.replace('stopTimer', '')}`);
-      const timerIndex = parseInt(event.key.replace('stopTimer', ''), 10);
-      stopTimer(timerIndex);
+    } else if (event.key === 'stopTimer1') {
+      console.log('Stopping timer 1');
+      stopTimer(1);
+    } else if (event.key === 'stopTimer2') {
+      console.log('Stopping timer 2');
+      stopTimer(2);
+    } else if (event.key === 'stopTimer3') {
+      console.log('Stopping timer 3');
+      stopTimer(3);
     }
   });
 
@@ -141,3 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
     startAllTimers();
   }
 });
+
+async function stopTimer(timerIndex) {
+  clearInterval(intervals[timerIndex - 1]);
+  intervals[timerIndex - 1] = null;
+  changeLight(timerIndex, 'stop');
+  console.log(`Stopping timer ${timerIndex}`);
+  localStorage.removeItem(`stopTimer${timerIndex}`);
+}
