@@ -6,17 +6,12 @@ on:
       - 'v*'
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  update-version:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22'
 
       - name: Extract Tag
         id: extract_tag
@@ -29,6 +24,25 @@ jobs:
       - name: Update HTML file version
         run: |
           sed -i 's/VERSION_PLACEHOLDER/${TAG}/g' public/admin.html
+
+      - name: Upload updated code
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-code
+          path: .
+
+  build-windows:
+    runs-on: windows-latest
+    needs: update-version
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
 
       - name: Install Dependencies
         run: |
@@ -51,6 +65,7 @@ jobs:
 
   build-macos:
     runs-on: macos-latest
+    needs: update-version
 
     steps:
       - uses: actions/checkout@v3
