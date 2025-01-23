@@ -1,3 +1,10 @@
+let soundsEnabled = true;
+
+async function toggleSounds() {
+  soundsEnabled = !soundsEnabled;
+  return soundsEnabled;
+}
+
 function playSound(soundFile, volume) {
   const audio = new Audio(`/resources/${soundFile}`);
   if (volume) {
@@ -16,4 +23,4 @@ function changeLight(index, action) {
   });
 }
 
-export { playSound, changeLight };
+export { playSound, toggleSounds, changeLight };

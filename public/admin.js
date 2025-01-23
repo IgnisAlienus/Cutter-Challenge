@@ -1,4 +1,4 @@
-import { playSound, changeLight } from './av.js';
+import { playSound, toggleSounds, changeLight } from './av.js';
 
 function changePage(page) {
   window.electron.changePage(page);
@@ -108,5 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
     .getElementById('turnOffLightsButton')
     .addEventListener('click', () => {
       ['1', '2', '3'].forEach((index) => changeLight(index, 'off'));
+    });
+
+  document
+    .getElementById('turnOffSounds')
+    .addEventListener('click', async () => {
+      const soundsEnabled = await toggleSounds();
+      // Update content of button based on soundsEnabled
+      const button = document.getElementById('turnOffSounds');
+      button.textContent = soundsEnabled ? 'Turn Off Sounds' : 'Turn On Sounds';
     });
 });
