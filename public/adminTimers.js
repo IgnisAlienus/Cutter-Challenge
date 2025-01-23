@@ -28,6 +28,11 @@ function stopTimer(timerIndex) {
 
 // Add keybinds to stop respective timers
 document.addEventListener('keydown', (event) => {
+  // Check if the focused element is an input field
+  if (document.activeElement.tagName === 'INPUT') {
+    return;
+  }
+
   if (event.key === '1') {
     stopTimer(1);
   } else if (event.key === '2') {
