@@ -18,6 +18,18 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Extract Tag
+        id: extract_tag
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Update package.json version
+        run: |
+          npm version ${TAG} --no-git-tag-version
+
+      - name: Update HTML file version
+        run: |
+          sed -i 's/VERSION_PLACEHOLDER/${TAG}/g' public/admin.html
+
       - name: Install Dependencies
         run: |
           npm install
@@ -58,6 +70,18 @@ jobs:
           python3 -m venv venv
           source venv/bin/activate
           python3 -m pip install --upgrade pip setuptools
+
+      - name: Extract Tag
+        id: extract_tag
+        run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Update package.json version
+        run: |
+          npm version ${TAG} --no-git-tag-version
+
+      - name: Update EJS file version
+        run: |
+          sed -i '' 's/<%= version %>/${TAG}/g' path/to/your/file.ejs
 
       - name: Install dependencies
         run: |
