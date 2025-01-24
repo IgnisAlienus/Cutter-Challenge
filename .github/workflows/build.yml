@@ -122,13 +122,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist-windows
-          path: dist-windows
+          path: dist
 
       - name: Download macOS Artifacts
         uses: actions/download-artifact@v4
         with:
           name: dist-macos
-          path: dist-macos
+          path: dist
 
       - name: Create Release
         id: create_release
