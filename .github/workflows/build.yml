@@ -26,6 +26,8 @@ jobs:
           sed -i "s/VERSION_PLACEHOLDER/${TAG}/g" public/admin.html
 
       - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
