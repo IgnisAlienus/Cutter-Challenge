@@ -146,7 +146,7 @@ jobs:
 
       - name: Update latest.yml
         run: |
-          $version = ${{ github.ref }} -replace 'refs/tags/v', ''
+          $version = '${{ github.ref }}' -replace 'refs/tags/v', ''
           echo "version: $version" > dist/latest.yml
           echo "files:" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.exe" >> dist/latest.yml
