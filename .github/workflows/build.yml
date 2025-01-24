@@ -64,13 +64,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Update latest.yml version
-        run: |
-          sed -i "s/version: .*/version: ${TAG}/" dist/latest.yml
-          echo "  - url: RudysCutterChallenge.pkg" >> dist/latest.yml
-          echo "    sha512: $(shasum -a 512 dist/RudysCutterChallenge.pkg | awk '{ print $1 }')" >> dist/latest.yml
-          echo "    size: $(stat -f%z dist/RudysCutterChallenge.pkg)" >> dist/latest.yml
-
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -147,6 +140,24 @@ jobs:
         with:
           name: dist-macos
           path: dist
+
+      - name: Update latest.yml
+        run: |
+          VERSION=${{ github.ref }}
+          DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          cat <<EOF > dist/latest.yml
+          version: ${VERSION}
+          files:
+            - url: RudysCutterChallenge.exe
+              sha512: $(shasum -a 512 dist/RudysCutterChallenge.exe | awk '{print $1}')
+              size: $(stat -c%s dist/RudysCutterChallenge.exe)
+            - url: RudysCutterChallenge.pkg
+              sha512: $(shasum -a 512 dist/RudysCutterChallenge.pkg | awk '{print $1}')
+              size: $(stat -c%s dist/RudysCutterChallenge.pkg)
+          path: RudysCutterChallenge.exe
+          sha512: $(shasum -a 512 dist/RudysCutterChallenge.exe | awk '{print $1}')
+          releaseDate: '${DATE}'
+          EOF
 
       - name: Create Release
         id: create_release
