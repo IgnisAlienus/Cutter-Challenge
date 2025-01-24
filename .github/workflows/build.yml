@@ -35,6 +35,9 @@ jobs:
           git commit -m "Update version to ${TAG}"
           git push origin HEAD:main
 
+      - name: Pull Latest Changes
+        run: git pull origin main
+
       - name: Upload updated code
         uses: actions/upload-artifact@v4
         with:
@@ -141,25 +144,25 @@ jobs:
           name: dist-macos
           path: dist
 
-      - name: Update latest.ymL
+      - name: Update latest.yml
         run: |
-          echo "version: ${TAG}" > dist/latest.yml
+          echo "version: ${{ github.ref }}" > dist/latest.yml
           echo "files:" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.exe" >> dist/latest.yml
-          echo "    sha512: $(sha512sum dist/RudysCutterChallenge.exe | cut -d ' ' -f 1)" >> dist/latest.yml
-          echo "    size: $(stat -c %s dist/RudysCutterChallenge.exe)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    size: $(Get-Item dist/RudysCutterChallenge.exe).length" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.exe.blockmap" >> dist/latest.yml
-          echo "    sha512: $(sha512sum dist/RudysCutterChallenge.exe.blockmap | cut -d ' ' -f 1)" >> dist/latest.yml
-          echo "    size: $(stat -c %s dist/RudysCutterChallenge.exe.blockmap)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe.blockmap | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    size: $(Get-Item dist/RudysCutterChallenge.exe.blockmap).length" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.pkg" >> dist/latest.yml
-          echo "    sha512: $(sha512sum dist/RudysCutterChallenge.pkg | cut -d ' ' -f 1)" >> dist/latest.yml
-          echo "    size: $(stat -c %s dist/RudysCutterChallenge.pkg)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.pkg | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    size: $(Get-Item dist/RudysCutterChallenge.pkg).length" >> dist/latest.yml
           echo "  - url: latest.yml" >> dist/latest.yml
-          echo "    sha512: $(sha512sum dist/latest.yml | cut -d ' ' -f 1)" >> dist/latest.yml
-          echo "    size: $(stat -c %s dist/latest.yml)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/latest.yml | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    size: $(Get-Item dist/latest.yml).length" >> dist/latest.yml
           echo "path: RudysCutterChallenge.exe" >> dist/latest.yml
-          echo "sha512: $(sha512sum dist/RudysCutterChallenge.exe | cut -d ' ' -f 1)" >> dist/latest.yml
-          echo "releaseDate: $(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")" >> dist/latest.yml
+          echo "sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "releaseDate: $(Get-Date -Format o)" >> dist/latest.yml
 
       - name: Create Release
         id: create_release
