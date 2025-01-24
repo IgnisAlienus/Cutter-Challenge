@@ -49,8 +49,11 @@ jobs:
     needs: update-version
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+      - name: Download Uploaded Code
+        uses: actions/download-artifact@v4
+        with:
+          name: source-code
+          path: .
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -82,7 +85,11 @@ jobs:
     needs: update-version
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Download Uploaded Code
+        uses: actions/download-artifact@v4
+        with:
+          name: source-code
+          path: .
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
