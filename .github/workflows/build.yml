@@ -102,7 +102,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-macos
-          path: dist/*.pkg
+          path: dist/RudysCutterChallenge.pkg
 
   release:
     runs-on: windows-latest
@@ -157,7 +157,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/*.pkg
+          asset_path: dist/RudysCutterChallenge.pkg
           asset_name: RudysCutterChallenge.pkg
           asset_content_type: application/octet-stream
 
