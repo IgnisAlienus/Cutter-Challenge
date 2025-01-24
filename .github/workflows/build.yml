@@ -146,7 +146,8 @@ jobs:
 
       - name: Update latest.yml
         run: |
-          echo "version: ${{ github.ref }}" > dist/latest.yml
+          $version = ${{ github.ref }} -replace 'refs/tags/v', ''
+          echo "version: $version" > dist/latest.yml
           echo "files:" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.exe" >> dist/latest.yml
           echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
