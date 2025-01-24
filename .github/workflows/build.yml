@@ -141,23 +141,25 @@ jobs:
           name: dist-macos
           path: dist
 
-      - name: Update latest.yml
+      - name: Update latest.ymL
         run: |
-          VERSION=${{ github.ref }}
-          DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          cat <<EOF > dist/latest.yml
-          version: ${VERSION}
-          files:
-            - url: RudysCutterChallenge.exe
-              sha512: $(shasum -a 512 dist/RudysCutterChallenge.exe | awk '{print $1}')
-              size: $(stat -c%s dist/RudysCutterChallenge.exe)
-            - url: RudysCutterChallenge.pkg
-              sha512: $(shasum -a 512 dist/RudysCutterChallenge.pkg | awk '{print $1}')
-              size: $(stat -c%s dist/RudysCutterChallenge.pkg)
-          path: RudysCutterChallenge.exe
-          sha512: $(shasum -a 512 dist/RudysCutterChallenge.exe | awk '{print $1}')
-          releaseDate: '${DATE}'
-          EOF
+          echo "version: ${TAG}" > dist/latest.yml
+          echo "files:" >> dist/latest.yml
+          echo "  - url: RudysCutterChallenge.exe" >> dist/latest.yml
+          echo "    sha512: $(sha512sum dist/RudysCutterChallenge.exe | cut -d ' ' -f 1)" >> dist/latest.yml
+          echo "    size: $(stat -c %s dist/RudysCutterChallenge.exe)" >> dist/latest.yml
+          echo "  - url: RudysCutterChallenge.exe.blockmap" >> dist/latest.yml
+          echo "    sha512: $(sha512sum dist/RudysCutterChallenge.exe.blockmap | cut -d ' ' -f 1)" >> dist/latest.yml
+          echo "    size: $(stat -c %s dist/RudysCutterChallenge.exe.blockmap)" >> dist/latest.yml
+          echo "  - url: RudysCutterChallenge.pkg" >> dist/latest.yml
+          echo "    sha512: $(sha512sum dist/RudysCutterChallenge.pkg | cut -d ' ' -f 1)" >> dist/latest.yml
+          echo "    size: $(stat -c %s dist/RudysCutterChallenge.pkg)" >> dist/latest.yml
+          echo "  - url: latest.yml" >> dist/latest.yml
+          echo "    sha512: $(sha512sum dist/latest.yml | cut -d ' ' -f 1)" >> dist/latest.yml
+          echo "    size: $(stat -c %s dist/latest.yml)" >> dist/latest.yml
+          echo "path: RudysCutterChallenge.exe" >> dist/latest.yml
+          echo "sha512: $(sha512sum dist/RudysCutterChallenge.exe | cut -d ' ' -f 1)" >> dist/latest.yml
+          echo "releaseDate: $(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")" >> dist/latest.yml
 
       - name: Create Release
         id: create_release
