@@ -9,8 +9,8 @@
   "game1-round3-speed": [8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0, 0],
   "game1-round3-variance": [8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0, 0],
   "game1-round3-presentation": [8, 7, 6, 5, 4, 3, 2, 1, 0, 0, 0, 0],
-  "game2-round1-speed": [10, 9, 8, 7, 4, 2],
-  "game2-round1-presentation": [15, 13.5, 12, 10.5, 6, 3],
-  "game3-round1-speed": [15, 13, 12],
-  "game3-round1-presentation": [25, 20, 15]
+  "game2-round1-speed": [56, 46, 37, 38, 14, 5],
+  "game2-round1-presentation": [56, 46, 37, 38, 14, 5],
+  "game3-round1-speed": [93.5, 56, 37.5],
+  "game3-round1-presentation": [93.5, 56, 37.5]
 }
