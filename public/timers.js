@@ -122,13 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (event.key === 'timersReset') {
       resetAllTimers();
     } else if (event.key === 'stopTimer1') {
-      console.log('Stopping timer 1');
       stopTimer(1);
     } else if (event.key === 'stopTimer2') {
-      console.log('Stopping timer 2');
       stopTimer(2);
     } else if (event.key === 'stopTimer3') {
-      console.log('Stopping timer 3');
       stopTimer(3);
     }
   });
@@ -143,6 +140,5 @@ async function stopTimer(timerIndex) {
   clearInterval(intervals[timerIndex - 1]);
   intervals[timerIndex - 1] = null;
   changeLight(timerIndex, 'stop');
-  console.log(`Stopping timer ${timerIndex}`);
   localStorage.removeItem(`stopTimer${timerIndex}`);
 }
