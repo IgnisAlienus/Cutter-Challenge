@@ -157,19 +157,19 @@ jobs:
           echo "version: $version" > dist/latest.yml
           echo "files:" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.exe" >> dist/latest.yml
-          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash).ToUpper()" >> dist/latest.yml
           echo "    size: $(Get-Item dist/RudysCutterChallenge.exe).length" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.exe.blockmap" >> dist/latest.yml
-          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe.blockmap | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe.blockmap | Select-Object -ExpandProperty Hash).ToUpper()" >> dist/latest.yml
           echo "    size: $(Get-Item dist/RudysCutterChallenge.exe.blockmap).length" >> dist/latest.yml
           echo "  - url: RudysCutterChallenge.pkg" >> dist/latest.yml
-          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.pkg | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.pkg | Select-Object -ExpandProperty Hash).ToUpper()" >> dist/latest.yml
           echo "    size: $(Get-Item dist/RudysCutterChallenge.pkg).length" >> dist/latest.yml
           echo "  - url: latest.yml" >> dist/latest.yml
-          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/latest.yml | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "    sha512: $(Get-FileHash -Algorithm SHA512 dist/latest.yml | Select-Object -ExpandProperty Hash).ToUpper()" >> dist/latest.yml
           echo "    size: $(Get-Item dist/latest.yml).length" >> dist/latest.yml
           echo "path: RudysCutterChallenge.exe" >> dist/latest.yml
-          echo "sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash)" >> dist/latest.yml
+          echo "sha512: $(Get-FileHash -Algorithm SHA512 dist/RudysCutterChallenge.exe | Select-Object -ExpandProperty Hash).ToUpper()" >> dist/latest.yml
           echo "releaseDate: $(Get-Date -Format o)" >> dist/latest.yml
 
       - name: Create Release
