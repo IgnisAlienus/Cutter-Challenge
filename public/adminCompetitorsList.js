@@ -45,9 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
                   <span id="game1-round1-variance-${index}"></span>
                 </div>
                 <div>
-                  <span><b>Round 1:</b> Presentation</span>
+                  <span><b>Game 1:</b> Presentation</span>
                   <input type="number" id="game1-round1-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round1', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
+                </ br>
                 <div>
                   <span><b>Round 2:</b> Speed</span>
                   <div class="speed-inputs">
@@ -63,10 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <input type="number" id="game1-round2-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 2); storeInputValue(${index}, 'game1', 'round2', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
                   <span id="game1-round2-variance-${index}"></span>
                 </div>
-                <div>
-                  <span><b>Round 2:</b> Presentation</span>
-                  <input type="number" id="game1-round2-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round2', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
-                </div>
+                <div></div>
                 <div>
                   <span><b>Round 3:</b> Speed</span>
                   <div class="speed-inputs">
@@ -81,10 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
                   <span><b>Round 3:</b> Accuracy</span>
                   <input type="number" id="game1-round3-accuracy-${index}" placeholder="#.##" min="0" max="5" step="0.01" oninput="updateVariance(${index}, 3); storeInputValue(${index}, 'game1', 'round3', 'variance', \`${c.name}\`, \`${c.location}\`, this.dataset.variance)" />
                   <span id="game1-round3-variance-${index}"></span>
-                </div>
-                <div>
-                  <span><b>Round 3:</b> Presentation</span>
-                  <input type="number" id="game1-round3-presentation-${index}" placeholder="0-30" min="0" max="30" oninput="validateInput(this); storeInputValue(${index}, 'game1', 'round3', 'presentation', \`${c.name}\`, \`${c.location}\`)" />
                 </div>
               </div>
               <h4>Game 2</h4>
