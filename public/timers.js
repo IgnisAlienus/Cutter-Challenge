@@ -129,11 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
       stopTimer(3);
     }
   });
-
-  // Check if the startTimers flag is already set
-  if (localStorage.getItem('startTimers') === 'true') {
-    startAllTimers();
-  }
 });
 
 async function stopTimer(timerIndex) {
