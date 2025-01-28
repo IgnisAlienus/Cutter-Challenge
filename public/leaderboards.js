@@ -218,6 +218,11 @@ async function updateLeaderboards(data, leaderboardsFilter) {
     // Limit the number of entries displayed
     leaderboardEntries.splice(limit);
 
+    // Shuffle leaderboardEntries
+    if (gameFilter !== 'game3') {
+      leaderboardEntries.sort(() => Math.random() - 0.5);
+    }
+
     createTable(leaderboardEntries, leaderboards, gameFilter);
   } else if (leaderboardsFilter === 'all') {
     // Sort by each game column
@@ -238,9 +243,6 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   const table = document.createElement('table');
 
   const headerRow = document.createElement('tr');
-  const nameHeader = document.createElement('th');
-  nameHeader.textContent = `Cutter's Name`;
-  headerRow.appendChild(nameHeader);
   const gameHeaders = ['game1', 'game2', 'game3'];
 
   if (gameFilter === 'all') {
@@ -257,16 +259,15 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
     });
   }
   if (gameFilter === 'game3') {
-    // Add Header for Final Score
-    const finalHeader = document.createElement('th');
-    finalHeader.innerHTML = `<div class="tableHeader">Final Score</div>`;
-    headerRow.appendChild(finalHeader);
+    // Update ElementId pageTitle
+    const pageTitle = document.getElementById('pageTitle');
+    pageTitle.innerHTML = 'Final Leaderboard';
   }
 
   table.appendChild(headerRow);
 
   // Create table rows
-  let position = 1;
+  let position = 0;
 
   function getOrdinalSuffix(position) {
     const j = position % 10,
@@ -286,14 +287,17 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
   leaderboardEntries.forEach((entry) => {
     const row = document.createElement('tr');
     const nameCell = document.createElement('td');
-    nameCell.innerHTML = `<span class=otherFont>${getOrdinalSuffix(
-      position
-    )}</span> ${entry.name}<br><span class="locationName">${
-      entry.location
-    }</span>`;
+    nameCell.innerHTML = `${entry.name}<br><span class="locationName">${entry.location}</span>`;
     position++;
     if (entry.eliminated) {
       nameCell.classList.add('eliminated');
+    }
+    if (gameFilter === 'game3') {
+      nameCell.innerHTML = `<span class=otherFont>${getOrdinalSuffix(
+        position
+      )}</span> ${entry.name}<br><span class="locationName">${
+        entry.location
+      }</span>`;
     }
     row.appendChild(nameCell);
 
@@ -311,13 +315,6 @@ function createTable(leaderboardEntries, leaderboards, gameFilter) {
         gameCell.innerHTML = `<div class="${gameCellClass}">${gameCellPoints}</div>`;
         row.appendChild(gameCell);
       });
-    }
-    if (gameFilter === 'game3') {
-      // Add Final Score
-      const finalScore = document.createElement('td');
-      const finalScorePoints = entry.game3 || 0;
-      finalScore.innerHTML = `<div class="tableCell">${finalScorePoints}</div>`;
-      row.appendChild(finalScore);
     }
 
     table.appendChild(row);
