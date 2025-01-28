@@ -122,9 +122,7 @@ app.on('ready', () => {
 
   // Listen for the change-page event from the renderer process
   ipcMain.on('change-page', (event, page) => {
-    if (secondWindow) {
-      mainWindow.loadURL(`http://localhost:3000/${page}`);
-    }
+    mainWindow.loadURL(`http://localhost:3000/${page}`);
   });
 
   // Listen for the get-com-ports event from the renderer process
