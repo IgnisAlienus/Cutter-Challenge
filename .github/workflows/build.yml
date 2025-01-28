@@ -77,7 +77,6 @@ jobs:
           path: |
             dist/RudysCutterChallenge.exe
             dist/RudysCutterChallenge.exe.blockmap
-            dist/RudysCutterChallenge.pkg
             dist/latest.yml
 
   build-macos:
