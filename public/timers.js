@@ -135,5 +135,6 @@ async function stopTimer(timerIndex) {
   clearInterval(intervals[timerIndex - 1]);
   intervals[timerIndex - 1] = null;
   changeLight(timerIndex, 'stop');
+  playSound('bell.mp3', 1.0);
   localStorage.removeItem(`stopTimer${timerIndex}`);
 }
